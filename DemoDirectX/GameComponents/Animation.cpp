@@ -1,0 +1,149 @@
+#include "Animation.h"
+
+Animation::Animation()
+{
+
+}
+
+Animation::Animation(const char* filePath, int totalFrame, vector<RECT> source, float timePerFrame,D3DXVECTOR2 center, D3DCOLOR colorKey)
+{
+	InitWithAnimation(filePath, totalFrame, source, timePerFrame,center, colorKey);
+}
+
+void Animation::InitWithAnimation(const char* filePath, int totalFrame, vector<RECT> source, float timePerFrame, D3DXVECTOR2 center, D3DCOLOR colorKey)
+{
+	mSprite = new Sprite(filePath, RECT(), 0, 0,colorKey,center);
+	mTimePerFrame = timePerFrame;
+	mTotalFrame = totalFrame;
+	mSourRect = source;
+}
+
+Animation::~Animation()
+{
+	delete mSprite;
+}
+
+void Animation::SetFlipVertical(bool flag)
+{
+	mSprite->FlipVertical(flag);
+}
+
+void Animation::SetFlipHorizontal(bool flag)
+{
+	mSprite->FlipHorizontal(flag);
+}
+
+D3DXVECTOR2 Animation::GetScale()
+{
+	return mSprite->GetScale();
+}
+
+void Animation::SetScale(D3DXVECTOR2 scale)
+{
+	mSprite->SetScale(scale);
+}
+
+float Animation::GetRotation()
+{
+	return mSprite->GetRotation();
+}
+
+void Animation::SetRotation(float rotation) // by radian
+{
+	mSprite->SetRotation(rotation);
+}
+
+D3DXVECTOR2 Animation::GetRotationCenter()
+{
+	return mSprite->GetRotationCenter();
+}
+void Animation::Reset()
+{
+	mCurrentIndex = 1;
+}
+void Animation::SetRotationCenter(D3DXVECTOR2 rotationCenter)
+{
+	mSprite->SetRotationCenter(rotationCenter);
+}
+
+D3DXVECTOR2 Animation::GetTranslation()
+{
+	return mSprite->GetTranslation();
+}
+
+void Animation::SetTranslation(D3DXVECTOR2 translation)
+{
+	mSprite->SetTranslation(translation);
+}
+Sprite* Animation::GetSprite()
+{
+	return mSprite;
+}
+void Animation::Update(float dt)
+{
+	if (mTotalFrame <= 1)
+		return;
+	if (mCurrentIndex <= mTotalFrame)
+	{
+		RECT rect = mSourRect.at(mCurrentIndex);
+
+		mSprite->SetSourceRect(rect);
+		mSprite->SetWidth(rect.right - rect.left);
+		mSprite->SetHeight(rect.bottom - rect.top);
+	}
+	if (mCurrentTotalTime >= mTimePerFrame)
+	{
+		mCurrentTotalTime = 0;
+		mCurrentIndex++;
+
+
+		if (mCurrentIndex >= mTotalFrame)
+			mCurrentIndex = 0;
+
+	}
+	else
+	{
+		mCurrentTotalTime += dt;
+	}
+}
+
+void Animation::Draw(D3DXVECTOR3 position, RECT sourceRect, D3DXVECTOR2 scale,
+	D3DXVECTOR2 transform, float angle, D3DXVECTOR2 rotationCenter, D3DXCOLOR colorKey)
+{
+	if (mReverse)
+	{
+		RECT rect = mSourRect.at(mTotalFrame- mCurrentIndex-1);
+		mSprite->SetSourceRect(rect);
+		mSprite->SetWidth(rect.right - rect.left);
+		mSprite->SetHeight(rect.bottom - rect.top);
+	}
+	mSprite->Draw(position, sourceRect, scale, transform, angle, rotationCenter, colorKey);
+}
+
+void Animation::SetPosition(D3DXVECTOR3 pos)
+{
+	mSprite->SetPosition(pos);
+}
+
+void Animation::SetPosition(float x, float y)
+{
+	SetPosition(D3DXVECTOR3(x, y, 0));
+}
+
+void Animation::SetPosition(D3DXVECTOR2 pos)
+{
+	SetPosition(D3DXVECTOR3(pos));
+}
+int Animation::GetCurrentFrame()
+{
+	return mCurrentIndex;
+}
+void Animation::SetCurrentFrame(int frame)
+{
+	mCurrentIndex = frame;
+}
+void Animation::SetReverse(bool re)
+{
+	mReverse = re;
+}
+

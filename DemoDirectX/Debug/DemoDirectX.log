@@ -1,10 +1,5 @@
-﻿  Apple.cpp
-d:\gameuit\9.1 - state machine, player, bot\directxgame\demodirectx\gameobjects\apple\apple.cpp(184): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-d:\gameuit\9.1 - state machine, player, bot\directxgame\demodirectx\gameobjects\apple\apple.cpp(185): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-d:\gameuit\9.1 - state machine, player, bot\directxgame\demodirectx\gameobjects\apple\apple.cpp(194): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-d:\gameuit\9.1 - state machine, player, bot\directxgame\demodirectx\gameobjects\apple\apple.cpp(195): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-d:\gameuit\9.1 - state machine, player, bot\directxgame\demodirectx\gameobjects\apple\apple.cpp(232): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
-d:\gameuit\9.1 - state machine, player, bot\directxgame\demodirectx\gameobjects\apple\apple.cpp(233): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
-d:\gameuit\9.1 - state machine, player, bot\directxgame\demodirectx\gameobjects\apple\apple.cpp(234): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
-d:\gameuit\9.1 - state machine, player, bot\directxgame\demodirectx\gameobjects\apple\apple.cpp(235): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
+﻿  ManThrowBowl.cpp
+d:\gameuit\9.1 - state machine, player, bot\directxgame\demodirectx\gameobjects\mapobject\civilianthrowbowl\manthrowbowl.cpp(24): warning C4305: 'argument': truncation from 'double' to 'float'
+d:\gameuit\9.1 - state machine, player, bot\directxgame\demodirectx\gameobjects\mapobject\civilianthrowbowl\manthrowbowl.cpp(101): warning C4018: '<': signed/unsigned mismatch
+d:\gameuit\9.1 - state machine, player, bot\directxgame\demodirectx\gameobjects\mapobject\civilianthrowbowl\manthrowbowl.cpp(105): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
   DemoDirectX.vcxproj -> D:\GameUIT\9.1 - State Machine, Player, Bot\DirectXGame\Debug\DemoDirectX.exe

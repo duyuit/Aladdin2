@@ -10,9 +10,13 @@ GameMap::~GameMap()
 {
     delete mMap;
 }
-
 void GameMap::LoadMap(char* filePath)
 {
+	RECT rect;
+	rect.left = 370; rect.top = 45; rect.right = rect.left + 14; rect.bottom = rect.top + 14;
+	Sprite* sprite = new Sprite("Resources/Aladdin.png",rect,0,0, D3DCOLOR_XRGB(255, 0, 255), D3DXVECTOR2(0.5, 0.5));
+
+
     mMap = new Tmx::Map();
     mMap->ParseFile(filePath);
 
@@ -86,17 +90,18 @@ void GameMap::LoadMap(char* filePath)
 				listCamel.push_back(camel);
 				mQuadTree->insertEntity(camel);
 			}
-			if (tag == Entity::AppleObject)
-			{
-				
-				AppleObject *apple = new AppleObject("Resources/Aladdin.png", (float)1 /10, D3DXVECTOR2(0.5, 0.5));
-				apple->SetPos(object->GetX() + object->GetWidth() / 2, object->GetY() + object->GetHeight() / 2);
-				apple->SetWidth(apple->represent->GetWidth());
-				apple->SetHeight(apple->represent->GetHeight());
-				apple->Tag = tag;
-				listAppleObject.push_back(apple);
-				mQuadTree->insertEntity(apple);
-			}
+			//if (tag == Entity::AppleObject)
+			//{
+			//	
+			//	//AppleObject *apple = new AppleObject("Resources/Aladdin.png", (float)1 /10, D3DXVECTOR2(0.5, 0.5));
+			//	AppleObject *apple = new AppleObject(sprite);
+			//	apple->SetPosition(object->GetX() + object->GetWidth() / 2, object->GetY() + object->GetHeight() / 2);
+			//	apple->SetWidth(apple->represent->GetWidth());
+			//	apple->SetHeight(apple->represent->GetHeight());
+			//	apple->Tag = tag;
+			//	listAppleObject.push_back(apple);
+			//	mQuadTree->insertEntity(apple);
+			//}
 
 			
 		

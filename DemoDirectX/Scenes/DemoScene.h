@@ -13,7 +13,7 @@
 #include "../GameObjects/Player/Player.h"
 #include "../../GameDefines/GameDefine.h"
 //#include "../GameObjects/Apple/Apple.h"
-
+#include "../GameObjects/MapObject/CivilianThrowBowl/ManThrowBowl.h"
 class DemoScene : public Scene
 {
 public:

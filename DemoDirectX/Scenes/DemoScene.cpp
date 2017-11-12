@@ -5,6 +5,8 @@ DemoScene::DemoScene()
     LoadContent();
 }
 
+ManThrowBowl* test;
+
 void DemoScene::LoadContent()
 {
     //set mau backcolor cho scene o day la mau xanh
@@ -19,16 +21,21 @@ void DemoScene::LoadContent()
     mMap->SetCamera(mCamera);
 
     mPlayer = new Player();
-    mPlayer->SetPosition(10,400);
+    mPlayer->SetPosition(1200,400);
 
 	mPlayer->SetCamera(mCamera);
 
+	test = new ManThrowBowl(D3DXVECTOR2(1800, 470));
+
+
+	
 	
 	
 }
 
 void DemoScene::Update(float dt)
 {
+	
 	checkCollision();
 	mPlayer->HandleKeyboard(keys);
 	mPlayer->Update(dt);
@@ -43,7 +50,12 @@ void DemoScene::Update(float dt)
 	{
 		mMap->listAppleObject.at(i)->Update();
 	}
+
 	
+	test->Update(mPlayer);
+	
+
+
 }
 
 void DemoScene::Draw()
@@ -55,7 +67,10 @@ void DemoScene::Draw()
 	mMap->DrawFront();
 	mPlayer->mUI->Draw(); // Ve UI tren tat ca
 
+	D3DXVECTOR2 trans = D3DXVECTOR2(GameGlobal::GetWidth() / 2 - mCamera->GetPosition().x,GameGlobal::GetHeight() / 2 - mCamera->GetPosition().y);
 
+	test->Draw(D3DXVECTOR3(),RECT(),D3DXVECTOR2(), trans,0, D3DXVECTOR2(),D3DXCOLOR());
+	
 }
 
 void DemoScene::OnKeyDown(int keyCode)
@@ -64,13 +79,7 @@ void DemoScene::OnKeyDown(int keyCode)
     mPlayer->OnKeyPressed(keyCode);
 
 
-	/*if (keyCode == VK_NUMPAD2)
-	{
-		for (int i = 0; i < mMap->listCamel.size(); i++)
-		{
-			mMap->listCamel.at(i)->LoadAnimation();
-		}
-	}*/
+	
 
 
 }
@@ -79,6 +88,12 @@ void DemoScene::OnKeyUp(int keyCode)
 {
     keys[keyCode] = false;
 	mPlayer->OnKeyUp(keyCode);
+
+	//if (keyCode == VK_NUMPAD3)
+	//{
+	//	test->mCurrentApple->SetPosition(test->GetPosition());
+	//	test->mCurrentApple->SetState(AppleState::Flying);
+	//}
 }
 
 void DemoScene::OnMouseDown(float x, float y)
@@ -116,7 +131,7 @@ void DemoScene::CheckCameraAndWorldMap()
 	}
 }
 
-Entity* curApple=nullptr;
+
 void DemoScene::checkCollision()
 {
 	/*su dung de kiem tra xem khi nao mario khong dung tren 1 object hoac
@@ -139,30 +154,52 @@ void DemoScene::checkCollision()
 			
 			Entity::CollisionReturn re = GameCollision::RecteAndRect(mPlayer->listApple.at(i)->GetBound(),
 				listCollisionApple.at(j)->GetBound());
-			RECT rect1 = mPlayer->listApple.at(i)->GetBound();
-			RECT rect=listCollisionApple.at(j)->GetBound();
 			if (re.IsCollided)
 			{
+				Entity::SideCollisions sidePlayer = GameCollision::getSideCollision(mPlayer, re);
 				//Xu ly va cham thang tao o day
-				mPlayer->listApple.at(i)->SetState(AppleState::Breaking);
+				mPlayer->listApple.at(i)->OnCollision(listCollisionApple.at(j),re,sidePlayer);
 
 
 			}
 		}
 	}
 
-	mMap->GetQuadTree()->getEntitiesCollideAble(listCollision, mPlayer);
+	//Check bowl Collision
 
+	if (test->mCurrentApple->GetCurrentState() != AppleState::NONE)
+	{
+		vector<Entity*> listCollisionWithBowl;
+		mMap->GetQuadTree()->getEntitiesCollideAble(listCollisionWithBowl, test->mCurrentApple);
+
+		for (size_t i = 0; i < listCollisionWithBowl.size(); i++)
+		{
+			RECT rec = test->mCurrentApple->GetBound();
+			D3DXVECTOR2 site = test->mCurrentApple->GetPosition();
+			Entity::CollisionReturn r = GameCollision::RecteAndRect(test->mCurrentApple->GetBound(),
+				listCollisionWithBowl.at(i)->GetBound());
+			if (r.IsCollided)
+				test->mCurrentApple->OnCollision(listCollisionWithBowl.at(i), r, Entity::NotKnow);
+		}
+	}
+
+
+
+
+
+	mMap->GetQuadTree()->getEntitiesCollideAble(listCollision, mPlayer);
 	//Check player va cham voi object
 	Entity::EntityTypes tag = Entity::None;
 	for (size_t i = 0; i < listCollision.size(); i++)
 	{
+		//if (listCollision.at(i) == nullptr) //Null thi bo qua nha
+		//	continue;
 
 		Entity::CollisionReturn r = GameCollision::RecteAndRect(mPlayer->GetBound(),
 			listCollision.at(i)->GetBound());
 		if (r.IsCollided)
 		{
-			
+		
 			//lay phia va cham cua Entity so voi Player
 			Entity::SideCollisions sidePlayer = GameCollision::getSideCollision(mPlayer, r);
 			//lay phia va cham cua Player so voi Entity
@@ -174,13 +211,12 @@ void DemoScene::checkCollision()
 
 			listCollision.at(i)->OnCollision(mPlayer, r, sideImpactor);
 			//Check táo trùng để cộng 
-			if (listCollision.at(i)->Tag == Entity::AppleObject)
+			if (listCollision.at(i)->Tag == Entity::AppleObject) 
 			{
-				if (listCollision.at(i) != curApple)
-				{
-					mPlayer->AppleCount++;
-					curApple = listCollision.at(i);
-				}
+				mPlayer->AppleCount++;
+				//delete listCollision.at(i); //Va cham voi player roi, xoa Apple nay di
+				//listCollision.at(i) = nullptr; //Set null
+				//continue;
 			}
 			
 

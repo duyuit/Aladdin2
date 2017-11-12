@@ -84,8 +84,7 @@ void PlayerRunningState::OnCollision(Entity *impactor, Entity::SideCollisions si
 	case Entity::Left:
 	{
 		//va cham phia ben trai player
-		if (impactor->Tag == Entity::Camel)
-			return;
+	
 		if (impactor->Tag != Entity::LandWood)
 		{
 			if (this->mPlayerData->player->getMoveDirection() == Player::MoveToLeft)
@@ -104,8 +103,7 @@ void PlayerRunningState::OnCollision(Entity *impactor, Entity::SideCollisions si
 
 	case Entity::Right:
 	{
-		if (impactor->Tag == Entity::Camel)
-			return;
+		
 		//va cham phia ben phai player
 		if (impactor->Tag != Entity::LandWood)
 		{

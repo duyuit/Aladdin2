@@ -44,6 +44,9 @@
     <Filter Include="FrameWork\GameObjects\MapObject">
       <UniqueIdentifier>{c141ad30-d96e-45b5-a7fa-fab852797371}</UniqueIdentifier>
     </Filter>
+    <Filter Include="FrameWork\GameObjects\MapObject\CivilianThrowBowl">
+      <UniqueIdentifier>{788cd331-1bfa-4cea-943c-d43c0fa0f1d8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -163,18 +166,6 @@
     <ClCompile Include="GameObjects\Entity.cpp">
       <Filter>FrameWork\GameObjects</Filter>
     </ClCompile>
-    <ClCompile Include="GameObjects\Apple\Apple.cpp">
-      <Filter>FrameWork\GameObjects\Apple</Filter>
-    </ClCompile>
-    <ClCompile Include="GameObjects\Apple\AppleFlyState.cpp">
-      <Filter>FrameWork\GameObjects\Apple</Filter>
-    </ClCompile>
-    <ClCompile Include="GameObjects\Apple\AppleState.cpp">
-      <Filter>FrameWork\GameObjects\Apple</Filter>
-    </ClCompile>
-    <ClCompile Include="GameObjects\Apple\AppleBreakState.cpp">
-      <Filter>FrameWork\GameObjects\Apple</Filter>
-    </ClCompile>
     <ClCompile Include="GameObjects\Player\PlayerThrowAppleState.cpp">
       <Filter>FrameWork\GameObjects\Player</Filter>
     </ClCompile>
@@ -216,6 +207,21 @@
     </ClCompile>
     <ClCompile Include="GameComponents\UI.cpp">
       <Filter>FrameWork\GameComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObjects\MapObject\CivilianThrowBowl\ManThrowBowl.cpp">
+      <Filter>FrameWork\GameObjects\MapObject\CivilianThrowBowl</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObjects\Apple\Apple.cpp">
+      <Filter>FrameWork\GameObjects\Apple</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObjects\Apple\AppleBreakState.cpp">
+      <Filter>FrameWork\GameObjects\Apple</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObjects\Apple\AppleFlyState.cpp">
+      <Filter>FrameWork\GameObjects\Apple</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObjects\Apple\AppleState.cpp">
+      <Filter>FrameWork\GameObjects\Apple</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -348,18 +354,6 @@
     <ClInclude Include="resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GameObjects\Apple\Apple.h">
-      <Filter>FrameWork\GameObjects\Apple</Filter>
-    </ClInclude>
-    <ClInclude Include="GameObjects\Apple\AppleFlyState.h">
-      <Filter>FrameWork\GameObjects\Apple</Filter>
-    </ClInclude>
-    <ClInclude Include="GameObjects\Apple\AppleState.h">
-      <Filter>FrameWork\GameObjects\Apple</Filter>
-    </ClInclude>
-    <ClInclude Include="GameObjects\Apple\AppleBreakState.h">
-      <Filter>FrameWork\GameObjects\Apple</Filter>
-    </ClInclude>
     <ClInclude Include="GameObjects\Player\PlayerThrowAppleState.h">
       <Filter>FrameWork\GameObjects\Player</Filter>
     </ClInclude>
@@ -401,6 +395,21 @@
     </ClInclude>
     <ClInclude Include="GameComponents\UI.h">
       <Filter>FrameWork\GameComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjects\MapObject\CivilianThrowBowl\ManThrowBowl.h">
+      <Filter>FrameWork\GameObjects\MapObject\CivilianThrowBowl</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjects\Apple\Apple.h">
+      <Filter>FrameWork\GameObjects\Apple</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjects\Apple\AppleBreakState.h">
+      <Filter>FrameWork\GameObjects\Apple</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjects\Apple\AppleFlyState.h">
+      <Filter>FrameWork\GameObjects\Apple</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjects\Apple\AppleState.h">
+      <Filter>FrameWork\GameObjects\Apple</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

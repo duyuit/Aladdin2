@@ -9,6 +9,7 @@ public:
 	D3DXVECTOR2 center = D3DXVECTOR2(0.5, 0.5));
 	vector<RECT> LoadRect();
 	void OnCollision(Entity *impactor, CollisionReturn data, SideCollisions side);
+	void Update();
 	~Camel();
 };
 

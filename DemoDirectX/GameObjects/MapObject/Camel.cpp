@@ -46,28 +46,20 @@ Camel::Camel(const char* FilePath,
 Camel::~Camel()
 {
 }
+void Camel::Update()
+{
+	if (Actived)
+	{
+		if (mCurrentAnimation->GetCurrentFrame() == totalFrame - 1)
+		{
+			Actived = false;
+			mCurrentAnimation->Reset();
+		}
+		else SimpleObject::Update();
+	}
+}
 void Camel::OnCollision(Entity *impactor, CollisionReturn data, SideCollisions side)
 {
-	LoadAnimation();
-	switch (side)
-	{
+	Actived = true;
 
-
-
-	case Entity::Top:
-	case Entity::TopLeft:
-	case Entity::TopRight:
-		//LoadAnimation();
-		break;
-
-	case Entity::Bottom:
-	case Entity::BottomRight:
-	case Entity::BottomLeft:
-	case Entity::Left:
-	case Entity::Right:
-		break;
-
-	default:
-		break;
-	}
 }

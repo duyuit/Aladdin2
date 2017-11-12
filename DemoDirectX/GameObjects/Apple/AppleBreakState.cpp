@@ -15,3 +15,8 @@ void AppleBreakState::Update(float dt)
 AppleBreakState::~AppleBreakState()
 {
 }
+
+AppleState::StateName AppleBreakState::GetNameState()
+{
+	return AppleState::Breaking;
+}

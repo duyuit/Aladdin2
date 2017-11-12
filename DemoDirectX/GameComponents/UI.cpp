@@ -36,6 +36,7 @@ RECT LoadNumber(int i)
 		rect.left = 313;  rect.top = 374; rect.right = rect.left + 95;  rect.bottom = rect.top + 139;
 		break;
 	default:
+		rect.left = 313;  rect.top = 374; rect.right = rect.left + 95;  rect.bottom = rect.top + 139;
 		break;
 	}
 	return rect;

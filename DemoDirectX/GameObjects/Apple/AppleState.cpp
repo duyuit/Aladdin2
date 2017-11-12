@@ -18,3 +18,8 @@ D3DXVECTOR3 AppleState::getPos()
 {
 	return pos;
 }
+
+AppleState::StateName AppleState::GetNameState()
+{
+	return StateName::NONE;
+}

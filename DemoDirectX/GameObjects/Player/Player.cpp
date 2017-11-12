@@ -400,9 +400,9 @@ Player::Player()
 	this->vy = 0;
 	this->SetState(new PlayerFallingState(this->mPlayerData));
 
-	listApple.push_back(new Apple());
-	listApple.push_back(new Apple());
-	listApple.push_back(new Apple());
+	listApple.push_back(new Apple(Entity::AppleThrow));
+	listApple.push_back(new Apple(Entity::AppleThrow));
+	listApple.push_back(new Apple(Entity::AppleThrow));
 	
 	allowJump = true;
 	allowThrow = true;

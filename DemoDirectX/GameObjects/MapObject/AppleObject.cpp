@@ -1,6 +1,8 @@
 #include "AppleObject.h"
 
 
+
+
 vector<RECT> AppleObject::LoadRect()
 {
 	vector<RECT> listSourceRect;
@@ -16,15 +18,7 @@ vector<RECT> AppleObject::LoadRect()
 
 void AppleObject::Update()
 {
-	if (Actived) return;
-	if (mCurrentAnimation->GetCurrentFrame() == totalFrame - 1)
-	{
-		SetPos(0, 0);
-		Actived = true;
-		return;
-	}
-	else
-		SimpleObject::Update();
+	
 }
 void AppleObject::Draw(D3DXVECTOR3 position, RECT sourceRect, D3DXVECTOR2 scale, D3DXVECTOR2 transform)
 {
@@ -54,40 +48,18 @@ AppleObject::AppleObject(const char* FilePath,
 	represent->SetSourceRect(rect);
 	represent->SetWidth(rect.right - rect.left);
 	represent->SetHeight(rect.bottom - rect.top);
-
-	
-	mCurrentAnimation = new Animation(filePath, totalFrame, source, timePerFrame, center, colorKey);
-	mCurrentAnimation->SetScale(D3DXVECTOR2(2, 2));
 }
 
 
 AppleObject::~AppleObject()
 {
 }
+AppleObject::AppleObject(Sprite *sprite)
+{
+	represent = sprite;
 
+}
 void AppleObject::OnCollision(Entity *impactor, CollisionReturn data, SideCollisions side)
 {
-	
-	LoadAnimation();
-	switch (side)
-	{
-
-
-
-	case Entity::Top:
-	case Entity::TopLeft:
-	case Entity::TopRight:
-		//LoadAnimation();
-		break;
-
-	case Entity::Bottom:
-	case Entity::BottomRight:
-	case Entity::BottomLeft:
-	case Entity::Left:
-	case Entity::Right:
-		break;
-
-	default:
-		break;
-	}
+	SetPosition(0, 0);
 }

@@ -24,7 +24,7 @@ PlayerFiredState::PlayerFiredState(PlayerData *playerData)
 
 void PlayerFiredState::Update(float dt)
 {
-	if (this->mPlayerData->player->GetCurrentAnimation()->GetCurrentFrame() == 5)
+	if (this->mPlayerData->player->GetCurrentAnimation()->GetCurrentFrame() ==11)
 	{
 		this->mPlayerData->player->GetCurrentAnimation()->Reset();
 		this->mPlayerData->player->SetState(new PlayerStandingState(this->mPlayerData));

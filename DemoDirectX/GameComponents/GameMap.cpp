@@ -56,7 +56,7 @@ void GameMap::LoadMap(char* filePath)
 			tag = Entity::AppleObject;
 		if (name == "fired")
 			tag = Entity::Fired;
-	
+		
 		for (size_t j = 0; j < objectGroup->GetNumObjects(); j++)
 		{
 			//lay object group chu khong phai layer
@@ -90,20 +90,29 @@ void GameMap::LoadMap(char* filePath)
 				listCamel.push_back(camel);
 				mQuadTree->insertEntity(camel);
 			}
-			//if (tag == Entity::AppleObject)
-			//{
-			//	
-			//	//AppleObject *apple = new AppleObject("Resources/Aladdin.png", (float)1 /10, D3DXVECTOR2(0.5, 0.5));
-			//	AppleObject *apple = new AppleObject(sprite);
-			//	apple->SetPosition(object->GetX() + object->GetWidth() / 2, object->GetY() + object->GetHeight() / 2);
-			//	apple->SetWidth(apple->represent->GetWidth());
-			//	apple->SetHeight(apple->represent->GetHeight());
-			//	apple->Tag = tag;
-			//	listAppleObject.push_back(apple);
-			//	mQuadTree->insertEntity(apple);
-			//}
+			if (tag == Entity::AppleObject)
+			{
+				
+				//AppleObject *apple = new AppleObject("Resources/Aladdin.png", (float)1 /10, D3DXVECTOR2(0.5, 0.5));
+				AppleObject *apple = new AppleObject(sprite);
+				apple->SetPosition(object->GetX() + object->GetWidth() / 2, object->GetY() + object->GetHeight() / 2);
+				apple->SetWidth(apple->represent->GetWidth());
+				apple->SetHeight(apple->represent->GetHeight());
+				apple->Tag = tag;
+				listAppleObject.push_back(apple);
+				mQuadTree->insertEntity(apple);
+			}
 
-			
+			if (name == "civilianBowl")
+			{
+				D3DXVECTOR2 pos= D3DXVECTOR2(object->GetX() + object->GetWidth() / 2, object->GetY() + object->GetHeight() / 2);
+				listBowl1.push_back(pos);
+			}
+			if (name == "civilianBowl2")
+			{
+				D3DXVECTOR2 pos = D3DXVECTOR2(object->GetX() + object->GetWidth() / 2, object->GetY() + object->GetHeight() / 2);
+				listBowl2.push_back(pos);
+			}
 		
 		}
 	}

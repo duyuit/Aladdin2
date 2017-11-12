@@ -9,11 +9,27 @@ vector<RECT> LoadRECT(PlayerState::StateName state)
 	switch (state)
 	{
 	case PlayerState::Fired:
+
 		rect.left = 9; rect.top = 2167; rect.right = rect.left + 42; rect.bottom = rect.top + 45; listSourceRect.push_back(rect);
+
+		rect.left = 910; rect.top = 170; rect.right = rect.left + 34; rect.bottom = rect.top + 56; listSourceRect.push_back(rect);
+
 		rect.left = 58; rect.top = 2161; rect.right = rect.left + 55; rect.bottom = rect.top + 51; listSourceRect.push_back(rect);
+
+		rect.left = 910; rect.top = 170; rect.right = rect.left + 34; rect.bottom = rect.top + 56; listSourceRect.push_back(rect);
+
 		rect.left = 122; rect.top = 2162; rect.right = rect.left + 59; rect.bottom = rect.top + 49; listSourceRect.push_back(rect);
+
+		rect.left = 910; rect.top = 170; rect.right = rect.left + 34; rect.bottom = rect.top + 56; listSourceRect.push_back(rect);
+
 		rect.left = 189; rect.top = 2163; rect.right = rect.left + 80; rect.bottom = rect.top + 47; listSourceRect.push_back(rect);
+
+		rect.left = 910; rect.top = 170; rect.right = rect.left + 34; rect.bottom = rect.top + 56; listSourceRect.push_back(rect);
 		rect.left = 282; rect.top = 2160; rect.right = rect.left + 61; rect.bottom = rect.top + 50; listSourceRect.push_back(rect);
+
+		rect.left = 910; rect.top = 170; rect.right = rect.left + 34; rect.bottom = rect.top + 56; listSourceRect.push_back(rect);
+
+		rect.left = 910; rect.top = 170; rect.right = rect.left + 34; rect.bottom = rect.top + 56; listSourceRect.push_back(rect);
 		rect.left = 351; rect.top = 2161; rect.right = rect.left + 59; rect.bottom = rect.top + 48; listSourceRect.push_back(rect);
 		break;
 	case PlayerState::Standing:
@@ -392,7 +408,7 @@ Player::Player()
 	mAnimationSitFight= new Animation("Resources/Aladdin.png",7, LoadRECT(PlayerState::SitFight), (float)1 / 20, D3DXVECTOR2(0.2, 1), D3DCOLOR_XRGB(255, 0, 255));
 	mAnimationJumpThrow= new Animation("Resources/Aladdin.png",5, LoadRECT(PlayerState::JumpThrow), (float)1 /50, D3DXVECTOR2(0.5, 1), D3DCOLOR_XRGB(255, 0, 255));
 	mAnimationSitThrow = new Animation("Resources/Aladdin.png", 5, LoadRECT(PlayerState::SitThrow), (float)1 / 20, D3DXVECTOR2(0.5, 1), D3DCOLOR_XRGB(255, 0, 255));
-	mAnimationFired=new Animation("Resources/Aladdin.png", 6, LoadRECT(PlayerState::Fired), (float)1 / 20, D3DXVECTOR2(0.5, 1), D3DCOLOR_XRGB(255, 0, 255));
+	mAnimationFired=new Animation("Resources/Aladdin.png", 12, LoadRECT(PlayerState::Fired), (float)1 /60, D3DXVECTOR2(0.5, 1), D3DCOLOR_XRGB(255, 0, 255));
 	Tag = Entity::EntityTypes::Enemy;
 	this->mPlayerData = new PlayerData();
 	this->mPlayerData->player = this;
@@ -506,13 +522,13 @@ void Player::Draw(D3DXVECTOR3 position, RECT sourceRect, D3DXVECTOR2 scale, D3DX
 	
 		
 	}
-	else
-	{
-		mCurrentAnimation->Draw(D3DXVECTOR3(posX, posY, 0));
-		for (int i = 0; i < listApple.size(); i++)
-			listApple.at(i)->Draw();
+	//else
+	//{
+	//	mCurrentAnimation->Draw(D3DXVECTOR3(posX, posY, 0));
+	//	for (int i = 0; i < listApple.size(); i++)
+	//		listApple.at(i)->Draw();
 
-	}
+	//}
 	
 
 }
@@ -642,6 +658,11 @@ void Player::OnNoCollisionWithBottom()
 }
 void Player::OnCollision(Entity *impactor, Entity::CollisionReturn data, Entity::SideCollisions side)
 {
+	if (impactor->Tag == Bowl)
+	{
+		this->SetState(new PlayerFiredState(this->mPlayerData));
+
+	}
 	this->mPlayerData->state->OnCollision(impactor, side, data);
 }
 

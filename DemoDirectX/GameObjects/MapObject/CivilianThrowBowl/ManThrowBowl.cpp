@@ -17,9 +17,10 @@ vector<RECT> ManThrowBowl::LoadRect()
 	return listSourceRect;
 }
 
-ManThrowBowl::ManThrowBowl(D3DXVECTOR2 pos)
+ManThrowBowl::ManThrowBowl(vector<D3DXVECTOR2> listpos)
 {
-	SetPosition(pos);
+	mListPosition = listpos;
+	SetPosition(listpos.at(0));
 	ThrowAnimate = new Animation("Resources/civilian.png", 10, LoadRect(),(float)1/0.3,D3DXVECTOR2(0,0.5),D3DCOLOR_XRGB(120, 193, 152));
 	ThrowAnimate->SetScale(D3DXVECTOR2(1,1));
 
@@ -32,7 +33,7 @@ ManThrowBowl::ManThrowBowl(D3DXVECTOR2 pos)
 	
 
 	mCurrentApple = mApple;
-	mCurrentApple->SetPosition(pos);
+	mCurrentApple->SetPosition(GetPosition());
 
 
 
@@ -97,9 +98,22 @@ void ManThrowBowl::Update(Entity* player)
 
 void ManThrowBowl::CheckSite(Entity* player)
 {
-	if (GetPosition().x - player->GetPosition().x <= 100)
+	for (int i = 0; i < mListPosition.size(); i++)
+	{
+		if (player->GetPosition().y < mListPosition.at(i).y) continue;
+		//int deltay =abs(player->GetPosition().y - mListPosition.at(i).y);
+		int deltax = abs(player->GetPosition().x - mListPosition.at(i).x);
+		if (deltax<=100)
+		{
+			SetPosition(mListPosition.at(i));
+			break;
+		}
+	}
+	if (abs(GetPosition().x - player->GetPosition().x) <= 100 && player->GetPosition().y>GetPosition().y)
 		AllowThrow = true;
 	else AllowThrow = false;
+	
+
 }
 void ManThrowBowl::Draw(D3DXVECTOR3 position, RECT sourceRect, D3DXVECTOR2 scale, D3DXVECTOR2 transform, float angle, D3DXVECTOR2 rotationCenter, D3DXCOLOR colorKey)
 {

@@ -6,6 +6,7 @@ DemoScene::DemoScene()
 }
 
 ManThrowBowl* test;
+ManThrowBowl* test2;
 
 void DemoScene::LoadContent()
 {
@@ -21,12 +22,12 @@ void DemoScene::LoadContent()
     mMap->SetCamera(mCamera);
 
     mPlayer = new Player();
-    mPlayer->SetPosition(1200,400);
+    mPlayer->SetPosition(1500,400);
 
 	mPlayer->SetCamera(mCamera);
 
-	test = new ManThrowBowl(D3DXVECTOR2(1800, 470));
-
+	test = new ManThrowBowl(mMap->listBowl1);
+	test2 = new ManThrowBowl(mMap->listBowl2);
 
 	
 	
@@ -53,7 +54,7 @@ void DemoScene::Update(float dt)
 
 	
 	test->Update(mPlayer);
-	
+	test2->Update(mPlayer);
 
 
 }
@@ -70,7 +71,7 @@ void DemoScene::Draw()
 	D3DXVECTOR2 trans = D3DXVECTOR2(GameGlobal::GetWidth() / 2 - mCamera->GetPosition().x,GameGlobal::GetHeight() / 2 - mCamera->GetPosition().y);
 
 	test->Draw(D3DXVECTOR3(),RECT(),D3DXVECTOR2(), trans,0, D3DXVECTOR2(),D3DXCOLOR());
-	
+	test2->Draw(D3DXVECTOR3(), RECT(), D3DXVECTOR2(), trans, 0, D3DXVECTOR2(), D3DXCOLOR());
 }
 
 void DemoScene::OnKeyDown(int keyCode)
@@ -165,7 +166,7 @@ void DemoScene::checkCollision()
 		}
 	}
 
-	//Check bowl Collision
+	//Check bowl Collision voi Map
 
 	if (test->mCurrentApple->GetCurrentState() != AppleState::NONE)
 	{
@@ -174,8 +175,7 @@ void DemoScene::checkCollision()
 
 		for (size_t i = 0; i < listCollisionWithBowl.size(); i++)
 		{
-			RECT rec = test->mCurrentApple->GetBound();
-			D3DXVECTOR2 site = test->mCurrentApple->GetPosition();
+		
 			Entity::CollisionReturn r = GameCollision::RecteAndRect(test->mCurrentApple->GetBound(),
 				listCollisionWithBowl.at(i)->GetBound());
 			if (r.IsCollided)
@@ -184,11 +184,49 @@ void DemoScene::checkCollision()
 	}
 
 
+	if (test2->mCurrentApple->GetCurrentState() != AppleState::NONE)
+	{
+		vector<Entity*> listCollisionWithBowl;
+		mMap->GetQuadTree()->getEntitiesCollideAble(listCollisionWithBowl, test2->mCurrentApple);
+
+		for (size_t i = 0; i < listCollisionWithBowl.size(); i++)
+		{
+
+			Entity::CollisionReturn r = GameCollision::RecteAndRect(test2->mCurrentApple->GetBound(),
+				listCollisionWithBowl.at(i)->GetBound());
+			if (r.IsCollided)
+				test2->mCurrentApple->OnCollision(listCollisionWithBowl.at(i), r, Entity::NotKnow);
+		}
+	}
+
+
+	//Check bowl Collision voi Player
+	if (test->mCurrentApple->GetCurrentState() == AppleState::Flying)
+	{
+		Entity::CollisionReturn r = GameCollision::RecteAndRect(test->mCurrentApple->GetBound(), mPlayer->GetBound());
+		if (r.IsCollided)
+		{
+			mPlayer->OnCollision(test->mCurrentApple, r, Entity::NotKnow);
+			test->mCurrentApple->OnCollision(mPlayer, r, Entity::NotKnow);
+		}
+	}
+
+	if (test2->mCurrentApple->GetCurrentState() == AppleState::Flying)
+	{
+		Entity::CollisionReturn r = GameCollision::RecteAndRect(test2->mCurrentApple->GetBound(), mPlayer->GetBound());
+		if (r.IsCollided)
+		{
+			mPlayer->OnCollision(test2->mCurrentApple, r, Entity::NotKnow);
+			test2->mCurrentApple->OnCollision(mPlayer, r, Entity::NotKnow);
+		}
+	}
 
 
 
-	mMap->GetQuadTree()->getEntitiesCollideAble(listCollision, mPlayer);
+
+
 	//Check player va cham voi object
+	mMap->GetQuadTree()->getEntitiesCollideAble(listCollision, mPlayer);
 	Entity::EntityTypes tag = Entity::None;
 	for (size_t i = 0; i < listCollision.size(); i++)
 	{

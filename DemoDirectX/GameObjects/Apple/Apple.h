@@ -18,7 +18,7 @@ public:
 	Animation *mCurrentAnim;
 	AppleState* curState;
 
-	EntityTypes mType;
+
 	vector<RECT> LoadRECT(AppleState::StateName state);
 	bool mReverse;
 

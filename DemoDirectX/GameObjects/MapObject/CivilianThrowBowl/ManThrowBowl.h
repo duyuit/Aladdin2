@@ -5,7 +5,7 @@
 class ManThrowBowl:public Entity
 {
 public:
-	ManThrowBowl(D3DXVECTOR2 pos);
+	ManThrowBowl(vector<D3DXVECTOR2> listpos);
 	~ManThrowBowl();
 	Animation* ThrowAnimate;
 	Animation* mCurrentAnimate;
@@ -16,7 +16,7 @@ public:
 	void Draw(D3DXVECTOR3 position, RECT sourceRect, D3DXVECTOR2 scale, D3DXVECTOR2 transform, float angle, D3DXVECTOR2 rotationCenter, D3DXCOLOR colorKey);
 
 	void OnCollision(Entity *impactor, CollisionReturn data, SideCollisions side);
-
+	vector<D3DXVECTOR2> mListPosition;
 	Apple* mApple;
 	Apple* mCurrentApple;
 };

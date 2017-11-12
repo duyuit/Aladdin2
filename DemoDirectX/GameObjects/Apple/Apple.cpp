@@ -5,7 +5,7 @@ vector<RECT> Apple::LoadRECT(AppleState::StateName state)
 {
 	vector<RECT> listSourceRect;
 	RECT rect;
-	if(mType == EntityTypes::Bowl)
+	if(Tag == EntityTypes::Bowl)
 		switch (state)
 		{
 		case AppleState::Flying:
@@ -137,8 +137,8 @@ vector<RECT> Apple::LoadRECT(AppleState::StateName state)
 }
 Apple::Apple(EntityTypes type)
 {
-	mType = type;
-	if (mType == EntityTypes::Bowl)
+	Tag = type;
+	if (Tag == EntityTypes::Bowl)
 	{
 		FlyingAnim = new Animation("Resources/civilian.png", 6, LoadRECT(AppleState::Flying), (float)1 / 0.2, D3DXVECTOR2(0.5, 0.5), D3DCOLOR_XRGB(120, 193, 152));
 		BreakingAnim = new Animation("Resources/civilian.png",8, LoadRECT(AppleState::Breaking), (float)1 /10, D3DXVECTOR2(0.5, 0.5), D3DCOLOR_XRGB(120, 193, 152));
@@ -242,7 +242,7 @@ void Apple::SetState(AppleState::StateName newState)
 	switch (newState)
 	{
 	case AppleState::Flying:
-		curState = new AppleFlyState(D3DXVECTOR3(posX, posY, 0), mReverse,mType);
+		curState = new AppleFlyState(D3DXVECTOR3(posX, posY, 0), mReverse,Tag);
 		break;
 	case AppleState::Breaking:
 		curState = new AppleBreakState(D3DXVECTOR3(posX, posY, 0));
@@ -259,7 +259,7 @@ void Apple::SetState(AppleState::StateName newState)
 
 void Apple::OnCollision(Entity *impactor, CollisionReturn data, SideCollisions side)
 {
-	
+
 	SetState(AppleState::Breaking);
 }
 AppleState::StateName Apple::GetCurrentState()

@@ -42,6 +42,9 @@ public:
 	void DrawFront();
 	vector<Camel*> listCamel;
 	vector<AppleObject*> listAppleObject;
+	vector<D3DXVECTOR2> listBowl1;
+	vector<D3DXVECTOR2> listBowl2;
+
 private:
     void LoadMap(char* filePath);
 	QuadTree                        *mQuadTree;

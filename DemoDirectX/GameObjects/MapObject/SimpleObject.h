@@ -5,9 +5,9 @@ class SimpleObject :public Entity
 public:
 
 	SimpleObject();
-
+	virtual ~SimpleObject();
 	Animation *mCurrentAnimation;
-	void LoadAnimation();
+
 	Sprite *represent;
 	void Update();
 	void Draw(D3DXVECTOR3 position, RECT sourceRect, D3DXVECTOR2 scale, D3DXVECTOR2 transform);
@@ -22,7 +22,6 @@ protected:
 	float timePerFrame = 0.1f;
 	D3DXVECTOR2 center= D3DXVECTOR2(0.5, 0.5);
 	D3DCOLOR colorKey = NULL;
-	bool FlagAnimate=false;
 
 
 

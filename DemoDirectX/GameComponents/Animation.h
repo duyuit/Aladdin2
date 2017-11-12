@@ -11,7 +11,7 @@ class Animation
 {
 public:
 	//ham ho tro lay animation voi anh co duy nhat 1 hang
-	Animation(const char* filePath, int totalFrame, vector<RECT> source, float timePerFrame = 0.1f, D3DXVECTOR2 center= D3DXVECTOR2(0.5,0.5), D3DCOLOR colorKey = NULL);
+	Animation(const char* filePath, int totalFrame, vector<RECT> source, float timePerFrame = 0.1f, D3DXVECTOR2 center= D3DXVECTOR2(0.5,0.5), D3DCOLOR colorKey = D3DCOLOR_XRGB(255,0,255));
 
 	Animation();
 
@@ -46,6 +46,7 @@ public:
 	void SetCurrentFrame(int frame);
 	void SetReverse(bool re);
 	vector<RECT>	mSourRect;
+	int GetTotalFrame();
 protected:
 	//su dung cho ke thua
 	void InitWithAnimation(const char* filePath, int totalFrame, vector<RECT> source, float timePerFrame = 0.1f, D3DXVECTOR2 center = D3DXVECTOR2(0.5, 0.5), D3DCOLOR colorKey = NULL);

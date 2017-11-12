@@ -210,4 +210,6 @@ void QuadTree::getEntitiesCollideAble(std::vector<Entity*> &entitiesOut, Entity 
     {
         getAllEntities(entitiesOut);
     }
+
+
 }

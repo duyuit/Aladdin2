@@ -1,5 +1,4 @@
 #pragma once
-
 #include <d3d9.h>
 #include <d3dx9.h>
 #include "../../GameComponents/Animation.h"
@@ -62,6 +61,7 @@ public:
 	void OnNoCollisionWithBottom();
 	bool allowMoveLeft;
 	bool allowMoveRight;
+	Apple* a;
 	vector<Apple*> listApple;
 	int AppleCount = 10;
 	UI *mUI;

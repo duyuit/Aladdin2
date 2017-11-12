@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="159" height="23" tilewidth="30" tileheight="30" nextobjectid="151">
+<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="159" height="23" tilewidth="30" tileheight="30" nextobjectid="174">
  <tileset firstgid="1" name="67733" tilewidth="30" tileheight="30" tilecount="7314" columns="159">
   <image source="C:/Users/Billy/Desktop/67733.png" trans="3f48cc" width="4773" height="1383"/>
  </tileset>
@@ -87,16 +87,10 @@
  <objectgroup name="land">
   <object id="1" x="-2" y="635" width="1500" height="30.6667"/>
   <object id="17" x="-8" y="484" width="14" height="178"/>
-  <object id="22" x="1150.67" y="623.333" width="18" height="10"/>
-  <object id="23" x="1169.33" y="615.333" width="22" height="17.3333"/>
-  <object id="24" x="1192.67" y="606.667" width="39.3333" height="26"/>
-  <object id="25" x="1233.33" y="598" width="38" height="35.3333"/>
-  <object id="26" x="1272.67" y="592" width="38.6667" height="42"/>
-  <object id="27" x="1312.67" y="584.667" width="42.6667" height="49.3333"/>
-  <object id="28" x="1354.67" y="574" width="36" height="60"/>
-  <object id="29" x="1394.67" y="566.667" width="105.333" height="66"/>
+  <object id="22" x="1140.67" y="623.833" width="18" height="10.5"/>
+  <object id="29" x="1481.67" y="580.667" width="18.333" height="52"/>
   <object id="33" x="1499" y="661" width="697" height="13"/>
-  <object id="34" x="2197" y="583" width="54" height="102"/>
+  <object id="34" x="2197" y="290" width="54" height="395"/>
   <object id="51" x="2251" y="674" width="508" height="10"/>
   <object id="52" x="2761" y="577" width="60" height="106"/>
   <object id="54" x="2823" y="667" width="1534" height="8"/>
@@ -105,6 +99,13 @@
   <object id="58" x="4392.67" y="639.333" width="40.6667" height="4"/>
   <object id="59" x="4434" y="630.667" width="39.3333" height="8.66667"/>
   <object id="64" x="4474" y="622" width="86" height="9"/>
+  <object id="165" x="1159.5" y="617" width="32.5" height="16.5"/>
+  <object id="166" x="1194" y="607.5" width="40.5" height="26.5"/>
+  <object id="168" x="1234" y="601" width="39" height="32.5"/>
+  <object id="169" x="1273.5" y="592" width="41.5" height="41.5"/>
+  <object id="170" x="1315.5" y="585.5" width="36.5" height="47.5"/>
+  <object id="171" x="1354.5" y="575" width="38" height="22.5"/>
+  <object id="172" x="1393.5" y="570.5" width="103" height="5.5"/>
  </objectgroup>
  <objectgroup name="landwood">
   <object id="86" x="1474.5" y="391.5" width="40.5" height="6.5"/>
@@ -123,6 +124,12 @@
   <object id="102" x="3331" y="327" width="298" height="8"/>
   <object id="103" x="3590" y="214" width="369" height="8"/>
   <object id="104" x="3502" y="119" width="107" height="10"/>
+  <object id="153" x="3817.5" y="477.5" width="33" height="18"/>
+  <object id="154" x="3852.5" y="466" width="21.5" height="23.5"/>
+  <object id="155" x="3876" y="453" width="23" height="25.5"/>
+  <object id="156" x="3900" y="444.5" width="23.5" height="27"/>
+  <object id="157" x="3925.5" y="438" width="19" height="24"/>
+  <object id="158" x="3943.5" y="439" width="129" height="9"/>
  </objectgroup>
  <objectgroup name="string">
   <object id="112" x="2698.67" y="111.333" width="2" height="201"/>

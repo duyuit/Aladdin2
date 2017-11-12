@@ -51,12 +51,7 @@ void PlayerStandingState::HandleKeyboard(std::map<int, bool> keys)
 			this->mPlayerData->player->SetState(new PlayerSit(this->mPlayerData));
 			return;
 		}
-	/*else 
-			if (keys[VK_NUMPAD2])
-			{
-				this->mPlayerData->player->SetState(new PlayerFiredState(this->mPlayerData));
-				return;
-			}*/
+	
 }
 void PlayerStandingState::OnCollision(Entity *impactor, Entity::SideCollisions side, Entity::CollisionReturn data)
 {

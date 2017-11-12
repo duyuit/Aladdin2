@@ -16,6 +16,11 @@ void Animation::InitWithAnimation(const char* filePath, int totalFrame, vector<R
 	mTimePerFrame = timePerFrame;
 	mTotalFrame = totalFrame;
 	mSourRect = source;
+
+	RECT rect = mSourRect.at(0);
+	mSprite->SetSourceRect(rect);
+	mSprite->SetWidth(rect.right - rect.left);
+	mSprite->SetHeight(rect.bottom - rect.top);
 }
 
 Animation::~Animation()
@@ -59,7 +64,7 @@ D3DXVECTOR2 Animation::GetRotationCenter()
 }
 void Animation::Reset()
 {
-	mCurrentIndex = 1;
+	mCurrentIndex =0;
 }
 void Animation::SetRotationCenter(D3DXVECTOR2 rotationCenter)
 {
@@ -98,7 +103,7 @@ void Animation::Update(float dt)
 
 
 		if (mCurrentIndex >= mTotalFrame)
-			mCurrentIndex = 0;
+			mCurrentIndex =0;
 
 	}
 	else
@@ -147,3 +152,7 @@ void Animation::SetReverse(bool re)
 	mReverse = re;
 }
 
+int Animation::GetTotalFrame()
+{
+	return mTotalFrame;
+}

@@ -8,7 +8,7 @@
 PlayerFallingState::PlayerFallingState(PlayerData *playerData)
 {
     this->mPlayerData = playerData;
-    acceleratorY = 50.0f;
+    acceleratorY = 15.0f;
     acceleratorX = 3.0f;
 
     if (this->mPlayerData->player->GetVx() == 0)
@@ -47,7 +47,7 @@ void PlayerFallingState::HandleKeyboard(std::map<int, bool> keys)
         if (this->mPlayerData->player->GetVx() < Define::PLAYER_MAX_RUNNING_SPEED)
         {
           //  this->mPlayerData->player->AddVx(acceleratorX);
-			this->mPlayerData->player->SetVx(80);
+			this->mPlayerData->player->SetVx(120);
             if (this->mPlayerData->player->GetVx() >= Define::PLAYER_MAX_RUNNING_SPEED)
             {
                 this->mPlayerData->player->SetVx(Define::PLAYER_MAX_RUNNING_SPEED);
@@ -63,7 +63,7 @@ void PlayerFallingState::HandleKeyboard(std::map<int, bool> keys)
         if (this->mPlayerData->player->GetVx() > -Define::PLAYER_MAX_RUNNING_SPEED)
         {
           //  this->mPlayerData->player->AddVx(-acceleratorX);
-			this->mPlayerData->player->SetVx(-80);
+			this->mPlayerData->player->SetVx(-120);
             if (this->mPlayerData->player->GetVx() <= -Define::PLAYER_MAX_RUNNING_SPEED)
             {
                 this->mPlayerData->player->SetVx(-Define::PLAYER_MAX_RUNNING_SPEED);

@@ -5,5 +5,6 @@ public:
 	AppleBreakState(D3DXVECTOR3 pos);
 	~AppleBreakState();
 	void Update(float dt);
+	AppleState::StateName GetNameState();
 };
 

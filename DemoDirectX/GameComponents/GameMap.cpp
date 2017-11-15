@@ -12,6 +12,7 @@ GameMap::~GameMap()
 }
 void GameMap::LoadMap(char* filePath)
 {
+	//Load Sprite cho Apple Object
 	RECT rect;
 	rect.left = 370; rect.top = 45; rect.right = rect.left + 14; rect.bottom = rect.top + 14;
 	Sprite* sprite = new Sprite("Resources/Aladdin.png",rect,0,0, D3DCOLOR_XRGB(255, 0, 255), D3DXVECTOR2(0.5, 0.5));
@@ -32,7 +33,6 @@ void GameMap::LoadMap(char* filePath)
     {
         const Tmx::Tileset *tileset = mMap->GetTileset(i);
         Sprite *sprite = new Sprite(tileset->GetImage()->GetSource().c_str(),RECT(),0,0, D3DCOLOR_XRGB(63, 72, 204));
-		
 		sprite->SetTransColor(D3DCOLOR_XRGB(63, 72, 204));
         mListTileset.insert(std::pair<int, Sprite*>(i, sprite));
     }
@@ -62,7 +62,7 @@ void GameMap::LoadMap(char* filePath)
 			//lay object group chu khong phai layer
 			//object group se chua nhung body
 			Tmx::Object *object = objectGroup->GetObjects().at(j);
-			if (tag != Entity::Camel && tag != Entity::AppleObject)
+			if (tag != Entity::Camel && tag != Entity::AppleObject && name != "dropbrick" && name != "civilianBowl" &&name != "civilianBowl2")
 			{
 				Entity *entity = new Entity();
 				entity->SetPosition(object->GetX() + object->GetWidth() / 2,
@@ -103,15 +103,24 @@ void GameMap::LoadMap(char* filePath)
 				mQuadTree->insertEntity(apple);
 			}
 
+			if (name == "dropbrick")
+			{
+				D3DXVECTOR2 pos = D3DXVECTOR2(object->GetX() + object->GetWidth() / 2, object->GetY() + object->GetHeight() / 2);
+				DropBrick *temp = new DropBrick(pos);
+				temp->SetWidth(object->GetWidth());
+				temp->SetHeight(object->GetHeight());
+				listDropBrick.push_back(temp);
+			}
+
 			if (name == "civilianBowl")
 			{
 				D3DXVECTOR2 pos= D3DXVECTOR2(object->GetX() + object->GetWidth() / 2, object->GetY() + object->GetHeight() / 2);
-				listBowl1.push_back(pos);
+				listBowlPosition1.push_back(pos);
 			}
 			if (name == "civilianBowl2")
 			{
 				D3DXVECTOR2 pos = D3DXVECTOR2(object->GetX() + object->GetWidth() / 2, object->GetY() + object->GetHeight() / 2);
-				listBowl2.push_back(pos);
+				listBowlPosition2.push_back(pos);
 			}
 		
 		}
@@ -230,8 +239,8 @@ void GameMap::DrawFront()
 
 void GameMap::Draw()
 {
-    D3DXVECTOR2 trans = D3DXVECTOR2(GameGlobal::GetWidth() / 2 - mCamera->GetPosition().x,
-                                    GameGlobal::GetHeight() / 2 - mCamera->GetPosition().y);
+    D3DXVECTOR2 trans = D3DXVECTOR2(GameGlobal::GetWidth() /2 - mCamera->GetPosition().x,
+                                    GameGlobal::GetHeight() /2- mCamera->GetPosition().y);
 
 #pragma region DRAW TILESET
 	for (size_t i = 0; i < mMap->GetNumTileLayers(); i++)
@@ -257,9 +266,9 @@ void GameMap::Draw()
 			int tileSetWidth = tileSet->GetImage()->GetWidth() / tileWidth;
 			int tileSetHeight = tileSet->GetImage()->GetHeight() / tileHeight;
 
-			for (size_t m = 0; m < layer->GetHeight(); m++)
+			for (size_t m = layer->GetHeight(); m > 0; m--)
 			{
-				for (size_t n = 0; n < layer->GetWidth(); n++)
+				for (size_t n = layer->GetWidth(); n >0 ; n--)
 				{
 					if (layer->GetTileTilesetIndex(n, m) != -1)
 					{

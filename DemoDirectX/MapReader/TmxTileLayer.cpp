@@ -175,10 +175,10 @@ namespace Tmx
 
     void TileLayer::ParseBase64(const std::string &innerText) 
     {        
-    	std::string testText = innerText;
-    	Util::Trim( testText );
+    	std::string Bowl1Text = innerText;
+    	Util::Trim( Bowl1Text );
 
-        const std::string &text = Util::DecodeBase64(testText);
+        const std::string &text = Util::DecodeBase64(Bowl1Text);
 
         // Temporary array of gids to be converted to map tiles.
         unsigned *out = 0;

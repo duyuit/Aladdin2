@@ -47,7 +47,7 @@ public:
     void SetRotation(float rotation); // by radian
 
     void SetSourceRect(RECT rect);
-
+	RECT GetSourceRect();
     void FlipHorizontal(bool flag); // true: lat hinh theo chieu doc, false: binh thuong
     bool IsFlipHorizontal();
 

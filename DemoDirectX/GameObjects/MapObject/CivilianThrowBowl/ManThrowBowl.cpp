@@ -101,9 +101,9 @@ void ManThrowBowl::CheckSite(Entity* player)
 	for (int i = 0; i < mListPosition.size(); i++)
 	{
 		if (player->GetPosition().y < mListPosition.at(i).y) continue;
-		//int deltay =abs(player->GetPosition().y - mListPosition.at(i).y);
+		int deltay =player->GetPosition().y - mListPosition.at(i).y;
 		int deltax = abs(player->GetPosition().x - mListPosition.at(i).x);
-		if (deltax<=100)
+		if (deltax<=100  && deltay <=150)
 		{
 			SetPosition(mListPosition.at(i));
 			break;

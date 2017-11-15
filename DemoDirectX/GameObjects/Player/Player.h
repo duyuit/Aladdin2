@@ -64,13 +64,19 @@ public:
 	Apple* a;
 	vector<Apple*> listApple;
 	int AppleCount = 10;
+	int HPCount = 9;
 	UI *mUI;
+	bool allowJump, allowThrow, mCurrentReverse,isAttacked=false;
+	int Count_temp = 0;
+	PlayerData *mPlayerData;
+
+	PlayerState::StateName mCurrentState;
+
 protected:
 
 	Camera      *mCamera;
 
-    PlayerData *mPlayerData;
-
+    
 	Animation   *mCurrentAnimation,
 		*mAnimationStanding,
 		*mAnimationRunning,
@@ -87,9 +93,8 @@ protected:
 	
     void changeAnimation(PlayerState::StateName state);
 	
-    PlayerState::StateName mCurrentState;
-
+  
     //chi cho phep jump khi nhan nhim space, muon nhay lai phai tha phim space roi nhan lai
-    bool allowJump,allowThrow, mCurrentReverse;
+   
 };
 

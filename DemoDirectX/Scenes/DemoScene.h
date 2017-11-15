@@ -14,6 +14,7 @@
 #include "../../GameDefines/GameDefine.h"
 //#include "../GameObjects/Apple/Apple.h"
 #include "../GameObjects/MapObject/CivilianThrowBowl/ManThrowBowl.h"
+#include "../GameObjects/Enemy/Enemy1/Enemy1.h"
 class DemoScene : public Scene
 {
 public:

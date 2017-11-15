@@ -129,7 +129,7 @@ void PlayerFallingState::OnCollision(Entity *impactor, Entity::SideCollisions si
 			this->mPlayerData->player->SetState(new PlayerJumpingState(this->mPlayerData));
 			return;
 		}
-		if (data.RegionCollision.right - data.RegionCollision.left >= 8.0f)
+		if (data.RegionCollision.right - data.RegionCollision.left >= 16.0f)
 		{
 
 			this->mPlayerData->player->AddPosition(0, -(data.RegionCollision.bottom - data.RegionCollision.top)); //Code cho player đứng trên vật thể

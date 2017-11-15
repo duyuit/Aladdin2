@@ -16,27 +16,27 @@
          Hopefully this fix won't cause any issues on weird zip archives, because it assumes the low 16-bits of zip external attributes are DOS attributes (which I believe they always are in practice).
        - Fixing mz_zip_reader_is_file_a_directory() so it doesn't check the internal attributes, just the filename and external attributes
        - mz_zip_reader_init_file() - missing MZ_FCLOSE() call if the seek failed
-       - Added cmake support for Linux builds which builds all the examples, tested with clang v3.3 and gcc v4.6.
+       - Added cmake support for Linux builds which builds all the examples, Bowl1ed with clang v3.3 and gcc v4.6.
        - Clang fix for tdefl_write_image_to_png_file_in_memory() from toffaletti
        - Merged MZ_FORCEINLINE fix from hdeanclark
        - Fix <time.h> include before config #ifdef, thanks emil.brink
        - Added tdefl_write_image_to_png_file_in_memory_ex(): supports Y flipping (super useful for OpenGL apps), and explicit control over the compression level (so you can
         set it to 1 for real-time compression).
        - Merged in some compiler fixes from paulharris's github repro.
-       - Retested this build under Windows (VS 2010, including static analysis), tcc  0.9.26, gcc v4.6 and clang v3.3.
+       - ReBowl1ed this build under Windows (VS 2010, including static analysis), tcc  0.9.26, gcc v4.6 and clang v3.3.
        - Added example6.c, which dumps an image of the mandelbrot set to a PNG file.
-       - Modified example2 to help test the MZ_ZIP_FLAG_DO_NOT_SORT_CENTRAL_DIRECTORY flag more.
+       - Modified example2 to help Bowl1 the MZ_ZIP_FLAG_DO_NOT_SORT_CENTRAL_DIRECTORY flag more.
        - In r3: Bugfix to mz_zip_writer_add_file() found during merge: Fix possible src file fclose() leak if alignment bytes+local header file write faiiled
 		 - In r4: Minor bugfix to mz_zip_writer_add_from_zip_reader(): Was pushing the wrong central dir header offset, appears harmless in this release, but it became a problem in the zip64 branch
      5/20/12 v1.14 - MinGW32/64 GCC 4.6.1 compiler fixes: added MZ_FORCEINLINE, #include <time.h> (thanks fermtect).
      5/19/12 v1.13 - From jason@cornsyrup.org and kelwert@mtu.edu - Fix mz_crc32() so it doesn't compute the wrong CRC-32's when mz_ulong is 64-bit.
-       - Temporarily/locally slammed in "typedef unsigned long mz_ulong" and re-ran a randomized regression test on ~500k files.
+       - Temporarily/locally slammed in "typedef unsigned long mz_ulong" and re-ran a randomized regression Bowl1 on ~500k files.
        - Eliminated a bunch of warnings when compiling with GCC 32-bit/64.
        - Ran all examples, miniz.c, and tinfl.c through MSVC 2008's /analyze (static analysis) option and fixed all warnings (except for the silly
-        "Use of the comma-operator in a tested expression.." analysis warning, which I purposely use to work around a MSVC compiler warning).
-       - Created 32-bit and 64-bit Codeblocks projects/workspace. Built and tested Linux executables. The codeblocks workspace is compatible with Linux+Win32/x64.
-       - Added miniz_tester solution/project, which is a useful little app derived from LZHAM's tester app that I use as part of the regression test.
-       - Ran miniz.c and tinfl.c through another series of regression testing on ~500,000 files and archives.
+        "Use of the comma-operator in a Bowl1ed expression.." analysis warning, which I purposely use to work around a MSVC compiler warning).
+       - Created 32-bit and 64-bit Codeblocks projects/workspace. Built and Bowl1ed Linux executables. The codeblocks workspace is compatible with Linux+Win32/x64.
+       - Added miniz_Bowl1er solution/project, which is a useful little app derived from LZHAM's Bowl1er app that I use as part of the regression Bowl1.
+       - Ran miniz.c and tinfl.c through another series of regression Bowl1ing on ~500,000 files and archives.
        - Modified example5.c so it purposely disables a bunch of high-level functionality (MINIZ_NO_STDIO, etc.). (Thanks to corysama for the MINIZ_NO_STDIO bug report.)
        - Fix ftell() usage in examples so they exit with an error on files which are too large (a limitation of the examples, not miniz itself).
      4/12/12 v1.12 - More comments, added low-level example5.c, fixed a couple minor level_and_flags issues in the archive API's.
@@ -777,7 +777,7 @@ struct tinfl_decompressor_tag
 #define TDEFL_LESS_MEMORY 0
 
 // tdefl_init() compression flags logically OR'd together (low 12 bits contain the max. number of probes per dictionary search):
-// TDEFL_DEFAULT_MAX_PROBES: The compressor defaults to 128 dictionary probes per dictionary search. 0=Huffman only, 1=Huffman+LZ (fastest/crap compression), 4095=Huffman+LZ (slowest/best compression).
+// TDEFL_DEFAULT_MAX_PROBES: The compressor defaults to 128 dictionary probes per dictionary search. 0=Huffman only, 1=Huffman+LZ (fasBowl1/crap compression), 4095=Huffman+LZ (slowest/best compression).
 enum
 {
   TDEFL_HUFFMAN_ONLY = 0, TDEFL_DEFAULT_MAX_PROBES = 128, TDEFL_MAX_PROBES_MASK = 0xFFF

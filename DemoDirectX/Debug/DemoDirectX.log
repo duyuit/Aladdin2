@@ -1,5 +1,11 @@
-﻿  ManThrowBowl.cpp
-d:\gameuit\9.1 - state machine, player, bot\directxgame\demodirectx\gameobjects\mapobject\civilianthrowbowl\manthrowbowl.cpp(24): warning C4305: 'argument': truncation from 'double' to 'float'
-d:\gameuit\9.1 - state machine, player, bot\directxgame\demodirectx\gameobjects\mapobject\civilianthrowbowl\manthrowbowl.cpp(101): warning C4018: '<': signed/unsigned mismatch
-d:\gameuit\9.1 - state machine, player, bot\directxgame\demodirectx\gameobjects\mapobject\civilianthrowbowl\manthrowbowl.cpp(105): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+﻿  Enemy1.cpp
+d:\gameuit\9.1 - state machine, player, bot\directxgame\demodirectx\gameobjects\enemy\enemy1\enemy1.cpp(142): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
+d:\gameuit\9.1 - state machine, player, bot\directxgame\demodirectx\gameobjects\enemy\enemy1\enemy1.cpp(144): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
+d:\gameuit\9.1 - state machine, player, bot\directxgame\demodirectx\gameobjects\enemy\enemy1\enemy1.cpp(145): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
+d:\gameuit\9.1 - state machine, player, bot\directxgame\demodirectx\gameobjects\enemy\enemy1\enemy1.cpp(149): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
+d:\gameuit\9.1 - state machine, player, bot\directxgame\demodirectx\gameobjects\enemy\enemy1\enemy1.cpp(151): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
+d:\gameuit\9.1 - state machine, player, bot\directxgame\demodirectx\gameobjects\enemy\enemy1\enemy1.cpp(152): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
+d:\gameuit\9.1 - state machine, player, bot\directxgame\demodirectx\gameobjects\enemy\enemy1\enemy1.cpp(180): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+d:\gameuit\9.1 - state machine, player, bot\directxgame\demodirectx\gameobjects\enemy\enemy1\enemy1.cpp(181): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+d:\gameuit\9.1 - state machine, player, bot\directxgame\demodirectx\gameobjects\enemy\enemy1\enemy1.cpp(198): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
   DemoDirectX.vcxproj -> D:\GameUIT\9.1 - State Machine, Player, Bot\DirectXGame\Debug\DemoDirectX.exe

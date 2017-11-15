@@ -11,8 +11,8 @@ public:
 	int mAppleCount = 0;
 	int mHP = 0;
 	Sprite* apple1,*apple2,*apple;
-
-	Sprite* hp;
+	Sprite* GoldenLamp;
+	Sprite* hpBar;
 	~UI();
 };
 

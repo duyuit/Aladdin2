@@ -45,7 +45,7 @@ distribution.
 */
 /*
 	gcc:
-        g++ -Wall -DDEBUG tinyxml2.cpp xmltest.cpp -o gccxmltest.exe
+        g++ -Wall -DDEBUG tinyxml2.cpp xmlBowl1.cpp -o gccxmlBowl1.exe
 
     Formatting, Artistic Style:
         AStyle.exe --style=1tbs --indent-switches --break-closing-brackets --indent-preprocessor tinyxml2.cpp tinyxml2.h
@@ -393,7 +393,7 @@ public:
     }
 
 	// This number is perf sensitive. 4k seems like a good tradeoff on my machine.
-	// The test file is large, 170k.
+	// The Bowl1 file is large, 170k.
 	// Release:		VS2010 gcc(no opt)
 	//		1k:		4000
 	//		2k:		4000
@@ -833,7 +833,7 @@ public:
     virtual XMLNode* ShallowClone( XMLDocument* document ) const = 0;
 
     /**
-    	Test if 2 nodes are the same, but don't test children.
+    	Bowl1 if 2 nodes are the same, but don't Bowl1 children.
     	The 2 nodes do not need to be in the same Document.
 
     	Note: if called on a XMLDocument, this will return false.

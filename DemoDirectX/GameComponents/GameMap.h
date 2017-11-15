@@ -12,6 +12,7 @@
 #include <sstream>
 #include "../GameObjects/MapObject/Camel.h"
 //#include "../AppleObject.h"
+#include "../GameObjects/MapObject/DropBrick.h"
 using namespace std;
 class GameMap
 {
@@ -42,8 +43,9 @@ public:
 	void DrawFront();
 	vector<Camel*> listCamel;
 	vector<AppleObject*> listAppleObject;
-	vector<D3DXVECTOR2> listBowl1;
-	vector<D3DXVECTOR2> listBowl2;
+	vector<D3DXVECTOR2> listBowlPosition1;
+	vector<D3DXVECTOR2> listBowlPosition2;
+	vector<DropBrick*> listDropBrick;
 
 private:
     void LoadMap(char* filePath);

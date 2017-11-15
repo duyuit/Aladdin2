@@ -152,6 +152,7 @@ Apple::Apple(EntityTypes type)
 	}
 	
 	SetState(AppleState::NONE);
+
 	mReverse = false;
 
 

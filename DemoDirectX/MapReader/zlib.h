@@ -1133,7 +1133,7 @@ ZEXTERN uLong ZEXPORT zlibCompileFlags OF((void));
 
     Operation variations (changes in library functionality):
      20: PKZIP_BUG_WORKAROUND -- slightly more permissive inflate
-     21: FASTEST -- deflate algorithm with only one, lowest compression level
+     21: FASBowl1 -- deflate algorithm with only one, lowest compression level
      22,23: 0 (reserved)
 
     The sprintf variant used by gzprintf (zero is best):
@@ -1245,7 +1245,7 @@ ZEXTERN gzFile ZEXPORT gzopen OF((const char *path, const char *mode));
      These functions, as well as gzip, will read and decode a sequence of gzip
    streams in a file.  The append function of gzopen() can be used to create
    such a file.  (Also see gzflush() for another way to do this.)  When
-   appending, gzopen does not test whether the file begins with a gzip stream,
+   appending, gzopen does not Bowl1 whether the file begins with a gzip stream,
    nor does it look for the end of the gzip streams to begin appending.  gzopen
    will simply append a gzip stream to the existing file.
 

@@ -5,9 +5,9 @@ DemoScene::DemoScene()
     LoadContent();
 }
 
-ManThrowBowl* test;
-ManThrowBowl* test2;
-
+ManThrowBowl* Bowl1;
+ManThrowBowl* Bowl2;
+Enemy1* test;
 void DemoScene::LoadContent()
 {
     //set mau backcolor cho scene o day la mau xanh
@@ -22,56 +22,71 @@ void DemoScene::LoadContent()
     mMap->SetCamera(mCamera);
 
     mPlayer = new Player();
-    mPlayer->SetPosition(1500,400);
+    mPlayer->SetPosition(10,400);
 
 	mPlayer->SetCamera(mCamera);
 
-	test = new ManThrowBowl(mMap->listBowl1);
-	test2 = new ManThrowBowl(mMap->listBowl2);
+	Bowl1 = new ManThrowBowl(mMap->listBowlPosition1);
+	Bowl2 = new ManThrowBowl(mMap->listBowlPosition2);
 
-	
-	
+	test = new Enemy1(D3DXVECTOR2(300, 800),mPlayer);
+	test->SetPosition(400, 635);
+	//test->SetState(new Enemy1Running(test->mData));
 	
 }
 
 void DemoScene::Update(float dt)
 {
 	
-	checkCollision();
-	mPlayer->HandleKeyboard(keys);
-	mPlayer->Update(dt);
+	checkCollision(); //Check va cham giua cac vat the
+	mPlayer->HandleKeyboard(keys); //Xu ly ban phim cho player
+	mPlayer->Update(dt); //Update player
 
-	CheckCameraAndWorldMap();
+	CheckCameraAndWorldMap(); //Check camera vuot bien cua map
 
-	for (int i = 0; i < mMap->listCamel.size(); i++)
+	for (int i = 0; i < mMap->listCamel.size(); i++) //Update con Lac Da
 	{
 		mMap->listCamel.at(i)->Update();
 	}
-	for (int i = 0; i < mMap->listAppleObject.size(); i++)
+	for (int i = 0; i < mMap->listAppleObject.size(); i++) //Update Tao Object
 	{
 		mMap->listAppleObject.at(i)->Update();
 	}
 
 	
-	test->Update(mPlayer);
-	test2->Update(mPlayer);
+	Bowl1->Update(mPlayer); 
+	Bowl2->Update(mPlayer);
+
+	for (int i = 0; i < mMap->listDropBrick.size(); i++) //Update DropBrick
+	{
+		mMap->listDropBrick.at(i)->Update();
+	}
+	
+	test->Update();
 
 
 }
 
 void DemoScene::Draw()
 {
-    mMap->Draw();
+    mMap->Draw(); //Ve Map
+	 
+    mPlayer->Draw(); //Ve Player
 
-    mPlayer->Draw();
-
-	mMap->DrawFront();
+	mMap->DrawFront(); //Ve mat truoc cua Map
 	mPlayer->mUI->Draw(); // Ve UI tren tat ca
 
-	D3DXVECTOR2 trans = D3DXVECTOR2(GameGlobal::GetWidth() / 2 - mCamera->GetPosition().x,GameGlobal::GetHeight() / 2 - mCamera->GetPosition().y);
+	D3DXVECTOR2 trans = D3DXVECTOR2(GameGlobal::GetWidth() / 2 - mCamera->GetPosition().x,GameGlobal::GetHeight() / 2 - mCamera->GetPosition().y); //Lay TranSition hien tai
 
-	test->Draw(D3DXVECTOR3(),RECT(),D3DXVECTOR2(), trans,0, D3DXVECTOR2(),D3DXCOLOR());
-	test2->Draw(D3DXVECTOR3(), RECT(), D3DXVECTOR2(), trans, 0, D3DXVECTOR2(), D3DXCOLOR());
+	Bowl1->Draw(D3DXVECTOR3(),RECT(),D3DXVECTOR2(), trans,0, D3DXVECTOR2(),D3DXCOLOR());
+	Bowl2->Draw(D3DXVECTOR3(), RECT(), D3DXVECTOR2(), trans, 0, D3DXVECTOR2(), D3DXCOLOR());
+
+
+	for (int i = 0; i < mMap->listDropBrick.size(); i++) //Update DropBrick
+	{
+		mMap->listDropBrick.at(i)->Draw(trans, D3DXVECTOR2());
+	}
+	test->Draw(trans);
 }
 
 void DemoScene::OnKeyDown(int keyCode)
@@ -90,11 +105,7 @@ void DemoScene::OnKeyUp(int keyCode)
     keys[keyCode] = false;
 	mPlayer->OnKeyUp(keyCode);
 
-	//if (keyCode == VK_NUMPAD3)
-	//{
-	//	test->mCurrentApple->SetPosition(test->GetPosition());
-	//	test->mCurrentApple->SetState(AppleState::Flying);
-	//}
+	
 }
 
 void DemoScene::OnMouseDown(float x, float y)
@@ -135,11 +146,48 @@ void DemoScene::CheckCameraAndWorldMap()
 
 void DemoScene::checkCollision()
 {
-	/*su dung de kiem tra xem khi nao mario khong dung tren 1 object hoac
-	dung qua sat mep trai hoac phai cua object do thi se chuyen state la falling*/
-	int widthBottom = 0;
+	Entity::EntityTypes tag = Entity::None;
 
-	vector<Entity*> listCollision;
+
+#pragma region -Check Collision Enemy-
+	//Check Enemy1 vs Player
+	Entity::CollisionReturn re = GameCollision::RecteAndRect(test->GetBound(),
+		mPlayer->GetBound());
+	if (re.IsCollided)
+	{
+		test->OnCollision(mPlayer, re, Entity::NotKnow);
+	}
+
+	//Check Apple va cham voi Enemy
+	for (int i = 0; i < mPlayer->listApple.size(); i++)
+	{
+
+		Entity::CollisionReturn re = GameCollision::RecteAndRect(mPlayer->listApple.at(i)->GetBound(), test->GetBound());
+
+		if (re.IsCollided)
+		{
+
+			test->OnCollision(mPlayer->listApple.at(i), re, Entity::NotKnow);
+			mPlayer->listApple.at(i)->OnCollision(test, re, Entity::NotKnow);
+		}
+	}
+#pragma endregion
+	//Check player vs DropBrick
+	for (int i = 0; i < mMap->listDropBrick.size(); i++)
+	{
+		
+		Entity::CollisionReturn re = GameCollision::RecteAndRect(mMap->listDropBrick.at(i)->GetBound(),
+			mPlayer->GetBound());
+		if (re.IsCollided)
+		{
+			Entity::SideCollisions sidePlayer = GameCollision::getSideCollision(mPlayer, re);
+			mMap->listDropBrick.at(i)->OnCollision(mPlayer, re, Entity::NotKnow);
+			mPlayer->OnCollision(mMap->listDropBrick.at(i), re, sidePlayer);
+			tag = Entity::BrickDrop;
+	
+		}
+
+	}
 
 	//Check Apple va cham voi object
 	for (int i = 0; i < mPlayer->listApple.size(); i++)
@@ -155,6 +203,9 @@ void DemoScene::checkCollision()
 			
 			Entity::CollisionReturn re = GameCollision::RecteAndRect(mPlayer->listApple.at(i)->GetBound(),
 				listCollisionApple.at(j)->GetBound());
+
+			
+
 			if (re.IsCollided)
 			{
 				Entity::SideCollisions sidePlayer = GameCollision::getSideCollision(mPlayer, re);
@@ -166,68 +217,74 @@ void DemoScene::checkCollision()
 		}
 	}
 
+	
+	
+	
 	//Check bowl Collision voi Map
 
-	if (test->mCurrentApple->GetCurrentState() != AppleState::NONE)
+	if (Bowl1->mCurrentApple->GetCurrentState() != AppleState::NONE)
 	{
 		vector<Entity*> listCollisionWithBowl;
-		mMap->GetQuadTree()->getEntitiesCollideAble(listCollisionWithBowl, test->mCurrentApple);
+		mMap->GetQuadTree()->getEntitiesCollideAble(listCollisionWithBowl, Bowl1->mCurrentApple);
 
 		for (size_t i = 0; i < listCollisionWithBowl.size(); i++)
 		{
 		
-			Entity::CollisionReturn r = GameCollision::RecteAndRect(test->mCurrentApple->GetBound(),
+			Entity::CollisionReturn r = GameCollision::RecteAndRect(Bowl1->mCurrentApple->GetBound(),
 				listCollisionWithBowl.at(i)->GetBound());
 			if (r.IsCollided)
-				test->mCurrentApple->OnCollision(listCollisionWithBowl.at(i), r, Entity::NotKnow);
+				Bowl1->mCurrentApple->OnCollision(listCollisionWithBowl.at(i), r, Entity::NotKnow);
 		}
 	}
 
 
-	if (test2->mCurrentApple->GetCurrentState() != AppleState::NONE)
+	if (Bowl2->mCurrentApple->GetCurrentState() != AppleState::NONE)
 	{
 		vector<Entity*> listCollisionWithBowl;
-		mMap->GetQuadTree()->getEntitiesCollideAble(listCollisionWithBowl, test2->mCurrentApple);
+		mMap->GetQuadTree()->getEntitiesCollideAble(listCollisionWithBowl, Bowl2->mCurrentApple);
 
 		for (size_t i = 0; i < listCollisionWithBowl.size(); i++)
 		{
 
-			Entity::CollisionReturn r = GameCollision::RecteAndRect(test2->mCurrentApple->GetBound(),
+			Entity::CollisionReturn r = GameCollision::RecteAndRect(Bowl2->mCurrentApple->GetBound(),
 				listCollisionWithBowl.at(i)->GetBound());
 			if (r.IsCollided)
-				test2->mCurrentApple->OnCollision(listCollisionWithBowl.at(i), r, Entity::NotKnow);
+				Bowl2->mCurrentApple->OnCollision(listCollisionWithBowl.at(i), r, Entity::NotKnow);
 		}
 	}
 
 
 	//Check bowl Collision voi Player
-	if (test->mCurrentApple->GetCurrentState() == AppleState::Flying)
+	if (Bowl1->mCurrentApple->GetCurrentState() == AppleState::Flying)
 	{
-		Entity::CollisionReturn r = GameCollision::RecteAndRect(test->mCurrentApple->GetBound(), mPlayer->GetBound());
+		Entity::CollisionReturn r = GameCollision::RecteAndRect(Bowl1->mCurrentApple->GetBound(), mPlayer->GetBound());
 		if (r.IsCollided)
 		{
-			mPlayer->OnCollision(test->mCurrentApple, r, Entity::NotKnow);
-			test->mCurrentApple->OnCollision(mPlayer, r, Entity::NotKnow);
+			mPlayer->OnCollision(Bowl1->mCurrentApple, r, Entity::NotKnow);
+			Bowl1->mCurrentApple->OnCollision(mPlayer, r, Entity::NotKnow);
 		}
 	}
 
-	if (test2->mCurrentApple->GetCurrentState() == AppleState::Flying)
+	if (Bowl2->mCurrentApple->GetCurrentState() == AppleState::Flying)
 	{
-		Entity::CollisionReturn r = GameCollision::RecteAndRect(test2->mCurrentApple->GetBound(), mPlayer->GetBound());
+		Entity::CollisionReturn r = GameCollision::RecteAndRect(Bowl2->mCurrentApple->GetBound(), mPlayer->GetBound());
 		if (r.IsCollided)
 		{
-			mPlayer->OnCollision(test2->mCurrentApple, r, Entity::NotKnow);
-			test2->mCurrentApple->OnCollision(mPlayer, r, Entity::NotKnow);
+			mPlayer->OnCollision(Bowl2->mCurrentApple, r, Entity::NotKnow);
+			Bowl2->mCurrentApple->OnCollision(mPlayer, r, Entity::NotKnow);
 		}
 	}
 
 
 
+	/*su dung de kiem tra xem khi nao mario khong dung tren 1 object hoac
+	dung qua sat mep trai hoac phai cua object do thi se chuyen state la falling*/
+	int widthBottom = 0;
 
-
+	vector<Entity*> listCollision;
 	//Check player va cham voi object
 	mMap->GetQuadTree()->getEntitiesCollideAble(listCollision, mPlayer);
-	Entity::EntityTypes tag = Entity::None;
+
 	for (size_t i = 0; i < listCollision.size(); i++)
 	{
 		//if (listCollision.at(i) == nullptr) //Null thi bo qua nha
@@ -273,11 +330,12 @@ void DemoScene::checkCollision()
 		}
 	}
 
+
+	if (tag == Entity::string || tag == Entity::BrickDrop) return;
+
 	//Neu mario dung ngoai mep thi luc nay cho mario rot xuong duoi dat 
-	if (tag == Entity::string) return;
 	if (widthBottom < Define::PLAYER_BOTTOM_RANGE_FALLING)
 	{
-
 		mPlayer->OnNoCollisionWithBottom();
 	}
 }

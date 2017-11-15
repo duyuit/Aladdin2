@@ -96,7 +96,10 @@ void PlayerJumpingState::OnCollision(Entity *impactor, Entity::SideCollisions si
 		mPlayerData->player->SetPosition(impactor->GetPosition().x, mPlayerData->player->GetPosition().y);
 		mPlayerData->player->SetVx(0);
 		mPlayerData->player->SetVy(0);
+		//mPlayerData->player->allowJump = true;
 		mPlayerData->player->SetState(new PlayerClimbState(this->mPlayerData));
+
+	
 		return;
 	}
 

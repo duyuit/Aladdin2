@@ -57,6 +57,7 @@ void PlayerStandingState::OnCollision(Entity *impactor, Entity::SideCollisions s
 {
 	if(impactor->Tag==Entity::Fired)
 		this->mPlayerData->player->SetState(new PlayerFiredState(this->mPlayerData));
+
 }
 PlayerState::StateName PlayerStandingState::GetState()
 {

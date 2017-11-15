@@ -99,6 +99,7 @@ void PlayerRunningState::OnCollision(Entity *impactor, Entity::SideCollisions si
 
 			return;
 		}
+		break;
 	}
 
 	case Entity::Right:
@@ -116,6 +117,7 @@ void PlayerRunningState::OnCollision(Entity *impactor, Entity::SideCollisions si
 			}
 			return; 
 		}
+		break;
 	}
 
 	case Entity::Top:
@@ -123,11 +125,12 @@ void PlayerRunningState::OnCollision(Entity *impactor, Entity::SideCollisions si
 
 	case Entity::Bottom: case Entity::BottomLeft: case Entity::BottomRight:
 	{
-		this->mPlayerData->player->AddPosition(0, -(data.RegionCollision.bottom - data.RegionCollision.top));
+		
+			this->mPlayerData->player->AddPosition(0, -(data.RegionCollision.bottom - data.RegionCollision.top));
 
-		this->mPlayerData->player->SetVy(0);
+			this->mPlayerData->player->SetVy(0);
 
-		return;
+		break;
 	}
 	}
 }

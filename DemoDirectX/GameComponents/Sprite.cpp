@@ -109,6 +109,7 @@ void Sprite::Draw(D3DXVECTOR3 position, RECT sourceRect, D3DXVECTOR2 scale, D3DX
     RECT inSourceRect = mSourceRect;
     float inRotation = mRotation;
     D3DXVECTOR2 inCcale = mScale;
+	//D3DXVECTOR2 inCcale = D3DXVECTOR2(2, 2);
     D3DXVECTOR2 inTranslation = mTranslation;
     D3DXVECTOR2 inRotationCenter = D3DXVECTOR2(inPosition.x, inPosition.y);
     D3DXVECTOR2 scalingScenter = D3DXVECTOR2(inPosition.x, inPosition.y);
@@ -266,4 +267,10 @@ void Sprite::SetHeight(int height)
 void Sprite::SetTransColor(D3DCOLOR color)
 {
 	mColorTrans = color;
+}
+
+
+RECT Sprite::GetSourceRect()
+{
+	return mSourceRect;
 }

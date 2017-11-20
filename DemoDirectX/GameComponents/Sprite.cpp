@@ -274,3 +274,12 @@ RECT Sprite::GetSourceRect()
 {
 	return mSourceRect;
 }
+ 
+D3DXVECTOR2 Sprite::GetCenterDraw()
+{
+	return mCenterDraw;
+}
+void Sprite::SetCenterDraw(D3DXVECTOR2 center)
+{
+	mCenterDraw = center;
+}

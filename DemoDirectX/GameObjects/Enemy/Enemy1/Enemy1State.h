@@ -15,7 +15,8 @@ public:
 		None,
 		Running,
 		Fighting,
-		Attacked
+		Attacked,
+		Die
 	};
 	virtual void Update();
 	virtual StateName GetState() = 0;

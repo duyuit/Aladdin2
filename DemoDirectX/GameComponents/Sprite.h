@@ -50,7 +50,8 @@ public:
 	RECT GetSourceRect();
     void FlipHorizontal(bool flag); // true: lat hinh theo chieu doc, false: binh thuong
     bool IsFlipHorizontal();
-
+	D3DXVECTOR2				GetCenterDraw();
+	void SetCenterDraw(D3DXVECTOR2 center);
     void FlipVertical(bool flag); // true: lat hinh theo chieu ngang, false: binh thuong
     bool IsFlipVertical();
 	void SetTransColor(D3DCOLOR color);

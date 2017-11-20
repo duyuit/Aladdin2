@@ -13,6 +13,10 @@
 #include "PlayerFallingState.h"
 #include "PlayerFiredState.h"
 #include "../../GameComponents/UI.h"
+#include "PLayerThrowClimb.h"
+#include "PlayerBung.h"
+#include "PlayerClimHori.h"
+#include "PLayerRevive.h"
 class Player : public Entity
 {
 public:
@@ -69,9 +73,10 @@ public:
 	bool allowJump, allowThrow, mCurrentReverse,isAttacked=false;
 	int Count_temp = 0;
 	PlayerData *mPlayerData;
-
+	int PlayerLiveCount = 3;
 	PlayerState::StateName mCurrentState;
-
+	Animation *mAnimationThrowClimb;
+	D3DXVECTOR2 CheckPoint;
 protected:
 
 	Camera      *mCamera;
@@ -88,7 +93,11 @@ protected:
 		*mAnimationSitFight,
 		*mAnimationJumpThrow,
 		*mAnimationSitThrow,
-		*mAnimationFired;
+		*mAnimationFired,
+		
+		*mAnimationBung,
+		*mAnimationClimbHori,
+		*mAnimationRevive;
 	
 	
     void changeAnimation(PlayerState::StateName state);

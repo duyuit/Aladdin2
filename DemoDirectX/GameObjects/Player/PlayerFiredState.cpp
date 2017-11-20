@@ -2,7 +2,7 @@
 #include "PlayerStandingState.h"
 #include "PlayerRunningState.h"
 #include "PlayerJumpingState.h"
-
+#include "PlayerFighting.h"
 
 
 PlayerFiredState::~PlayerFiredState()
@@ -47,6 +47,11 @@ void PlayerFiredState::HandleKeyboard(std::map<int, bool> keys)
 	else if (keys[VK_SPACE])
 	{
 		this->mPlayerData->player->SetState(new PlayerJumpingState(this->mPlayerData));
+		return;
+	}
+	else if (keys[VK_NUMPAD0])
+	{
+		this->mPlayerData->player->SetState(new PlayerFighting(this->mPlayerData));
 		return;
 	}
 	

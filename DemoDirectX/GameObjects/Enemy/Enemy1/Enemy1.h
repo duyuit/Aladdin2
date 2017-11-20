@@ -7,14 +7,14 @@
 #include "Enemy1Running.h"
 #include "Enemy1Attacked.h"
 #include "Enemy1Fighting.h"
-
+#include "Enemy1Die.h"
 
 
 class Enemy1:public Entity
 {
 public:
 
-	Enemy1(D3DXVECTOR2 Location ,Player *player);
+	Enemy1(Player *player, vector<D3DXVECTOR2> list);
 	void Update();
 
 	void Draw( D3DXVECTOR2 transform = D3DXVECTOR2());
@@ -22,7 +22,9 @@ public:
 	void SetState(Enemy1State *newState);
 
 
-
+	vector<D3DXVECTOR2> mListPosition;
+	vector<int> positionted;
+	int CurrentPosIndex = -1;
 	RECT GetBound();
 
 	Enemy1State::StateName getState();
@@ -36,20 +38,24 @@ public:
 	Animation* GetCurrentAnimation();
 	void CheckAction();
 	~Enemy1();
+	int Heal = 3;
+
+	Enemy1State::StateName mCurrentState;
+	Animation  *mCurrentAnimation;
 private:
 	vector<RECT> LoadRECT(Enemy1State::StateName state);
 	
 	Player* mPlayer;
-	Animation   *mCurrentAnimation,
+	Animation  
 		*mAnimationRunning,
 		*mAnimationFighting,
-		*mAnimationAttacked;
+		*mAnimationAttacked,
+		*mAnimationDied;
 	Sprite *mSprite;
-	D3DXVECTOR2 startLocation;
+
 
 	void changeAnimation(Enemy1State::StateName state);
 
-	Enemy1State::StateName mCurrentState;
 
 };
 

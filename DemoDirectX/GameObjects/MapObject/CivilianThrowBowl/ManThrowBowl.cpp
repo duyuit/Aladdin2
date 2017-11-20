@@ -28,8 +28,7 @@ ManThrowBowl::ManThrowBowl(vector<D3DXVECTOR2> listpos)
 	
 	Tag = Entity::None;
 
-	//mCurrentAnimate = ThrowAnimate;
-	
+
 	
 
 	mCurrentApple = mApple;
@@ -48,15 +47,7 @@ void ManThrowBowl::Update(Entity* player)
 	CheckSite(player);
 	if (AllowThrow)
 	{
-
-		//if(mCurrentApple->GetCurrentState() == AppleState::NONE ) //Check Bowl phai dang o trang thai None, Flying or Breaking thi ko nem
-			mCurrentAnimate = ThrowAnimate;
-		/*else
-		{
-				mCurrentAnimate = nullptr;
-		}*/
-
-
+		mCurrentAnimate = ThrowAnimate;
 
 		if (mCurrentAnimate != nullptr) //Khac null moi update
 		{
@@ -127,7 +118,7 @@ void ManThrowBowl::Draw(D3DXVECTOR3 position, RECT sourceRect, D3DXVECTOR2 scale
 }
 void ManThrowBowl::OnCollision(Entity *impactor, CollisionReturn data, SideCollisions side)
 {
-//	if(impactor->Tag==Entity::Land)
+
 	mCurrentApple->SetState(AppleState::Breaking);
 
 }

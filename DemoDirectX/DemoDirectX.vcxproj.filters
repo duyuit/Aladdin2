@@ -53,6 +53,15 @@
     <Filter Include="FrameWork\GameObjects\Enemy\Enemy1">
       <UniqueIdentifier>{8cb0284b-f050-4889-815b-66503f559510}</UniqueIdentifier>
     </Filter>
+    <Filter Include="FrameWork\GameObjects\Enemy\Enemy2">
+      <UniqueIdentifier>{e70fda22-1f9b-42ed-8db5-c6b51e42ff51}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="FrameWork\GameObjects\Enemy\Enemy3">
+      <UniqueIdentifier>{5a135fa2-7cd5-42b8-b15d-d9cb0fb980d6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="FrameWork\GameObjects\Enemy\Enemy4">
+      <UniqueIdentifier>{2ac949c0-c9ef-4aa8-a8da-0de883d2330b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -249,6 +258,75 @@
     </ClCompile>
     <ClCompile Include="GameObjects\Enemy\Enemy1\Enemy1Running.cpp">
       <Filter>FrameWork\GameObjects\Enemy\Enemy1</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObjects\Enemy\Enemy1\Enemy1Die.cpp">
+      <Filter>FrameWork\GameObjects\Enemy\Enemy1</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObjects\Enemy\Enemy2\Enemy2.cpp">
+      <Filter>FrameWork\GameObjects\Enemy\Enemy2</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObjects\Enemy\Enemy2\Enemy2Attacked.cpp">
+      <Filter>FrameWork\GameObjects\Enemy\Enemy2</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObjects\Enemy\Enemy2\Enemy2Data.cpp">
+      <Filter>FrameWork\GameObjects\Enemy\Enemy2</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObjects\Enemy\Enemy2\Enemy2Die.cpp">
+      <Filter>FrameWork\GameObjects\Enemy\Enemy2</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObjects\Enemy\Enemy2\Enemy2Fighting.cpp">
+      <Filter>FrameWork\GameObjects\Enemy\Enemy2</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObjects\Enemy\Enemy2\Enemy2Running.cpp">
+      <Filter>FrameWork\GameObjects\Enemy\Enemy2</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObjects\Enemy\Enemy2\Enemy2State.cpp">
+      <Filter>FrameWork\GameObjects\Enemy\Enemy2</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObjects\Enemy\Enemy3\Enemy3.cpp">
+      <Filter>FrameWork\GameObjects\Enemy\Enemy3</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObjects\Enemy\Enemy3\Enemy3Attacked.cpp">
+      <Filter>FrameWork\GameObjects\Enemy\Enemy3</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObjects\Enemy\Enemy3\Enemy3Data.cpp">
+      <Filter>FrameWork\GameObjects\Enemy\Enemy3</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObjects\Enemy\Enemy3\Enemy3Die.cpp">
+      <Filter>FrameWork\GameObjects\Enemy\Enemy3</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObjects\Enemy\Enemy3\Enemy3Fighting.cpp">
+      <Filter>FrameWork\GameObjects\Enemy\Enemy3</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObjects\Enemy\Enemy3\Enemy3Running.cpp">
+      <Filter>FrameWork\GameObjects\Enemy\Enemy3</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObjects\Enemy\Enemy3\Enemy3State.cpp">
+      <Filter>FrameWork\GameObjects\Enemy\Enemy3</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObjects\Player\PLayerThrowClimb.cpp">
+      <Filter>FrameWork\GameObjects\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObjects\Enemy\Enemy4\Enemy4.cpp">
+      <Filter>FrameWork\GameObjects\Enemy\Enemy4</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObjects\MapObject\CayBung.cpp">
+      <Filter>FrameWork\GameObjects\MapObject</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObjects\Player\PlayerBung.cpp">
+      <Filter>FrameWork\GameObjects\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObjects\Player\PlayerClimHori.cpp">
+      <Filter>FrameWork\GameObjects\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Scenes\DieScene.cpp">
+      <Filter>FrameWork\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObjects\Player\PLayerRevive.cpp">
+      <Filter>FrameWork\GameObjects\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObjects\MapObject\CheckPointSite.cpp">
+      <Filter>FrameWork\GameObjects\MapObject</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -458,6 +536,75 @@
     </ClInclude>
     <ClInclude Include="GameObjects\Enemy\Enemy1\Enemy1Running.h">
       <Filter>FrameWork\GameObjects\Enemy\Enemy1</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjects\Enemy\Enemy1\Enemy1Die.h">
+      <Filter>FrameWork\GameObjects\Enemy\Enemy1</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjects\Enemy\Enemy2\Enemy2.h">
+      <Filter>FrameWork\GameObjects\Enemy\Enemy2</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjects\Enemy\Enemy2\Enemy2Attacked.h">
+      <Filter>FrameWork\GameObjects\Enemy\Enemy2</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjects\Enemy\Enemy2\Enemy2Data.h">
+      <Filter>FrameWork\GameObjects\Enemy\Enemy2</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjects\Enemy\Enemy2\Enemy2Die.h">
+      <Filter>FrameWork\GameObjects\Enemy\Enemy2</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjects\Enemy\Enemy2\Enemy2Fighting.h">
+      <Filter>FrameWork\GameObjects\Enemy\Enemy2</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjects\Enemy\Enemy2\Enemy2Running.h">
+      <Filter>FrameWork\GameObjects\Enemy\Enemy2</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjects\Enemy\Enemy2\Enemy2State.h">
+      <Filter>FrameWork\GameObjects\Enemy\Enemy2</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjects\Enemy\Enemy3\Enemy3.h">
+      <Filter>FrameWork\GameObjects\Enemy\Enemy3</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjects\Enemy\Enemy3\Enemy3Attacked.h">
+      <Filter>FrameWork\GameObjects\Enemy\Enemy3</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjects\Enemy\Enemy3\Enemy3Data.h">
+      <Filter>FrameWork\GameObjects\Enemy\Enemy3</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjects\Enemy\Enemy3\Enemy3Die.h">
+      <Filter>FrameWork\GameObjects\Enemy\Enemy3</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjects\Enemy\Enemy3\Enemy3Fighting.h">
+      <Filter>FrameWork\GameObjects\Enemy\Enemy3</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjects\Enemy\Enemy3\Enemy3Running.h">
+      <Filter>FrameWork\GameObjects\Enemy\Enemy3</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjects\Enemy\Enemy3\Enemy3State.h">
+      <Filter>FrameWork\GameObjects\Enemy\Enemy3</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjects\Player\PLayerThrowClimb.h">
+      <Filter>FrameWork\GameObjects\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjects\Enemy\Enemy4\Enemy4.h">
+      <Filter>FrameWork\GameObjects\Enemy\Enemy4</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjects\MapObject\CayBung.h">
+      <Filter>FrameWork\GameObjects\MapObject</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjects\Player\PlayerBung.h">
+      <Filter>FrameWork\GameObjects\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjects\Player\PlayerClimHori.h">
+      <Filter>FrameWork\GameObjects\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Scenes\DieScene.h">
+      <Filter>FrameWork\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjects\Player\PLayerRevive.h">
+      <Filter>FrameWork\GameObjects\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjects\MapObject\CheckPointSite.h">
+      <Filter>FrameWork\GameObjects\MapObject</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

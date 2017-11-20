@@ -16,7 +16,8 @@ public:
 private:
     SceneManager();
     static SceneManager     *mInstace;
-    Scene                   *mCurrentScene;    
+    Scene                   *mCurrentScene;  
+	
 };
 
 #endif

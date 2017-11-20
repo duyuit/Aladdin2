@@ -15,6 +15,12 @@
 //#include "../GameObjects/Apple/Apple.h"
 #include "../GameObjects/MapObject/CivilianThrowBowl/ManThrowBowl.h"
 #include "../GameObjects/Enemy/Enemy1/Enemy1.h"
+#include "../GameObjects/Enemy/Enemy2/Enemy2.h"
+#include "../GameObjects/Enemy/Enemy3/Enemy3.h"
+#include "../GameObjects/Enemy/Enemy4/Enemy4.h"
+#include "../GameObjects/MapObject/CayBung.h"
+#include "../GameControllers/SceneManager.h"
+#include "DieScene.h"
 class DemoScene : public Scene
 {
 public:
@@ -27,11 +33,11 @@ public:
     void OnKeyDown(int keyCode);
     void OnKeyUp(int keyCode);
     void OnMouseDown(float x, float y);
-
+	DieScene *mDieScene;
 
 protected:
 
-	
+	Animation *EatItem;
     GameMap *mMap;
     Camera *mCamera;
 	Player *mPlayer;

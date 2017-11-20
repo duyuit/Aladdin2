@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="159" height="23" tilewidth="30" tileheight="30" nextobjectid="264">
+<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="159" height="23" tilewidth="30" tileheight="30" nextobjectid="404">
  <tileset firstgid="1" name="67733" tilewidth="30" tileheight="30" tilecount="7314" columns="159">
   <image source="C:/Users/Billy/Desktop/67733.png" trans="3f48cc" width="4773" height="1383"/>
  </tileset>
@@ -106,6 +106,10 @@
   <object id="170" x="1315.5" y="585.5" width="36.5" height="47.5"/>
   <object id="171" x="1354.5" y="575" width="38" height="22.5"/>
   <object id="172" x="1393.5" y="570.5" width="103" height="5.5"/>
+  <object id="327" x="4303.33" y="64" width="51.3333" height="147.333"/>
+  <object id="330" x="4762" y="299" width="7.33333" height="322.333"/>
+  <object id="331" x="4323.5" y="297.667" width="7.5" height="69"/>
+  <object id="333" x="4553" y="48" width="32.3333" height="72"/>
  </objectgroup>
  <objectgroup name="civilianBowl">
   <object id="174" x="1789.5" y="480.5" width="4.5" height="5.5"/>
@@ -117,8 +121,8 @@
  </objectgroup>
  <objectgroup name="dropbrick">
   <object id="193" x="1625.33" y="442.667" width="44" height="7.33333"/>
-  <object id="203" x="4113" y="472" width="29" height="10"/>
-  <object id="204" x="4226" y="448" width="34" height="9"/>
+  <object id="203" x="4113" y="472" width="57.6667" height="10"/>
+  <object id="204" x="4226" y="448" width="58" height="9"/>
   <object id="205" x="4128" y="1300"/>
   <object id="206" x="3768" y="2100" width="328" height="64"/>
  </objectgroup>
@@ -145,8 +149,8 @@
   <object id="100" x="2966" y="169" width="201" height="8"/>
   <object id="101" x="2521" y="168" width="129" height="10"/>
   <object id="102" x="3331" y="327" width="298" height="8"/>
-  <object id="103" x="3590" y="214" width="369" height="8"/>
-  <object id="104" x="3502" y="119" width="107" height="10"/>
+  <object id="103" x="3590" y="214" width="1115.67" height="8"/>
+  <object id="104" x="3525" y="119" width="84" height="10"/>
   <object id="153" x="3817.5" y="477.5" width="33" height="18"/>
   <object id="154" x="3852.5" y="466" width="21.5" height="23.5"/>
   <object id="155" x="3876" y="453" width="23" height="25.5"/>
@@ -168,6 +172,33 @@
   <object id="253" x="2337.33" y="567.667" width="30.6667" height="11.3333"/>
   <object id="254" x="2367.33" y="558" width="68.6667" height="12"/>
   <object id="255" x="2422" y="544" width="128.667" height="12"/>
+ </objectgroup>
+ <objectgroup name="enemy3">
+  <object id="292" x="1752" y="660.5"/>
+  <object id="294" x="1824" y="434"/>
+  <object id="295" x="2054.67" y="274.667"/>
+  <object id="298" x="2991.33" y="421.333"/>
+  <object id="299" x="3226" y="487.333"/>
+  <object id="300" x="3510.67" y="662.667"/>
+  <object id="301" x="3397.33" y="323.333"/>
+  <object id="302" x="3931.33" y="431.333"/>
+  <object id="303" x="4630" y="622"/>
+  <object id="304" x="4622.67" y="213.333"/>
+ </objectgroup>
+ <objectgroup name="caybung">
+  <object id="322" x="3399.67" y="224.333" width="7.66667" height="8"/>
+  <object id="323" x="3438" y="140" width="10" height="9.33333"/>
+  <object id="325" x="4236" y="120"/>
+ </objectgroup>
+ <objectgroup name="stringhori">
+  <object id="328" x="4358.67" y="310.667" width="407.333" height="2.66667"/>
+  <object id="329" x="4376" y="86" width="161.333" height="4.66667"/>
+ </objectgroup>
+ <objectgroup name="enemy4">
+  <object id="305" x="1337.33" y="584.667"/>
+  <object id="307" x="2508" y="532.667"/>
+  <object id="316" x="2561.33" y="167.333"/>
+  <object id="318" x="2980.67" y="166.667"/>
  </objectgroup>
  <objectgroup name="string">
   <object id="112" x="2698.67" y="111.333" width="2" height="201"/>
@@ -214,6 +245,78 @@
   <object id="224" x="1970" y="200.667"/>
   <object id="225" x="2025.33" y="166.667"/>
   <object id="226" x="2063.33" y="204"/>
+  <object id="334" x="2338" y="290"/>
+  <object id="335" x="2359" y="333"/>
+  <object id="336" x="2370" y="372"/>
+  <object id="337" x="2372" y="405"/>
+  <object id="338" x="2374" y="439"/>
+  <object id="339" x="2261" y="552"/>
+  <object id="340" x="2275" y="521"/>
+  <object id="341" x="2292" y="548"/>
+  <object id="342" x="2444" y="584"/>
+  <object id="343" x="2532" y="602"/>
+  <object id="346" x="2658" y="200"/>
+  <object id="349" x="2860" y="234"/>
+  <object id="350" x="2888" y="202"/>
+  <object id="352" x="2915" y="234"/>
+  <object id="353" x="2837" y="352"/>
+  <object id="354" x="2884" y="325"/>
+  <object id="355" x="2927" y="351"/>
+  <object id="356" x="3345" y="101"/>
+  <object id="357" x="3316" y="128"/>
+  <object id="358" x="3296" y="171"/>
+  <object id="359" x="3335" y="407"/>
+  <object id="360" x="3368" y="374"/>
+  <object id="361" x="3392" y="403"/>
+  <object id="362" x="3449" y="408"/>
+  <object id="363" x="3477" y="371"/>
+  <object id="367" x="3500" y="407"/>
+  <object id="368" x="3109" y="590"/>
+  <object id="369" x="3149" y="568"/>
+  <object id="370" x="3183" y="592"/>
+  <object id="371" x="3343" y="598"/>
+  <object id="372" x="3372" y="563"/>
+  <object id="375" x="3394" y="596"/>
+  <object id="376" x="3528" y="595"/>
+  <object id="377" x="3551" y="569"/>
+  <object id="378" x="3575" y="592"/>
+  <object id="379" x="3636" y="187"/>
+  <object id="381" x="3793" y="73"/>
+  <object id="382" x="3830" y="36"/>
+  <object id="383" x="3861" y="71"/>
+  <object id="384" x="3811" y="431"/>
+  <object id="386" x="3866" y="400"/>
+  <object id="387" x="3915" y="367"/>
+  <object id="388" x="3839" y="581"/>
+  <object id="389" x="3869" y="545"/>
+  <object id="390" x="3896" y="575"/>
+  <object id="391" x="4322" y="10"/>
+  <object id="392" x="4290" y="28"/>
+  <object id="393" x="4350" y="22"/>
+  <object id="395" x="4251" y="401"/>
+  <object id="396" x="4139" y="431"/>
+  <object id="397" x="4449" y="328"/>
+  <object id="399" x="4504" y="328"/>
+  <object id="400" x="4563" y="332"/>
+ </objectgroup>
+ <objectgroup name="checkpoint">
+  <object id="401" x="2693" y="495"/>
+  <object id="402" x="3511" y="483"/>
+  <object id="403" x="3699" y="205"/>
+ </objectgroup>
+ <objectgroup name="enemy1">
+  <object id="269" x="605.833" y="635.333"/>
+  <object id="275" x="2691" y="406"/>
+ </objectgroup>
+ <objectgroup name="enemy2">
+  <object id="276" x="978" y="634"/>
+  <object id="279" x="1743" y="269"/>
+  <object id="280" x="3002" y="293"/>
+  <object id="281" x="3250" y="663"/>
+  <object id="286" x="3724" y="663"/>
+  <object id="287" x="4259" y="663"/>
+  <object id="288" x="3688" y="486"/>
+  <object id="290" x="4426" y="213"/>
  </objectgroup>
  <objectgroup name="fired">
   <object id="129" x="860.667" y="635.333" width="63.3333" height="6"/>

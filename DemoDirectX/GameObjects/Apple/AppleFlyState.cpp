@@ -5,10 +5,10 @@
 AppleFlyState::AppleFlyState(D3DXVECTOR3 pos,bool reverse, Entity::EntityTypes type)
 {
 	this->pos = pos;
-	if (type == Entity::AppleThrow)
+	if (type == Entity::AppleThrow || type == Entity::KnifeEnemy3)
 	{
-		acceX = 6.0f;
-		acceY = 0.05f;
+		acceX = 4.0f;
+		acceY = 0.025f;
 	}
 	else if(type=Entity::Bowl)
 	{

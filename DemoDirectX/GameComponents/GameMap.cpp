@@ -3,6 +3,7 @@
 GameMap::GameMap(char* filePath)
 {
     LoadMap(filePath);
+
 }
 
 
@@ -46,6 +47,8 @@ void GameMap::LoadMap(char* filePath)
 		string name = objectGroup->GetName();
 		if (name == "string")
 			tag = Entity::string;
+		if (name == "stringhori")
+			tag = Entity::StringHori;
 		if (name == "land")
 			tag = Entity::Land;
 		if (name == "landwood")
@@ -56,13 +59,16 @@ void GameMap::LoadMap(char* filePath)
 			tag = Entity::AppleObject;
 		if (name == "fired")
 			tag = Entity::Fired;
+	
+		
 		
 		for (size_t j = 0; j < objectGroup->GetNumObjects(); j++)
 		{
 			//lay object group chu khong phai layer
 			//object group se chua nhung body
 			Tmx::Object *object = objectGroup->GetObjects().at(j);
-			if (tag != Entity::Camel && tag != Entity::AppleObject && name != "dropbrick" && name != "civilianBowl" &&name != "civilianBowl2")
+			if (tag != Entity::Camel && tag != Entity::AppleObject && name != "dropbrick" && name != "civilianBowl" &&name != "civilianBowl2" && name!="caybung" 
+				&& name != "checkpoint")
 			{
 				Entity *entity = new Entity();
 				entity->SetPosition(object->GetX() + object->GetWidth() / 2,
@@ -80,6 +86,7 @@ void GameMap::LoadMap(char* filePath)
 				mQuadTree->insertEntity(entity);
 			}
 			
+			
 			if(tag == Entity::Camel)
 			{
 				Camel *camel=new Camel("Resources/camel.png", (float)1 / 20, D3DXVECTOR2(0.5, 0.5));
@@ -93,7 +100,7 @@ void GameMap::LoadMap(char* filePath)
 			if (tag == Entity::AppleObject)
 			{
 				
-				//AppleObject *apple = new AppleObject("Resources/Aladdin.png", (float)1 /10, D3DXVECTOR2(0.5, 0.5));
+				
 				AppleObject *apple = new AppleObject(sprite);
 				apple->SetPosition(object->GetX() + object->GetWidth() / 2, object->GetY() + object->GetHeight() / 2);
 				apple->SetWidth(apple->represent->GetWidth());
@@ -101,6 +108,15 @@ void GameMap::LoadMap(char* filePath)
 				apple->Tag = tag;
 				listAppleObject.push_back(apple);
 				mQuadTree->insertEntity(apple);
+			}
+			if (name == "caybung")
+			{
+				CayBung* cb = new CayBung();
+				cb->SetPosition(object->GetX() + object->GetWidth() / 2, object->GetY() + object->GetHeight() / 2);
+				cb->SetWidth(60);
+				cb->SetHeight(10);
+				listCayBung.push_back(cb);
+				mQuadTree->insertEntity(cb);
 			}
 
 			if (name == "dropbrick")
@@ -121,6 +137,38 @@ void GameMap::LoadMap(char* filePath)
 			{
 				D3DXVECTOR2 pos = D3DXVECTOR2(object->GetX() + object->GetWidth() / 2, object->GetY() + object->GetHeight() / 2);
 				listBowlPosition2.push_back(pos);
+
+			}
+
+			if (name == "enemy1")
+			{
+				D3DXVECTOR2 pos = D3DXVECTOR2(object->GetX() + object->GetWidth() / 2, object->GetY() + object->GetHeight() / 2);
+				listEnemy1Position.push_back(pos);
+			}
+
+			if (name == "enemy2")
+			{
+				D3DXVECTOR2 pos = D3DXVECTOR2(object->GetX() + object->GetWidth() / 2, object->GetY() + object->GetHeight() / 2);
+				listEnemy2Position.push_back(pos);
+			}
+			if (name == "enemy3")
+			{
+				D3DXVECTOR2 pos = D3DXVECTOR2(object->GetX() + object->GetWidth() / 2, object->GetY() + object->GetHeight() / 2);
+				listEnemy3Position.push_back(pos);
+			}
+
+			if (name == "enemy4")
+			{
+				D3DXVECTOR2 pos = D3DXVECTOR2(object->GetX() + object->GetWidth() / 2, object->GetY() + object->GetHeight() / 2);
+				listEnemy4Position.push_back(pos);
+			}
+
+			if (name == "checkpoint")
+			{
+				CheckPointSite* cb = new CheckPointSite();
+				cb->SetPosition(object->GetX() + object->GetWidth() / 2, object->GetY() + object->GetHeight() / 2);
+				listCheckPointSite.push_back(cb);
+				mQuadTree->insertEntity(cb);
 			}
 		
 		}
@@ -239,8 +287,8 @@ void GameMap::DrawFront()
 
 void GameMap::Draw()
 {
-    D3DXVECTOR2 trans = D3DXVECTOR2(GameGlobal::GetWidth() /2 - mCamera->GetPosition().x,
-                                    GameGlobal::GetHeight() /2- mCamera->GetPosition().y);
+	D3DXVECTOR2 trans = D3DXVECTOR2(GameGlobal::GetWidth() / 2 - mCamera->GetPosition().x,
+		GameGlobal::GetHeight() / 2 - mCamera->GetPosition().y);
 
 #pragma region DRAW TILESET
 	for (size_t i = 0; i < mMap->GetNumTileLayers(); i++)
@@ -266,44 +314,57 @@ void GameMap::Draw()
 			int tileSetWidth = tileSet->GetImage()->GetWidth() / tileWidth;
 			int tileSetHeight = tileSet->GetImage()->GetHeight() / tileHeight;
 
-			for (size_t m = layer->GetHeight(); m > 0; m--)
+			for (size_t j = 0; j < mMap->GetNumTilesets(); j++)
 			{
-				for (size_t n = layer->GetWidth(); n >0 ; n--)
+				const Tmx::Tileset *tileSet = mMap->GetTileset(j);
+
+				RECT sourceRECT;
+
+				int tileWidth = mMap->GetTileWidth();
+				int tileHeight = mMap->GetTileHeight();
+
+				int tileSetWidth = tileSet->GetImage()->GetWidth() / tileWidth;
+				int tileSetHeight = tileSet->GetImage()->GetHeight() / tileHeight;
+
+				for (size_t m = 0; m < layer->GetHeight(); m++)
 				{
-					if (layer->GetTileTilesetIndex(n, m) != -1)
+					for (size_t n = 0; n < layer->GetWidth(); n++)
 					{
-						int tileID = layer->GetTileId(n, m);
-
-						int y = tileID / tileSetWidth;
-						int x = tileID - y * tileSetWidth;
-
-						sourceRECT.top = y * tileHeight;
-						sourceRECT.bottom = sourceRECT.top + tileHeight;
-						sourceRECT.left = x * tileWidth;
-						sourceRECT.right = sourceRECT.left + tileWidth;
-
-						Sprite* sprite = mListTileset[j];
-
-						//tru tilewidth/2 va tileheight/2 vi Sprite ve o vi tri giua hinh anh cho nen doi hinh de cho
-						//dung toa do (0,0) cua the gioi thuc la (0,0) neu khong thi se la (-tilewidth/2, -tileheigth/2);
-						D3DXVECTOR3 position(n * tileWidth + tileWidth / 2, m * tileHeight + tileHeight / 2, 0);
-
-						if (mCamera != NULL)
+						if (layer->GetTileTilesetIndex(n, m) != -1)
 						{
-							RECT objRECT;
-							objRECT.left = position.x - tileWidth / 2;
-							objRECT.top = position.y - tileHeight / 2;
-							objRECT.right = objRECT.left + tileWidth;
-							objRECT.bottom = objRECT.top + tileHeight;
+							int tileID = layer->GetTileId(n, m);
 
-							if (!GameCollision::RecteAndRect(mCamera->GetBound(), objRECT).IsCollided)
-								continue;
+							int y = tileID / tileSetWidth;
+							int x = tileID - y * tileSetWidth;
+
+							sourceRECT.top = y * tileHeight;
+							sourceRECT.bottom = sourceRECT.top + tileHeight;
+							sourceRECT.left = x * tileWidth;
+							sourceRECT.right = sourceRECT.left + tileWidth;
+
+							Sprite* sprite = mListTileset[j];
+
+							//tru tilewidth/2 va tileheight/2 vi Sprite ve o vi tri giua hinh anh cho nen doi hinh de cho
+							//dung toa do (0,0) cua the gioi thuc la (0,0) neu khong thi se la (-tilewidth/2, -tileheigth/2);
+							D3DXVECTOR3 position(n * tileWidth + tileWidth / 2, m * tileHeight + tileHeight / 2, 0);
+
+							if (mCamera != NULL)
+							{
+								RECT objRECT;
+								objRECT.left = position.x - tileWidth / 2;
+								objRECT.top = position.y - tileHeight / 2;
+								objRECT.right = objRECT.left + tileWidth;
+								objRECT.bottom = objRECT.top + tileHeight;
+
+								if (!GameCollision::RecteAndRect(mCamera->GetBound(), objRECT).IsCollided)
+									continue;
+							}
+
+							sprite->SetWidth(tileWidth);
+							sprite->SetHeight(tileHeight);
+
+							sprite->Draw(position, sourceRECT, D3DXVECTOR2(), trans);
 						}
-
-						sprite->SetWidth(tileWidth);
-						sprite->SetHeight(tileHeight);
-
-						sprite->Draw(position, sourceRECT, D3DXVECTOR2(), trans);
 					}
 				}
 			}

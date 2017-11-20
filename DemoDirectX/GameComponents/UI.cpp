@@ -66,8 +66,8 @@ UI::UI()
 	rect.left = 14; rect.top = 1; rect.right = rect.left + 97; rect.bottom = rect.top + 146;
 
 	apple1 = new Sprite("Resources/number.png", RECT(), 0, 0, D3DCOLOR_XRGB(255, 0, 255));
-	apple1->SetPosition(D3DXVECTOR2(GameGlobal::GetWidth() - 35, GameGlobal::GetHeight() - 15));
-	apple1->SetScale(D3DXVECTOR2(0.2, 0.15));
+	apple1->SetPosition(D3DXVECTOR2(GameGlobal::GetWidth() - 25, GameGlobal::GetHeight() - 15));
+	apple1->SetScale(D3DXVECTOR2(0.15, 0.1));
 	apple1->SetSourceRect(rect);
 	apple1->SetWidth(rect.right - rect.left);
 	apple1->SetHeight(rect.bottom - rect.top);
@@ -75,8 +75,8 @@ UI::UI()
 	rect.left = 14; rect.top = 1; rect.right = rect.left + 97; rect.bottom = rect.top + 146;
 	apple2 = new Sprite("Resources/number.png", RECT(), 0, 0, D3DCOLOR_XRGB(255, 0, 255));
 
-	apple2->SetPosition(D3DXVECTOR2(GameGlobal::GetWidth() - 15, GameGlobal::GetHeight() - 15));
-	apple2->SetScale(D3DXVECTOR2(0.2, 0.15));
+	apple2->SetPosition(D3DXVECTOR2(GameGlobal::GetWidth() - 10, GameGlobal::GetHeight() - 15));
+	apple2->SetScale(D3DXVECTOR2(0.15, 0.1));
 	apple2->SetSourceRect(rect);
 	apple2->SetWidth(rect.right - rect.left);
 	apple2->SetHeight(rect.bottom - rect.top);
@@ -84,16 +84,16 @@ UI::UI()
 
 	rect.left = 370; rect.top = 45; rect.right = rect.left + 14; rect.bottom = rect.top + 14;
 	apple = new Sprite("Resources/Aladdin.png", RECT(), 0, 0, D3DCOLOR_XRGB(255, 0, 255));
-	apple->SetPosition(D3DXVECTOR2(GameGlobal::GetWidth()-60, GameGlobal::GetHeight()-15));
-	apple->SetScale(D3DXVECTOR2(2, 2));
+	apple->SetPosition(D3DXVECTOR2(GameGlobal::GetWidth()-50, GameGlobal::GetHeight()-15));
+	apple->SetScale(D3DXVECTOR2(1.5, 1.5));
 	apple->SetSourceRect(rect);
 	apple->SetWidth(rect.right - rect.left);
 	apple->SetHeight(rect.bottom - rect.top);
 
 	rect.left = 1037; rect.top = 75; rect.right = rect.left + 50; rect.bottom = rect.top + 26;
 	GoldenLamp= new Sprite("Resources/Aladdin.png", RECT(), 0, 0, D3DCOLOR_XRGB(255, 0, 255));
-	GoldenLamp->SetPosition(D3DXVECTOR2(50,50));
-	GoldenLamp->SetScale(D3DXVECTOR2(1.5, 1.5));
+	GoldenLamp->SetPosition(D3DXVECTOR2(30,20));
+	GoldenLamp->SetScale(D3DXVECTOR2(1, 1));
 	GoldenLamp->SetSourceRect(rect);
 	GoldenLamp->SetWidth(rect.right - rect.left);
 	GoldenLamp->SetHeight(rect.bottom - rect.top);
@@ -101,8 +101,8 @@ UI::UI()
 
 	rect.left = 0; rect.top = 0; rect.right = rect.left + 78; rect.bottom = rect.top + 15;
 	hpBar = new Sprite("Resources/health_bar.png", RECT(), 0, 0, D3DCOLOR_XRGB(255, 0, 255));
-	hpBar->SetPosition(D3DXVECTOR2(145, 38));
-	hpBar->SetScale(D3DXVECTOR2(1.5, 1.5));
+	hpBar->SetPosition(D3DXVECTOR2(93, 12));
+	hpBar->SetScale(D3DXVECTOR2(1, 1));
 	hpBar->SetSourceRect(rect);
 	hpBar->SetWidth(rect.right - rect.left);
 	hpBar->SetHeight(rect.bottom - rect.top);

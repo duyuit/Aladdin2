@@ -17,9 +17,10 @@ public:
 	virtual void Update(float dt);
 	D3DXVECTOR3 getPos();
 	virtual StateName GetNameState();
+	float acceX, acceY;
 protected:
 	float posx, posy;
-	float acceX, acceY;
+
 	float vX = 0;
 	float vY = 0;;
 	D3DXVECTOR3 pos;

@@ -21,7 +21,11 @@ public:
 		JumpThrow,
 		SitThrow,
         Die,
-		Fired
+		Fired,
+		ThrowCLimb,
+		Bung,
+		ClimbingHori,
+		Revive
     };
 
     ~PlayerState();

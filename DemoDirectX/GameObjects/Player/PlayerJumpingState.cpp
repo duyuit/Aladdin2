@@ -91,6 +91,7 @@ PlayerState::StateName PlayerJumpingState::GetState()
 }
 void PlayerJumpingState::OnCollision(Entity *impactor, Entity::SideCollisions side, Entity::CollisionReturn data)
 {
+	if (impactor->Tag == Entity::Bung) return;
 	if (impactor->Tag == Entity::string)
 	{
 		mPlayerData->player->SetPosition(impactor->GetPosition().x, mPlayerData->player->GetPosition().y);
@@ -136,6 +137,7 @@ void PlayerJumpingState::OnCollision(Entity *impactor, Entity::SideCollisions si
 
 	case Entity::BottomRight: case Entity::BottomLeft: case Entity::Bottom:
 	{
+		
 		this->mPlayerData->player->AddPosition(0, -(data.RegionCollision.bottom - data.RegionCollision.top));
 	}
 

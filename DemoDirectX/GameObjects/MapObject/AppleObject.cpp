@@ -33,7 +33,7 @@ AppleObject::AppleObject(const char* FilePath,
 	
 	
 	this->filePath = FilePath;
-	this->source = this->LoadRect();
+	//this->source = this->LoadRect();
 
 
 	this->totalFrame = this->source.size();

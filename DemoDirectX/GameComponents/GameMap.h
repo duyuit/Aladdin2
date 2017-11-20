@@ -13,6 +13,8 @@
 #include "../GameObjects/MapObject/Camel.h"
 //#include "../AppleObject.h"
 #include "../GameObjects/MapObject/DropBrick.h"
+#include "../GameObjects/MapObject/CayBung.h"
+#include "../GameObjects/MapObject/CheckPointSite.h"
 using namespace std;
 class GameMap
 {
@@ -45,7 +47,14 @@ public:
 	vector<AppleObject*> listAppleObject;
 	vector<D3DXVECTOR2> listBowlPosition1;
 	vector<D3DXVECTOR2> listBowlPosition2;
+
+	vector<D3DXVECTOR2> listEnemy1Position;
+	vector<D3DXVECTOR2> listEnemy2Position;
+	vector<D3DXVECTOR2> listEnemy3Position;
+	vector<D3DXVECTOR2> listEnemy4Position;
 	vector<DropBrick*> listDropBrick;
+	vector<CayBung*>	listCayBung;
+	vector<CheckPointSite*>	listCheckPointSite;
 
 private:
     void LoadMap(char* filePath);

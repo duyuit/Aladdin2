@@ -5,6 +5,7 @@ SceneManager* SceneManager::mInstace = NULL;
 SceneManager::SceneManager()
 {
     mCurrentScene = nullptr;
+
 }
 
 SceneManager::~SceneManager()
@@ -31,7 +32,7 @@ void SceneManager::Update(float dt)
 
 void SceneManager::ReplaceScene(Scene *scene)
 {
-    delete mCurrentScene;
+   // delete mCurrentScene;
 
     mCurrentScene = scene;
 }

@@ -8,6 +8,39 @@ vector<RECT> LoadRECT(PlayerState::StateName state)
 	RECT rect;
 	switch (state)
 	{
+	case PlayerState::Revive:
+		rect.left = 2; rect.top = 2472; rect.right = rect.left + 63; rect.bottom = rect.top + 68; listSourceRect.push_back(rect);
+		rect.left = 77; rect.top = 2475; rect.right = rect.left + 57; rect.bottom = rect.top + 65; listSourceRect.push_back(rect);
+		rect.left = 143; rect.top = 2508; rect.right = rect.left + 19; rect.bottom = rect.top + 32; listSourceRect.push_back(rect);
+		rect.left = 173; rect.top = 2503; rect.right = rect.left + 23; rect.bottom = rect.top + 37; listSourceRect.push_back(rect);
+		rect.left = 205; rect.top = 2495; rect.right = rect.left + 25; rect.bottom = rect.top + 45; listSourceRect.push_back(rect);
+		rect.left = 243; rect.top = 2483; rect.right = rect.left + 27; rect.bottom = rect.top + 57; listSourceRect.push_back(rect);
+		rect.left = 278; rect.top = 2474; rect.right = rect.left + 38; rect.bottom = rect.top + 66; listSourceRect.push_back(rect);
+		rect.left = 333; rect.top = 2460; rect.right = rect.left + 37; rect.bottom = rect.top + 80; listSourceRect.push_back(rect);
+		rect.left = 382; rect.top = 2460; rect.right = rect.left + 42; rect.bottom = rect.top + 83; listSourceRect.push_back(rect);
+		rect.left = 442; rect.top = 2454; rect.right = rect.left + 53; rect.bottom = rect.top + 86; listSourceRect.push_back(rect);
+		rect.left = 510; rect.top = 2441; rect.right = rect.left + 43; rect.bottom = rect.top + 99; listSourceRect.push_back(rect);
+		rect.left = 563; rect.top = 2426; rect.right = rect.left + 50; rect.bottom = rect.top + 114; listSourceRect.push_back(rect);
+		rect.left = 623; rect.top = 2407; rect.right = rect.left + 45; rect.bottom = rect.top + 133; listSourceRect.push_back(rect);
+		rect.left = 682; rect.top = 2400; rect.right = rect.left + 39; rect.bottom = rect.top + 140; listSourceRect.push_back(rect);
+		break;
+	case PlayerState::Bung:
+		rect.left = 12; rect.top = 1154; rect.right = rect.left + 49; rect.bottom = rect.top + 53; listSourceRect.push_back(rect);
+		rect.left = 76; rect.top = 1162; rect.right = rect.left + 37; rect.bottom = rect.top + 31; listSourceRect.push_back(rect);
+		 rect.left = 135; rect.top = 1160; rect.right = rect.left + 35; rect.bottom = rect.top + 33; listSourceRect.push_back(rect);
+		 rect.left = 190; rect.top = 1160; rect.right = rect.left + 38; rect.bottom = rect.top + 39; listSourceRect.push_back(rect);
+		 rect.left = 252; rect.top = 1165; rect.right = rect.left + 38; rect.bottom = rect.top + 30; listSourceRect.push_back(rect);
+		 rect.left = 306; rect.top = 1158; rect.right = rect.left + 37; rect.bottom = rect.top + 37; listSourceRect.push_back(rect);
+		 rect.left = 362; rect.top = 1161; rect.right = rect.left + 38; rect.bottom = rect.top + 34; listSourceRect.push_back(rect);
+		 rect.left = 417; rect.top = 1156; rect.right = rect.left + 42; rect.bottom = rect.top + 41; listSourceRect.push_back(rect);
+		 break;
+	case PlayerState::ThrowCLimb:
+		rect.left = 13; rect.top = 1666; rect.right = rect.left + 37; rect.bottom = rect.top + 86; listSourceRect.push_back(rect);
+		rect.left = 65; rect.top = 1666; rect.right = rect.left + 41; rect.bottom = rect.top + 86; listSourceRect.push_back(rect);
+		rect.left = 125; rect.top = 1665; rect.right = rect.left + 51; rect.bottom = rect.top + 87; listSourceRect.push_back(rect);
+		rect.left = 192; rect.top = 1664; rect.right = rect.left + 31; rect.bottom = rect.top + 88; listSourceRect.push_back(rect);
+		rect.left = 236; rect.top = 1664; rect.right = rect.left + 56; rect.bottom = rect.top + 88; listSourceRect.push_back(rect);
+		break;
 	case PlayerState::Fired:
 
 		rect.left = 9; rect.top = 2167; rect.right = rect.left + 42; rect.bottom = rect.top + 45; listSourceRect.push_back(rect);
@@ -59,6 +92,45 @@ vector<RECT> LoadRECT(PlayerState::StateName state)
 		rect.left = 715; rect.top = 163; rect.right = rect.left + 40; rect.bottom = rect.top + 53;	listSourceRect.push_back(rect);
 		rect.left = 762; rect.top = 164;  rect.right = rect.left + 39; rect.bottom = rect.top + 52;	listSourceRect.push_back(rect);
 		
+		break;
+	case PlayerState::ClimbingHori:
+	
+			rect.top = 1469;
+			rect.bottom = 1552;
+			rect.left = 10;
+			rect.right = 50; 	listSourceRect.push_back(rect);
+		
+			rect.left = 57;
+			rect.right = 120; 	listSourceRect.push_back(rect);
+			
+			rect.left = 115;
+			rect.right = 178; 	listSourceRect.push_back(rect);
+		
+			rect.left = 176;
+			rect.right = 239;	listSourceRect.push_back(rect);
+			
+			rect.left = 242;
+			rect.right = 301; 	listSourceRect.push_back(rect);
+			
+			rect.left = 303;
+			rect.right = 362;	listSourceRect.push_back(rect);
+			
+			rect.left = 365;
+			rect.right = 424;	listSourceRect.push_back(rect);
+			
+			rect.left = 430;
+			rect.right = 495; 	listSourceRect.push_back(rect);
+			
+			rect.left = 504;
+			rect.right = 566; 	listSourceRect.push_back(rect);
+	
+			rect.left = 566;
+			rect.right = 628; 	listSourceRect.push_back(rect);
+			
+			rect.top = 1560;
+			rect.right = 178;
+			rect.bottom = rect.top + 92;
+			rect.left = rect.right + 44; 	listSourceRect.push_back(rect);
 		break;
 	case PlayerState::Running:
 		for (int i = 1; i <= 13; i++)
@@ -394,6 +466,10 @@ Player::Player()
 	mAnimationJumpThrow= new Animation("Resources/Aladdin.png",5, LoadRECT(PlayerState::JumpThrow), (float)1 /30, D3DXVECTOR2(0.5, 1), D3DCOLOR_XRGB(255, 0, 255));
 	mAnimationSitThrow = new Animation("Resources/Aladdin.png", 5, LoadRECT(PlayerState::SitThrow), (float)1 / 20, D3DXVECTOR2(0.5, 1), D3DCOLOR_XRGB(255, 0, 255));
 	mAnimationFired=new Animation("Resources/Aladdin.png", 6, LoadRECT(PlayerState::Fired), (float)1 /15, D3DXVECTOR2(0.5, 1), D3DCOLOR_XRGB(255, 0, 255));
+	mAnimationThrowClimb= new Animation("Resources/Aladdin.png",5, LoadRECT(PlayerState::ThrowCLimb), (float)1 / 15, D3DXVECTOR2(0.5, 1), D3DCOLOR_XRGB(255, 0, 255));
+	mAnimationBung= new Animation("Resources/Aladdin.png",8, LoadRECT(PlayerState::Bung), (float)1 / 15, D3DXVECTOR2(0.5, 1), D3DCOLOR_XRGB(255, 0, 255));
+	mAnimationClimbHori= new Animation("Resources/Aladdin.png",11, LoadRECT(PlayerState::ClimbingHori), (float)1 /15, D3DXVECTOR2(0.5, 0), D3DCOLOR_XRGB(255, 0, 255));
+	mAnimationRevive= new Animation("Resources/Aladdin.png", 14, LoadRECT(PlayerState::Revive), (float)1 / 15, D3DXVECTOR2(0.5, 1), D3DCOLOR_XRGB(255, 0, 255));
 	Tag = EntityTypes::PlayerOne;
 	this->mPlayerData = new PlayerData();
 	this->mPlayerData->player = this;
@@ -410,6 +486,7 @@ Player::Player()
 
 
 	mUI = new UI();
+	CheckPoint = D3DXVECTOR2(50, 300);
 }
 
 Player::~Player()
@@ -438,7 +515,12 @@ void Player::Update(float dt)
 			temp->SetPosition(D3DXVECTOR3(0, posY - 30, 0));
 		}
 	}
-	if (HPCount < 0)HPCount = 9;
+	if (HPCount == 0)
+	{
+		HPCount = 9;
+		SetPosition(CheckPoint);
+		SetState(new PLayerRevive(mPlayerData));
+	}
 	mUI->Update(HPCount, AppleCount);
 }
 
@@ -477,9 +559,18 @@ void Player::OnKeyPressed(int key)
 			if (curApple > 2)
 				curApple = 0;
 			if(mCurrentState==PlayerState::Sit)
-				listApple.at(curApple)->SetPosition(D3DXVECTOR3(posX, posY - 30, 0));
+				listApple.at(curApple)->SetPosition(D3DXVECTOR2(posX, posY - 30));
+			if (mCurrentState == PlayerState::ClimbingHori)
+			{
+				listApple.at(curApple)->SetPosition(D3DXVECTOR2(posX, posY));
+				listApple.at(curApple)->mReverse = !mCurrentReverse;
+				listApple.at(curApple)->SetState(AppleState::Flying);
+				curApple++;
+				AppleCount--;
+				return;
+			}
 			else
-				listApple.at(curApple)->SetPosition(D3DXVECTOR3(posX, posY - 50, 0));
+				listApple.at(curApple)->SetPosition(D3DXVECTOR2(posX, posY -50 ));
 			listApple.at(curApple)->mReverse= mCurrentReverse;
 			listApple.at(curApple)->SetState(AppleState::Flying);
 			curApple++;
@@ -487,7 +578,7 @@ void Player::OnKeyPressed(int key)
 		}
 		allowThrow = false;
 	}
-	
+	if (key == VK_NUMPAD5) HPCount = 0;
 }
 
 void Player::OnKeyUp(int key)
@@ -507,7 +598,13 @@ void Player::Draw(D3DXVECTOR3 position, RECT sourceRect, D3DXVECTOR2 scale, D3DX
 {
 	D3DXVECTOR2 trans = D3DXVECTOR2(GameGlobal::GetWidth() / 2 - mCamera->GetPosition().x,
 		GameGlobal::GetHeight() / 2 - mCamera->GetPosition().y);
+
+
+	if(mCurrentState!=PlayerState::ThrowCLimb)
 	mCurrentAnimation->GetSprite()->FlipVertical(mCurrentReverse);
+	else mCurrentAnimation->GetSprite()->FlipVertical(!mCurrentReverse);
+
+
 	mCurrentAnimation->SetPosition(this->GetPosition());
 	if (isAttacked)
 	{
@@ -548,6 +645,18 @@ void Player::SetState(PlayerState *newState)
 RECT Player::GetBound()
 {
 	RECT rect;
+	if (mCurrentState == PlayerState::ClimbingHori)
+	{
+		rect.left = this->posX - mCurrentAnimation->GetSprite()->GetWidth() / 2;
+		rect.right = rect.left + mCurrentAnimation->GetSprite()->GetWidth();
+		rect.bottom = this->posY+ mCurrentAnimation->GetSprite()->GetHeight();  //Chú ý đoạn này
+		rect.top = this->posY;// + mCurrentAnimation->GetSprite()->GetHeight() / 2;
+
+		float cWidth = this->posX;
+		float cHeight = this->posY + mCurrentAnimation->GetSprite()->GetHeight() / 2;
+		SetCenter(D3DXVECTOR2(cWidth, cHeight));
+		return rect;
+	}
 	rect.left = this->posX - mCurrentAnimation->GetSprite()->GetWidth() / 2;
 	rect.right = rect.left + mCurrentAnimation->GetSprite()->GetWidth();
 	rect.top = this->posY - mCurrentAnimation->GetSprite()->GetHeight(); //Chú ý đoạn này
@@ -563,9 +672,18 @@ void Player::changeAnimation(PlayerState::StateName state)
 {
 	switch (state)
 	{
+	case PlayerState::Revive:
+		mCurrentAnimation = mAnimationRevive;
+		break;
+	case PlayerState::ClimbingHori:
+		mCurrentAnimation = mAnimationClimbHori;
+		break;
+	case PlayerState::ThrowCLimb:
+		mCurrentAnimation = mAnimationThrowClimb;
+		break;
 	case PlayerState::Fired:
 		mCurrentAnimation = mAnimationFired;
-		break;
+break;
 	case PlayerState::Running:
 		mCurrentAnimation = mAnimationRunning;
 		break;
@@ -602,6 +720,9 @@ void Player::changeAnimation(PlayerState::StateName state)
 		break;
 	case PlayerState::SitThrow:
 		mCurrentAnimation = mAnimationSitThrow;
+		break;
+	case PlayerState::Bung:
+		mCurrentAnimation = mAnimationBung;
 		break;
 	}
 
@@ -659,12 +780,12 @@ void Player::OnNoCollisionWithBottom()
 }
 void Player::OnCollision(Entity *impactor, Entity::CollisionReturn data, Entity::SideCollisions side)
 {
-	if (impactor->Tag == Bowl)
-	{
-		
+	if ((impactor->Tag == Bowl || impactor->Tag == KnifeEnemy3) && this->getState() != PlayerState::Fired  && this->getState() != PlayerState::Climbing)
 		this->SetState(new PlayerFiredState(this->mPlayerData));
 
-	}
+	if ((impactor->Tag == Bowl || impactor->Tag == KnifeEnemy3) && this->getState() == PlayerState::Climbing)
+		isAttacked = true;
+
 	
 	this->mPlayerData->state->OnCollision(impactor, side, data);
 }

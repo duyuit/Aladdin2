@@ -55,6 +55,7 @@ void PlayerStandingState::HandleKeyboard(std::map<int, bool> keys)
 }
 void PlayerStandingState::OnCollision(Entity *impactor, Entity::SideCollisions side, Entity::CollisionReturn data)
 {
+
 	if(impactor->Tag==Entity::Fired)
 		this->mPlayerData->player->SetState(new PlayerFiredState(this->mPlayerData));
 

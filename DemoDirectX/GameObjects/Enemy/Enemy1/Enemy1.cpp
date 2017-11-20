@@ -7,6 +7,14 @@ vector<RECT> Enemy1::LoadRECT(Enemy1State::StateName state)
 	RECT rect;
 	switch (state)
 	{
+	case Enemy1State::Die:
+		rect.left = 342; rect.top = 23; rect.right = rect.left + 29; rect.bottom = rect.top + 30; listSourceRect.push_back(rect);
+		rect.left = 383; rect.top = 22; rect.right = rect.left + 31; rect.bottom = rect.top + 31; listSourceRect.push_back(rect);
+		rect.left = 423; rect.top = 9; rect.right = rect.left + 44; rect.bottom = rect.top + 44; listSourceRect.push_back(rect);
+		rect.left = 383; rect.top = 22; rect.right = rect.left + 31; rect.bottom = rect.top + 31; listSourceRect.push_back(rect);
+		rect.left = 342; rect.top = 23; rect.right = rect.left + 29; rect.bottom = rect.top + 30; listSourceRect.push_back(rect);
+		break;
+
 	case Enemy1State::None:
 		break;
 	case Enemy1State::Running:
@@ -43,13 +51,17 @@ vector<RECT> Enemy1::LoadRECT(Enemy1State::StateName state)
 	}
 	return listSourceRect;
 }
-Enemy1::Enemy1(D3DXVECTOR2 locate, Player *player)
+Enemy1::Enemy1( Player *player, vector<D3DXVECTOR2> list)
 {
 	mPlayer = player;
+	mListPosition = list;
+
+
 	mAnimationRunning = new Animation("Resources/guard.png", 8, LoadRECT(Enemy1State::Running), (float) 1 /1, D3DXVECTOR2(0.5,1), D3DCOLOR_XRGB(120,193,152));
 	mAnimationFighting = new Animation("Resources/guard.png", 6, LoadRECT(Enemy1State::Fighting), (float)1 /0.25, D3DXVECTOR2(0.5, 1), D3DCOLOR_XRGB(120, 193, 152));
-	mAnimationAttacked = new Animation("Resources/guard.png",9, LoadRECT(Enemy1State::Attacked), (float)1 / 0.25, D3DXVECTOR2(0.5, 1), D3DCOLOR_XRGB(120, 193, 152));
-	
+	mAnimationAttacked = new Animation("Resources/guard.png",9, LoadRECT(Enemy1State::Attacked), (float)1 / 0.5, D3DXVECTOR2(0.5, 1), D3DCOLOR_XRGB(120, 193, 152));
+	mAnimationDied = new Animation("Resources/flare.png",5, LoadRECT(Enemy1State::Die), (float)1 / 0.5, D3DXVECTOR2(0.5, 1), D3DCOLOR_XRGB(186, 254, 202));
+	mAnimationDied->SetScale(D3DXVECTOR2(1.5, 1.5));
 	mSprite = new Sprite("Resources/guard.png", LoadRECT(Enemy1State::Attacked).at(0), 0, 0, D3DCOLOR_XRGB(120, 193, 152), D3DXVECTOR2(0.5, 1));
 	
 	mCurrentAnimation = nullptr;
@@ -58,7 +70,9 @@ Enemy1::Enemy1(D3DXVECTOR2 locate, Player *player)
 	this->mData = new Enemy1Data();
 	this->mData->enemy = this;
 
-	startLocation = locate;
+
+	
+	
 }
 
 
@@ -70,7 +84,14 @@ Enemy1::~Enemy1()
 void Enemy1::Update()
 {
 	CheckAction();
-	if (mCurrentState != Enemy1State::Attacked)
+
+	if (Heal == 0)
+	{
+		positionted.push_back(CurrentPosIndex);
+		SetState(new Enemy1Die(this->mData));
+	}
+	
+	if (mCurrentState != Enemy1State::Attacked && mCurrentState != Enemy1State::Die)
 	{
 		if (CheckFire)
 			SetState(new Enemy1Fighting(this->mData));
@@ -82,15 +103,21 @@ void Enemy1::Update()
 		{
 			mCurrentState = Enemy1State::None;
 		}
+
 	}
+
+	
+
+
 
 	if (mCurrentState != Enemy1State::None && mCurrentAnimation != nullptr)
 	{
+	
+		mCurrentAnimation->Update(1);
 		if (this->mData->state)
 		{
 			this->mData->state->Update();
 		}
-		mCurrentAnimation->Update(1);
 	}
 	
 	if (GetPosition().x < mPlayer->GetPosition().x)
@@ -173,6 +200,9 @@ void Enemy1::changeAnimation(Enemy1State::StateName state)
 	case Enemy1State::Attacked:
 		mCurrentAnimation = mAnimationAttacked;
 		break;
+	case Enemy1State::Die:
+		mCurrentAnimation = mAnimationDied;
+		break;
 	default:
 		break;
 	}
@@ -185,24 +215,52 @@ void Enemy1::OnCollision(Entity *impactor, Entity::CollisionReturn data, Entity:
 	if (this->mPlayer->getState() == PlayerState::Fighting || impactor->Tag==Entity::AppleThrow)
 	{
 		SetState(new Enemy1Attacked(this->mData));
+
 	}
-	if (mCurrentState == Enemy1State::Fighting && mCurrentAnimation->GetCurrentFrame()==3 && mPlayer->mCurrentState != PlayerState::Fired)
+	if (mCurrentState == Enemy1State::Fighting && mCurrentAnimation->GetCurrentFrame()==3 && mPlayer->mCurrentState != PlayerState::Fired &&  mPlayer->mCurrentState != PlayerState::Revive)
 	{
 		mPlayer->SetState(new PlayerFiredState(mPlayer->mPlayerData));
+	}
+	if (mCurrentState == Enemy1State::Fighting && mCurrentAnimation->GetCurrentFrame() == 4 && mPlayer->mCurrentState == PlayerState::Climbing)
+	{
+		mPlayer->isAttacked = true;
 	}
 	if(this->mData->state)
 	this->mData->state->OnCollision(impactor, side, data);
 }
 void Enemy1::CheckAction()
 {
+	for (int i = 0; i < mListPosition.size(); i++)
+	{
+		bool flag = false;
+		for(int j=0;j<positionted.size();j++)
+			if (i == positionted.at(j))
+			{
+				flag = true;
+				break;
+			}
+		if (flag) continue;
+		if (abs(mPlayer->GetPosition().y - mListPosition.at(i).y)>=50) continue;
+		int deltay = mPlayer->GetPosition().y - mListPosition.at(i).y;
+		int deltax = abs(mPlayer->GetPosition().x - mListPosition.at(i).x);
+		if (deltax <= 300 && deltay <= 150)
+		{
+			if (i == CurrentPosIndex) continue;
+			SetPosition(mListPosition.at(i));
+			CurrentPosIndex = i;
+			break;
+		}
+	}
+
+
 	int deltax = abs(GetPosition().x - mPlayer->GetPosition().x);
-	if (deltax > 150)
+	if (deltax > 120)
 	{
 		CheckRunning = false;
 		CheckFire = false;
 		return;
 	}
-	if(deltax <= 150 && deltax>=50)
+	if(deltax <= 120 && deltax>=50)
 	{
 		CheckRunning = true;
 		CheckFire = false;

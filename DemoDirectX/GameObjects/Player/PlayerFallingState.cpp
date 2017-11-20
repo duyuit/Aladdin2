@@ -1,9 +1,8 @@
-﻿#include "PlayerFallingState.h"
+﻿
 #include "Player.h"
-#include "PlayerStandingState.h"
+#include "../../GameDefines/GameDefine.h"
 #include "PlayerClimbState.h"
 #include "PlayerJumpingState.h"
-#include "../../GameDefines/GameDefine.h"
 
 PlayerFallingState::PlayerFallingState(PlayerData *playerData)
 {
@@ -86,12 +85,22 @@ void PlayerFallingState::OnCollision(Entity *impactor, Entity::SideCollisions si
 {
 	//lay phia va cham so voi player
 	//GameCollision::SideCollisions side = GameCollision::getSideCollision(this->mPlayerData->player, data);
+	
+	if (impactor->Tag == Entity::CheckPoint) return;
 	if (impactor->Tag == Entity::string)
 	{
 		mPlayerData->player->SetPosition(impactor->GetPosition().x, mPlayerData->player->GetPosition().y);
 		mPlayerData->player->SetVx(0);
 		mPlayerData->player->SetVy(0);
 		mPlayerData->player->SetState(new PlayerClimbState(this->mPlayerData));
+		return;
+	}
+	if (impactor->Tag == Entity::StringHori)
+	{
+		mPlayerData->player->SetReverse(!mPlayerData->player->GetReverse());
+		mPlayerData->player->SetPosition(mPlayerData->player->GetPosition().x,impactor->GetPosition().y);
+		mPlayerData->player->SetVy(0);
+		mPlayerData->player->SetState(new PlayerClimHori(this->mPlayerData));
 		return;
 	}
 
@@ -124,6 +133,12 @@ void PlayerFallingState::OnCollision(Entity *impactor, Entity::SideCollisions si
 	case Entity::BottomRight:
 	case Entity::BottomLeft:
 
+		if (impactor->Tag == Entity::Bung)
+		{
+		
+			mPlayerData->player->SetState(new PlayerBung(this->mPlayerData));
+			return;
+		}
 		if (impactor->Tag == Entity::Camel)
 		{
 			this->mPlayerData->player->SetState(new PlayerJumpingState(this->mPlayerData));

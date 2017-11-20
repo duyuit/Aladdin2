@@ -26,7 +26,7 @@ void Enemy1Fighting::Update()
 }
 Enemy1State::StateName Enemy1Fighting::GetState()
 {
-	return Enemy1State::Fighting;;
+	return Enemy1State::Fighting;
 }
 
 

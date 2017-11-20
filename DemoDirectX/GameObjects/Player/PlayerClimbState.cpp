@@ -1,5 +1,6 @@
 ﻿#include "PlayerFallingState.h"
 #include "Player.h"
+#include "PlayerJumpingState.h"
 #include "PlayerClimbState.h"
 #include "../../GameDefines/GameDefine.h"
 
@@ -28,7 +29,7 @@ void PlayerClimbState::HandleKeyboard(std::map<int, bool> keys)
 		mPlayerData->player->GetCurrentAnimation()->SetCurrentFrame(6);
 		mPlayerData->player->SetReverse(false);
 
-		
+
 	}
 	else if (keys[VK_LEFT])
 	{
@@ -53,7 +54,7 @@ void PlayerClimbState::HandleKeyboard(std::map<int, bool> keys)
 		isLeftOrRightKeyPressed = false;
 	}
 
-	if (keys[VK_SPACE])
+	if (keys[VK_SPACE] && (keys[VK_LEFT] || keys[VK_RIGHT]))
 	{
 		
 		if (1)
@@ -73,6 +74,17 @@ void PlayerClimbState::HandleKeyboard(std::map<int, bool> keys)
 		}
 	}
 	
+	if (keys[VK_SPACE] && !keys[VK_LEFT]&& !keys[VK_RIGHT])
+	{
+
+		this->mPlayerData->player->SetState(new PlayerJumpingState(this->mPlayerData));
+	}
+
+	if (keys[VK_NUMPAD0])
+	{
+		this->mPlayerData->player->mAnimationThrowClimb->GetSprite()->SetCenterDraw(D3DXVECTOR2(0.5, 1));
+		this->mPlayerData->player->SetState(new PLayerThrowClimb(this->mPlayerData));
+	}
 }
 
 PlayerState::StateName PlayerClimbState::GetState()

@@ -3,11 +3,28 @@
 DemoScene::DemoScene()
 {
     LoadContent();
+	mDieScene = new DieScene(this);
 }
 
 ManThrowBowl* Bowl1;
 ManThrowBowl* Bowl2;
-Enemy1* test;
+Enemy1* enemy1;
+Enemy2* enemy2;
+Enemy3* enemy3;
+Enemy4* enemy4;
+
+CayBung *cb;
+vector<RECT> LoadEatItem()
+{
+	RECT rect;
+	vector<RECT> listSourceRect;
+	rect.left = 758; rect.top = 31; rect.right = rect.left + 15; rect.bottom = rect.top + 10; listSourceRect.push_back(rect);
+	rect.left = 756; rect.top = 32; rect.right = rect.left + 24; rect.bottom = rect.top + 18; listSourceRect.push_back(rect);
+	rect.left = 731; rect.top = 25; rect.right = rect.left + 22; rect.bottom = rect.top + 23; listSourceRect.push_back(rect);
+	rect.left = 794; rect.top = 23; rect.right = rect.left + 32; rect.bottom = rect.top + 21; listSourceRect.push_back(rect);
+	return listSourceRect;
+
+}
 void DemoScene::LoadContent()
 {
     //set mau backcolor cho scene o day la mau xanh
@@ -20,18 +37,25 @@ void DemoScene::LoadContent()
 		mMap->GetHeight() - mCamera->GetHeight());
 
     mMap->SetCamera(mCamera);
+	EatItem = new Animation("Resources/Aladdin.png", 4, LoadEatItem(), (float)1 /0.5,D3DXVECTOR2(0.5,0.5),D3DCOLOR_XRGB(255,0,255));
+	EatItem->SetScale(D3DXVECTOR2(2, 2));
+	EatItem->SetPosition(0, 0);
 
     mPlayer = new Player();
-    mPlayer->SetPosition(10,400);
+    mPlayer->SetPosition(2500,300);
 
 	mPlayer->SetCamera(mCamera);
 
-	Bowl1 = new ManThrowBowl(mMap->listBowlPosition1);
-	Bowl2 = new ManThrowBowl(mMap->listBowlPosition2);
+	Bowl1 = new ManThrowBowl(mMap->listBowlPosition1); // Truyen list cho bowl1
+	Bowl2 = new ManThrowBowl(mMap->listBowlPosition2);// Truyen list cho bowl2
 
-	test = new Enemy1(D3DXVECTOR2(300, 800),mPlayer);
-	test->SetPosition(400, 635);
-	//test->SetState(new Enemy1Running(test->mData));
+	enemy1 = new Enemy1(mPlayer,mMap->listEnemy1Position);
+	enemy2 = new Enemy2(mPlayer, mMap->listEnemy2Position);
+	enemy3 = new Enemy3(mPlayer, mMap->listEnemy3Position);
+	enemy4 = new Enemy4(mMap->listEnemy4Position);
+	enemy4->mPlayer = mPlayer;
+
+
 	
 }
 
@@ -39,6 +63,12 @@ void DemoScene::Update(float dt)
 {
 	
 	checkCollision(); //Check va cham giua cac vat the
+	if (mPlayer->HPCount == 0)
+	{
+		mDieScene->die->Reset();
+		SceneManager::GetInstance()->ReplaceScene(mDieScene);
+
+	}
 	mPlayer->HandleKeyboard(keys); //Xu ly ban phim cho player
 	mPlayer->Update(dt); //Update player
 
@@ -52,8 +82,16 @@ void DemoScene::Update(float dt)
 	{
 		mMap->listAppleObject.at(i)->Update();
 	}
+	for (int i = 0; i < mMap->listCayBung.size(); i++) //Update Cay Bung
+	{
+		mMap->listCayBung.at(i)->Update();
+	}
 
-	
+	for (int i = 0; i < mMap->listCheckPointSite.size(); i++) //Update CheckPoint
+	{
+		mMap->listCheckPointSite.at(i)->Update();
+	}
+
 	Bowl1->Update(mPlayer); 
 	Bowl2->Update(mPlayer);
 
@@ -61,8 +99,16 @@ void DemoScene::Update(float dt)
 	{
 		mMap->listDropBrick.at(i)->Update();
 	}
+
+	enemy1->Update();
+	enemy2->Update();
+	enemy3->Update();
+	enemy4->Update(mPlayer);
+
+	EatItem->Update(1);
+	if (EatItem->GetCurrentFrame() == 3) EatItem->SetPosition(0, 0);
+
 	
-	test->Update();
 
 
 }
@@ -73,8 +119,7 @@ void DemoScene::Draw()
 	 
     mPlayer->Draw(); //Ve Player
 
-	mMap->DrawFront(); //Ve mat truoc cua Map
-	mPlayer->mUI->Draw(); // Ve UI tren tat ca
+	
 
 	D3DXVECTOR2 trans = D3DXVECTOR2(GameGlobal::GetWidth() / 2 - mCamera->GetPosition().x,GameGlobal::GetHeight() / 2 - mCamera->GetPosition().y); //Lay TranSition hien tai
 
@@ -82,18 +127,37 @@ void DemoScene::Draw()
 	Bowl2->Draw(D3DXVECTOR3(), RECT(), D3DXVECTOR2(), trans, 0, D3DXVECTOR2(), D3DXCOLOR());
 
 
-	for (int i = 0; i < mMap->listDropBrick.size(); i++) //Update DropBrick
+	for (int i = 0; i < mMap->listDropBrick.size(); i++) //Draw DropBrick
 	{
 		mMap->listDropBrick.at(i)->Draw(trans, D3DXVECTOR2());
 	}
-	test->Draw(trans);
+	for (int i = 0; i < mMap->listCayBung.size(); i++) //
+	{
+		mMap->listCayBung.at(i)->Draw(D3DXVECTOR3(), RECT(), D3DXVECTOR2(1, 1), trans);
+	}
+
+
+	for (int i = 0; i < mMap->listCheckPointSite.size(); i++) //Draw CheckPoint
+	{
+		mMap->listCheckPointSite.at(i)->Draw(D3DXVECTOR3(), RECT(), D3DXVECTOR2(1, 1), trans);
+	}
+
+
+	enemy1->Draw(trans);
+	enemy2->Draw(trans);
+	enemy3->Draw(trans);
+	enemy4->Draw(D3DXVECTOR3(), RECT(), D3DXVECTOR2(), trans, 0, D3DXVECTOR2(), D3DXCOLOR());
+	mMap->DrawFront(); //Ve mat truoc cua Map
+	mPlayer->mUI->Draw(); // Ve UI tren tat ca
+
+	EatItem->Draw(D3DXVECTOR3(), RECT(), D3DXVECTOR2(), trans);
+
 }
 
 void DemoScene::OnKeyDown(int keyCode)
 {
     keys[keyCode] = true;
     mPlayer->OnKeyPressed(keyCode);
-
 
 	
 
@@ -148,30 +212,158 @@ void DemoScene::checkCollision()
 {
 	Entity::EntityTypes tag = Entity::None;
 
+	
 
-#pragma region -Check Collision Enemy-
+
+#pragma region -Check Collision Enemy1-
 	//Check Enemy1 vs Player
-	Entity::CollisionReturn re = GameCollision::RecteAndRect(test->GetBound(),
+	Entity::CollisionReturn re = GameCollision::RecteAndRect(enemy1->GetBound(),
 		mPlayer->GetBound());
 	if (re.IsCollided)
 	{
-		test->OnCollision(mPlayer, re, Entity::NotKnow);
+		enemy1->OnCollision(mPlayer, re, Entity::NotKnow);
 	}
 
 	//Check Apple va cham voi Enemy
 	for (int i = 0; i < mPlayer->listApple.size(); i++)
 	{
 
-		Entity::CollisionReturn re = GameCollision::RecteAndRect(mPlayer->listApple.at(i)->GetBound(), test->GetBound());
+		Entity::CollisionReturn re = GameCollision::RecteAndRect(mPlayer->listApple.at(i)->GetBound(), enemy1->GetBound());
 
 		if (re.IsCollided)
 		{
 
-			test->OnCollision(mPlayer->listApple.at(i), re, Entity::NotKnow);
-			mPlayer->listApple.at(i)->OnCollision(test, re, Entity::NotKnow);
+			enemy1->OnCollision(mPlayer->listApple.at(i), re, Entity::NotKnow);
+			mPlayer->listApple.at(i)->OnCollision(enemy1, re, Entity::NotKnow);
 		}
 	}
 #pragma endregion
+
+
+#pragma region -Check Collision Enemy2-
+	//Check Enemy2 vs Player
+	Entity::CollisionReturn re1 = GameCollision::RecteAndRect(enemy2->GetBound(),
+		mPlayer->GetBound());
+	if (re1.IsCollided)
+	{
+		enemy2->OnCollision(mPlayer, re1, Entity::NotKnow);
+	}
+
+	//Check Apple va cham voi Enemy
+	for (int i = 0; i < mPlayer->listApple.size(); i++)
+	{
+
+		Entity::CollisionReturn re1 = GameCollision::RecteAndRect(mPlayer->listApple.at(i)->GetBound(), enemy2->GetBound());
+
+		if (re1.IsCollided)
+		{
+
+			enemy2->OnCollision(mPlayer->listApple.at(i), re1, Entity::NotKnow);
+			mPlayer->listApple.at(i)->OnCollision(enemy2, re1, Entity::NotKnow);
+		}
+	}
+
+
+
+	
+#pragma endregion
+#pragma region -Check Collision Enemy3-
+	//Check Enemy2 vs Player
+	Entity::CollisionReturn re3 = GameCollision::RecteAndRect(enemy3->GetBound(),
+		mPlayer->GetBound());
+	if (re3.IsCollided)
+	{
+		enemy3->OnCollision(mPlayer, re3, Entity::NotKnow);
+	}
+
+	//Check Apple va cham voi Enemy
+	for (int i = 0; i < mPlayer->listApple.size(); i++)
+	{
+
+		Entity::CollisionReturn re1 = GameCollision::RecteAndRect(mPlayer->listApple.at(i)->GetBound(), enemy3->GetBound());
+
+		if (re1.IsCollided)
+		{
+
+			enemy3->OnCollision(mPlayer->listApple.at(i), re1, Entity::NotKnow);
+			mPlayer->listApple.at(i)->OnCollision(enemy3, re1, Entity::NotKnow);
+		}
+	}
+	
+
+	//Check Knife Enemy3 with Map Object
+	vector<Entity*> listCollisionKnife;
+	mMap->GetQuadTree()->getEntitiesCollideAble(listCollisionKnife, enemy3->mKnife);
+	for (int i = 0; i < listCollisionKnife.size(); i++)
+	{
+		Entity::CollisionReturn re = GameCollision::RecteAndRect(enemy3->mKnife->GetBound(),
+			listCollisionKnife.at(i)->GetBound());
+		if (re.IsCollided)
+			enemy3->mKnife->OnCollision(listCollisionKnife.at(i), re, Entity::NotKnow);
+	}
+
+	//Check Knife Enemy3 with Player
+	if (enemy3->mKnife->GetCurrentState() == AppleState::Flying)
+	{
+		Entity::CollisionReturn re = GameCollision::RecteAndRect(enemy3->mKnife->GetBound(),
+			mPlayer->GetBound());
+		if (re.IsCollided)
+		{
+			enemy3->mKnife->OnCollision(mPlayer, re, Entity::NotKnow);
+			mPlayer->OnCollision(enemy3->mKnife, re, Entity::NotKnow);
+		}
+
+	}
+
+#pragma endregion
+#pragma region - Check Collision Enemy4 Knife
+	//Check Coliison with Object Map
+	vector<Entity*> listCollisionKnife4;
+	mMap->GetQuadTree()->getEntitiesCollideAble(listCollisionKnife4, enemy4->mCurrentKnife);
+	for (int i = 0; i < listCollisionKnife4.size(); i++)
+	{
+		Entity::CollisionReturn re = GameCollision::RecteAndRect(enemy4->mCurrentKnife->GetBound(),
+			listCollisionKnife4.at(i)->GetBound());
+		if (re.IsCollided)
+		{
+			enemy4->mCurrentKnife->OnCollision(listCollisionKnife4.at(i), re, Entity::NotKnow);
+		}
+	}
+
+	//Check Knife Collision with Player
+	Entity::CollisionReturn reEnemy3 = GameCollision::RecteAndRect(enemy4->mCurrentKnife->GetBound(),
+		mPlayer->GetBound());
+	if (reEnemy3.IsCollided && enemy4->mCurrentKnife->GetCurrentState()==AppleState::Flying)
+	{
+		enemy4->mCurrentKnife->OnCollision(mPlayer, re, Entity::NotKnow);
+		mPlayer->OnCollision(enemy4->mCurrentKnife, re, Entity::NotKnow);
+	}
+
+	//Check Fight with Player
+	Entity::CollisionReturn reEnemy4 = GameCollision::RecteAndRect(enemy4->GetBound(),
+		mPlayer->GetBound());
+	if (reEnemy4.IsCollided)
+	{
+		
+		enemy4->OnCollision(mPlayer, re, Entity::NotKnow);
+		//mPlayer->OnCollision(enemy4->mCurrentKnife, re, Entity::NotKnow);
+	}
+
+	//Check with Apple
+	for (int i = 0; i < mPlayer->listApple.size(); i++)
+	{
+
+		Entity::CollisionReturn re = GameCollision::RecteAndRect(mPlayer->listApple.at(i)->GetBound(), enemy4->GetBound());
+
+		if (re.IsCollided)
+		{
+
+			enemy4->OnCollision(mPlayer->listApple.at(i), re, Entity::NotKnow);
+			mPlayer->listApple.at(i)->OnCollision(enemy4, re, Entity::NotKnow);
+		}
+	}
+#pragma endregion
+	
 	//Check player vs DropBrick
 	for (int i = 0; i < mMap->listDropBrick.size(); i++)
 	{
@@ -229,7 +421,7 @@ void DemoScene::checkCollision()
 
 		for (size_t i = 0; i < listCollisionWithBowl.size(); i++)
 		{
-		
+			if (listCollisionWithBowl.at(i)->Tag == Entity::AppleObject) continue;
 			Entity::CollisionReturn r = GameCollision::RecteAndRect(Bowl1->mCurrentApple->GetBound(),
 				listCollisionWithBowl.at(i)->GetBound());
 			if (r.IsCollided)
@@ -245,7 +437,7 @@ void DemoScene::checkCollision()
 
 		for (size_t i = 0; i < listCollisionWithBowl.size(); i++)
 		{
-
+			if (listCollisionWithBowl.at(i)->Tag == Entity::AppleObject) continue;
 			Entity::CollisionReturn r = GameCollision::RecteAndRect(Bowl2->mCurrentApple->GetBound(),
 				listCollisionWithBowl.at(i)->GetBound());
 			if (r.IsCollided)
@@ -301,20 +493,27 @@ void DemoScene::checkCollision()
 			Entity::SideCollisions sideImpactor = GameCollision::getSideCollision(listCollision.at(i), r);
 
 			//goi den ham xu ly collision cua Player va Entity
-			
-			mPlayer->OnCollision(listCollision.at(i), r, sidePlayer);
-
-			listCollision.at(i)->OnCollision(mPlayer, r, sideImpactor);
-			//Check táo trùng để cộng 
-			if (listCollision.at(i)->Tag == Entity::AppleObject) 
+			if (listCollision.at(i)->Tag == Entity::AppleObject)
 			{
 				mPlayer->AppleCount++;
 				//delete listCollision.at(i); //Va cham voi player roi, xoa Apple nay di
 				//listCollision.at(i) = nullptr; //Set null
 				//continue;
+				EatItem->SetPosition(listCollision.at(i)->GetPosition());
 			}
 			
 
+			listCollision.at(i)->OnCollision(mPlayer, r, sideImpactor);
+			//Check táo trùng để cộng 
+		
+			if (listCollision.at(i)->Tag == Entity::CheckPoint && mPlayer->mCurrentState!=PlayerState::Falling)
+			{
+				mPlayer->CheckPoint = D3DXVECTOR2(listCollision.at(i)->GetPosition().x+10, listCollision.at(i)->GetPosition().y+15);
+				return;
+			}
+
+
+			mPlayer->OnCollision(listCollision.at(i), r, sidePlayer);
 			//kiem tra neu va cham voi phia duoi cua Player 
 			if (sidePlayer == Entity::Bottom || sidePlayer == Entity::BottomLeft
 				|| sidePlayer == Entity::BottomRight)
@@ -331,8 +530,11 @@ void DemoScene::checkCollision()
 	}
 
 
-	if (tag == Entity::string || tag == Entity::BrickDrop) return;
-
+	if (tag == Entity::string || tag == Entity::BrickDrop || tag==Entity::Bung) return;
+	if (mPlayer->getState() == PlayerState::Bung ||
+		mPlayer->getState() == PlayerState::ClimbingHori || 
+		mPlayer->getState() == PlayerState::ThrowCLimb ||
+		mPlayer->getState() == PlayerState::Revive) return;
 	//Neu mario dung ngoai mep thi luc nay cho mario rot xuong duoi dat 
 	if (widthBottom < Define::PLAYER_BOTTOM_RANGE_FALLING)
 	{

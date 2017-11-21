@@ -103,7 +103,15 @@ void PlayerBung::OnCollision(Entity *impactor, Entity::SideCollisions side, Enti
 	}
 	if (impactor->Tag == Entity::AppleObject)
 		return;
-	
+	if (impactor->Tag == Entity::StringHori)
+	{
+		mPlayerData->player->SetReverse(!mPlayerData->player->GetReverse());
+		mPlayerData->player->SetPosition(mPlayerData->player->GetPosition().x, impactor->GetPosition().y);
+		mPlayerData->player->SetVy(0);
+		mPlayerData->player->SetState(new PlayerClimHori(this->mPlayerData));
+		return;
+	}
+		
 	
 
 	this->mPlayerData->player->AddPosition(0, -(data.RegionCollision.bottom - data.RegionCollision.top));

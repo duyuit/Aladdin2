@@ -485,7 +485,6 @@ Player::Player()
 	allowThrow = true;
 
 
-	mUI = new UI();
 	CheckPoint = D3DXVECTOR2(50, 300);
 }
 
@@ -521,7 +520,7 @@ void Player::Update(float dt)
 		SetPosition(CheckPoint);
 		SetState(new PLayerRevive(mPlayerData));
 	}
-	mUI->Update(HPCount, AppleCount);
+
 }
 
 void Player::HandleKeyboard(std::map<int, bool> keys)
@@ -780,11 +779,14 @@ void Player::OnNoCollisionWithBottom()
 }
 void Player::OnCollision(Entity *impactor, Entity::CollisionReturn data, Entity::SideCollisions side)
 {
-	if ((impactor->Tag == Bowl || impactor->Tag == KnifeEnemy3) && this->getState() != PlayerState::Fired  && this->getState() != PlayerState::Climbing)
+	if ((impactor->Tag == Bowl || impactor->Tag == KnifeEnemy3) && this->getState() != PlayerState::Fired  && this->getState() != PlayerState::Climbing && this->getState() != PlayerState::ClimbingHori)
 		this->SetState(new PlayerFiredState(this->mPlayerData));
 
-	if ((impactor->Tag == Bowl || impactor->Tag == KnifeEnemy3) && this->getState() == PlayerState::Climbing)
+	if ((impactor->Tag == Bowl || impactor->Tag == KnifeEnemy3) && (this->getState() == PlayerState::Climbing || this->getState() == PlayerState::ClimbingHori))
+	{
 		isAttacked = true;
+		HPCount--;
+	}
 
 	
 	this->mPlayerData->state->OnCollision(impactor, side, data);

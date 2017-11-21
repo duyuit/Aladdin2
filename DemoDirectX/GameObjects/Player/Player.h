@@ -12,7 +12,7 @@
 #include "PlayerStandingState.h"
 #include "PlayerFallingState.h"
 #include "PlayerFiredState.h"
-#include "../../GameComponents/UI.h"
+
 #include "PLayerThrowClimb.h"
 #include "PlayerBung.h"
 #include "PlayerClimHori.h"
@@ -68,8 +68,8 @@ public:
 	Apple* a;
 	vector<Apple*> listApple;
 	int AppleCount = 10;
-	int HPCount = 9;
-	UI *mUI;
+	int HPCount = 900;
+
 	bool allowJump, allowThrow, mCurrentReverse,isAttacked=false;
 	int Count_temp = 0;
 	PlayerData *mPlayerData;

@@ -1,23 +1,15 @@
-﻿  DemoScene.cpp
-d:\gameuit\9.1 - state machine, player, bot\directxgame\demodirectx\scenes\demoscene.cpp(37): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-d:\gameuit\9.1 - state machine, player, bot\directxgame\demodirectx\scenes\demoscene.cpp(77): warning C4018: '<': signed/unsigned mismatch
-d:\gameuit\9.1 - state machine, player, bot\directxgame\demodirectx\scenes\demoscene.cpp(81): warning C4018: '<': signed/unsigned mismatch
-d:\gameuit\9.1 - state machine, player, bot\directxgame\demodirectx\scenes\demoscene.cpp(85): warning C4018: '<': signed/unsigned mismatch
-d:\gameuit\9.1 - state machine, player, bot\directxgame\demodirectx\scenes\demoscene.cpp(90): warning C4018: '<': signed/unsigned mismatch
-d:\gameuit\9.1 - state machine, player, bot\directxgame\demodirectx\scenes\demoscene.cpp(98): warning C4018: '<': signed/unsigned mismatch
-d:\gameuit\9.1 - state machine, player, bot\directxgame\demodirectx\scenes\demoscene.cpp(130): warning C4018: '<': signed/unsigned mismatch
-d:\gameuit\9.1 - state machine, player, bot\directxgame\demodirectx\scenes\demoscene.cpp(134): warning C4018: '<': signed/unsigned mismatch
-d:\gameuit\9.1 - state machine, player, bot\directxgame\demodirectx\scenes\demoscene.cpp(140): warning C4018: '<': signed/unsigned mismatch
-d:\gameuit\9.1 - state machine, player, bot\directxgame\demodirectx\scenes\demoscene.cpp(186): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-d:\gameuit\9.1 - state machine, player, bot\directxgame\demodirectx\scenes\demoscene.cpp(193): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-d:\gameuit\9.1 - state machine, player, bot\directxgame\demodirectx\scenes\demoscene.cpp(199): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-d:\gameuit\9.1 - state machine, player, bot\directxgame\demodirectx\scenes\demoscene.cpp(206): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-d:\gameuit\9.1 - state machine, player, bot\directxgame\demodirectx\scenes\demoscene.cpp(228): warning C4018: '<': signed/unsigned mismatch
-d:\gameuit\9.1 - state machine, player, bot\directxgame\demodirectx\scenes\demoscene.cpp(253): warning C4018: '<': signed/unsigned mismatch
-d:\gameuit\9.1 - state machine, player, bot\directxgame\demodirectx\scenes\demoscene.cpp(280): warning C4018: '<': signed/unsigned mismatch
-d:\gameuit\9.1 - state machine, player, bot\directxgame\demodirectx\scenes\demoscene.cpp(297): warning C4018: '<': signed/unsigned mismatch
-d:\gameuit\9.1 - state machine, player, bot\directxgame\demodirectx\scenes\demoscene.cpp(323): warning C4018: '<': signed/unsigned mismatch
-d:\gameuit\9.1 - state machine, player, bot\directxgame\demodirectx\scenes\demoscene.cpp(353): warning C4018: '<': signed/unsigned mismatch
-d:\gameuit\9.1 - state machine, player, bot\directxgame\demodirectx\scenes\demoscene.cpp(368): warning C4018: '<': signed/unsigned mismatch
-d:\gameuit\9.1 - state machine, player, bot\directxgame\demodirectx\scenes\demoscene.cpp(385): warning C4018: '<': signed/unsigned mismatch
+﻿  Player.cpp
+d:\gameuit\9.1 - state machine, player, bot\directxgame\demodirectx\gameobjects\player\player.cpp(329): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
+d:\gameuit\9.1 - state machine, player, bot\directxgame\demodirectx\gameobjects\player\player.cpp(330): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
+d:\gameuit\9.1 - state machine, player, bot\directxgame\demodirectx\gameobjects\player\player.cpp(465): warning C4305: 'argument': truncation from 'double' to 'FLOAT'
+d:\gameuit\9.1 - state machine, player, bot\directxgame\demodirectx\gameobjects\player\player.cpp(507): warning C4018: '<': signed/unsigned mismatch
+d:\gameuit\9.1 - state machine, player, bot\directxgame\demodirectx\gameobjects\player\player.cpp(626): warning C4018: '<': signed/unsigned mismatch
+d:\gameuit\9.1 - state machine, player, bot\directxgame\demodirectx\gameobjects\player\player.cpp(649): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
+d:\gameuit\9.1 - state machine, player, bot\directxgame\demodirectx\gameobjects\player\player.cpp(651): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
+d:\gameuit\9.1 - state machine, player, bot\directxgame\demodirectx\gameobjects\player\player.cpp(652): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
+d:\gameuit\9.1 - state machine, player, bot\directxgame\demodirectx\gameobjects\player\player.cpp(659): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
+d:\gameuit\9.1 - state machine, player, bot\directxgame\demodirectx\gameobjects\player\player.cpp(661): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
+d:\gameuit\9.1 - state machine, player, bot\directxgame\demodirectx\gameobjects\player\player.cpp(662): warning C4244: '=': conversion from 'float' to 'LONG', possible loss of data
+d:\gameuit\9.1 - state machine, player, bot\directxgame\demodirectx\gameobjects\player\player.cpp(728): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+d:\gameuit\9.1 - state machine, player, bot\directxgame\demodirectx\gameobjects\player\player.cpp(729): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
   DemoDirectX.vcxproj -> D:\GameUIT\9.1 - State Machine, Player, Bot\DirectXGame\Debug\DemoDirectX.exe

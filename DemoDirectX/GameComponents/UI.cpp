@@ -58,10 +58,10 @@ RECT LoadHP(int i)
 	}
 	return rect;
 }
-UI::UI()
+UI::UI(Player* pl)
 {
 	
-
+	mplayer = pl;
 	RECT rect;
 	rect.left = 14; rect.top = 1; rect.right = rect.left + 97; rect.bottom = rect.top + 146;
 
@@ -114,11 +114,11 @@ UI::~UI()
 {
 }
 
-void UI::Update(int hp, int apple)
+void UI::Update()
 {
-	mHP = hp;
+	mHP = mplayer->HPCount;
 
-	mAppleCount = apple;
+	mAppleCount = mplayer->AppleCount;
 
 	int applenum1 = mAppleCount / 10;
 	int applenum2 = mAppleCount % 10;

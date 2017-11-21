@@ -15,7 +15,6 @@ PlayerFiredState::~PlayerFiredState()
 PlayerFiredState::PlayerFiredState(PlayerData *playerData)
 {
 	this->mPlayerData = playerData;
-
 	mPlayerData->player->HPCount--;
 	mPlayerData->player->isAttacked = true;
 
@@ -28,8 +27,11 @@ PlayerFiredState::PlayerFiredState(PlayerData *playerData)
 
 void PlayerFiredState::Update(float dt)
 {
+
+	
 	if (this->mPlayerData->player->GetCurrentAnimation()->GetCurrentFrame() ==5)
 	{
+	
 		this->mPlayerData->player->isAttacked = false;
 		this->mPlayerData->player->GetCurrentAnimation()->Reset();
 		this->mPlayerData->player->SetState(new PlayerStandingState(this->mPlayerData));

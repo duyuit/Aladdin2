@@ -6,6 +6,8 @@
 PLayerRevive::PLayerRevive(PlayerData *playerData)
 {
 	this->mPlayerData = playerData;
+	this->mPlayerData->player->SetVx(0);
+	this->mPlayerData->player->SetVy(0);
 }
 
 

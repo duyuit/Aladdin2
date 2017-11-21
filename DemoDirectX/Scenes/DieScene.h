@@ -2,7 +2,7 @@
 #include "../GameComponents/Scene.h"
 #include "../GameComponents/Animation.h"
 #include "../GameControllers/SceneManager.h"
-#include "DemoScene.h"
+
 class DieScene : public Scene
 {
 public:

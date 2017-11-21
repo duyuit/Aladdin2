@@ -42,7 +42,7 @@ void DemoScene::LoadContent()
 	EatItem->SetPosition(0, 0);
 
     mPlayer = new Player();
-    mPlayer->SetPosition(2500,300);
+    mPlayer->SetPosition(50,10);
 
 	mPlayer->SetCamera(mCamera);
 
@@ -55,6 +55,7 @@ void DemoScene::LoadContent()
 	enemy4 = new Enemy4(mMap->listEnemy4Position);
 	enemy4->mPlayer = mPlayer;
 
+	mUI = new UI(mPlayer);
 
 	
 }
@@ -66,7 +67,10 @@ void DemoScene::Update(float dt)
 	if (mPlayer->HPCount == 0)
 	{
 		mDieScene->die->Reset();
+
 		SceneManager::GetInstance()->ReplaceScene(mDieScene);
+		OnKeyUp(lastKey);
+		
 
 	}
 	mPlayer->HandleKeyboard(keys); //Xu ly ban phim cho player
@@ -108,7 +112,7 @@ void DemoScene::Update(float dt)
 	EatItem->Update(1);
 	if (EatItem->GetCurrentFrame() == 3) EatItem->SetPosition(0, 0);
 
-	
+	mUI->Update();
 
 
 }
@@ -148,7 +152,7 @@ void DemoScene::Draw()
 	enemy3->Draw(trans);
 	enemy4->Draw(D3DXVECTOR3(), RECT(), D3DXVECTOR2(), trans, 0, D3DXVECTOR2(), D3DXCOLOR());
 	mMap->DrawFront(); //Ve mat truoc cua Map
-	mPlayer->mUI->Draw(); // Ve UI tren tat ca
+	mUI->Draw(); // Ve UI tren tat ca
 
 	EatItem->Draw(D3DXVECTOR3(), RECT(), D3DXVECTOR2(), trans);
 
@@ -157,7 +161,10 @@ void DemoScene::Draw()
 void DemoScene::OnKeyDown(int keyCode)
 {
     keys[keyCode] = true;
+	if (keyCode != VK_NUMPAD5) lastKey = keyCode;
     mPlayer->OnKeyPressed(keyCode);
+
+
 
 	
 
@@ -310,6 +317,7 @@ void DemoScene::checkCollision()
 		if (re.IsCollided)
 		{
 			enemy3->mKnife->OnCollision(mPlayer, re, Entity::NotKnow);
+
 			mPlayer->OnCollision(enemy3->mKnife, re, Entity::NotKnow);
 		}
 

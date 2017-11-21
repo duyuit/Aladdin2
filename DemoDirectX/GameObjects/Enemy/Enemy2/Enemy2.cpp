@@ -220,7 +220,11 @@ void Enemy2::OnCollision(Entity *impactor, Entity::CollisionReturn data, Entity:
 	{
 		SetState(new Enemy2Attacked(this->mData));
 	}
-	if (mCurrentState == Enemy2State::Fighting && mCurrentAnimation->GetCurrentFrame() ==4    && mPlayer->mCurrentState != PlayerState::Fired  && mPlayer->mCurrentState != PlayerState::Climbing)
+	if (mCurrentState == Enemy2State::Fighting && mCurrentAnimation->GetCurrentFrame() ==4    &&
+		mPlayer->mCurrentState != PlayerState::Fired  &&
+		mPlayer->mCurrentState != PlayerState::Climbing &&
+		mPlayer->mCurrentState != PlayerState::ClimbingHori &&
+		mPlayer->mCurrentState != PlayerState::Revive)
 	{
 		mPlayer->SetState(new PlayerFiredState(mPlayer->mPlayerData));
 	}

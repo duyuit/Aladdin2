@@ -283,3 +283,7 @@ void Sprite::SetCenterDraw(D3DXVECTOR2 center)
 {
 	mCenterDraw = center;
 }
+LPD3DXSPRITE Sprite::GetSpriteHandle()
+{
+	return mSpriteHandler;
+}

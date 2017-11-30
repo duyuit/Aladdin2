@@ -58,10 +58,10 @@ RECT LoadHP(int i)
 	}
 	return rect;
 }
-UI::UI()
+UI::UI(Player* pl)
 {
-	
-
+	startTime = GetTickCount();
+	mplayer = pl;
 	RECT rect;
 	rect.left = 14; rect.top = 1; rect.right = rect.left + 97; rect.bottom = rect.top + 146;
 
@@ -84,15 +84,15 @@ UI::UI()
 
 	rect.left = 370; rect.top = 45; rect.right = rect.left + 14; rect.bottom = rect.top + 14;
 	apple = new Sprite("Resources/Aladdin.png", RECT(), 0, 0, D3DCOLOR_XRGB(255, 0, 255));
-	apple->SetPosition(D3DXVECTOR2(GameGlobal::GetWidth()-50, GameGlobal::GetHeight()-15));
+	apple->SetPosition(D3DXVECTOR2(GameGlobal::GetWidth() - 50, GameGlobal::GetHeight() - 15));
 	apple->SetScale(D3DXVECTOR2(1.5, 1.5));
 	apple->SetSourceRect(rect);
 	apple->SetWidth(rect.right - rect.left);
 	apple->SetHeight(rect.bottom - rect.top);
 
 	rect.left = 1037; rect.top = 75; rect.right = rect.left + 50; rect.bottom = rect.top + 26;
-	GoldenLamp= new Sprite("Resources/Aladdin.png", RECT(), 0, 0, D3DCOLOR_XRGB(255, 0, 255));
-	GoldenLamp->SetPosition(D3DXVECTOR2(30,20));
+	GoldenLamp = new Sprite("Resources/Aladdin.png", RECT(), 0, 0, D3DCOLOR_XRGB(255, 0, 255));
+	GoldenLamp->SetPosition(D3DXVECTOR2(30, 20));
 	GoldenLamp->SetScale(D3DXVECTOR2(1, 1));
 	GoldenLamp->SetSourceRect(rect);
 	GoldenLamp->SetWidth(rect.right - rect.left);
@@ -107,6 +107,19 @@ UI::UI()
 	hpBar->SetWidth(rect.right - rect.left);
 	hpBar->SetHeight(rect.bottom - rect.top);
 
+	myFont = NULL;
+
+	HRESULT rs = D3DXCreateFont(GameGlobal::GetCurrentDevice(), 30, 10, FW_NORMAL, 1, false, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, ANTIALIASED_QUALITY, FF_DONTCARE, (LPCWSTR) "Arial", &myFont);
+	if (!SUCCEEDED(rs))
+	{
+		return;
+	}
+	myRect.left = 0;
+	myRect.top = GameGlobal::GetHeight()-30;
+	myRect.bottom = myRect.top + 200;
+	myRect.right = myRect.left + 200;
+
+
 }
 
 
@@ -114,11 +127,12 @@ UI::~UI()
 {
 }
 
-void UI::Update(int hp, int apple)
+void UI::Update()
 {
-	mHP = hp;
+	
+	mHP = mplayer->HPCount;
 
-	mAppleCount = apple;
+	mAppleCount = mplayer->AppleCount;
 
 	int applenum1 = mAppleCount / 10;
 	int applenum2 = mAppleCount % 10;
@@ -126,12 +140,27 @@ void UI::Update(int hp, int apple)
 	hpBar->SetSourceRect(LoadHP(mHP));
 	apple1->SetSourceRect(LoadNumber(applenum1));
 	apple2->SetSourceRect(LoadNumber(applenum2));
+	EndTime = GetTickCount();
+	CurTime += (float) (EndTime - startTime) / 1000;
+	
+	message = to_string(CurTime);
+	message.replace(message.length()-3,message.length()," s");
+	startTime = GetTickCount();
+	
 }
 void UI::Draw()
 {
+	
 	apple->Draw();
 	apple1->Draw();
 	apple2->Draw();
 	GoldenLamp->Draw();
 	hpBar->Draw(D3DXVECTOR3(), RECT(), D3DXVECTOR2(), D3DXVECTOR2(), 0, D3DXVECTOR2(0, 0.5));
+
+
+
+	if (myFont)
+	{
+		myFont->DrawTextA(hpBar->GetSpriteHandle(), message.c_str(), -1, &myRect, DT_LEFT, D3DCOLOR_XRGB(255, 255, 255));
+	}
 }

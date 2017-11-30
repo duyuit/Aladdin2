@@ -24,7 +24,7 @@ protected:
                             mHeight;
     static int              mIsDone;
     float                   mFPS;
-
+	
     //khoi tao vong lap cho game
     void InitLoop();
 

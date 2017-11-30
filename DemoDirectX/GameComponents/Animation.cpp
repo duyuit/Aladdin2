@@ -12,6 +12,7 @@ Animation::Animation(const char* filePath, int totalFrame, vector<RECT> source, 
 
 void Animation::InitWithAnimation(const char* filePath, int totalFrame, vector<RECT> source, float timePerFrame, D3DXVECTOR2 center, D3DCOLOR colorKey)
 {
+	
 	mSprite = new Sprite(filePath, RECT(), 0, 0,colorKey,center);
 	mTimePerFrame = timePerFrame;
 	mTotalFrame = totalFrame;

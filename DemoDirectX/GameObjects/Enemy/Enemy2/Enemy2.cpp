@@ -220,7 +220,11 @@ void Enemy2::OnCollision(Entity *impactor, Entity::CollisionReturn data, Entity:
 	{
 		SetState(new Enemy2Attacked(this->mData));
 	}
-	if (mCurrentState == Enemy2State::Fighting && mCurrentAnimation->GetCurrentFrame() ==4    && mPlayer->mCurrentState != PlayerState::Fired  && mPlayer->mCurrentState != PlayerState::Climbing)
+	if (mCurrentState == Enemy2State::Fighting && mCurrentAnimation->GetCurrentFrame() ==4    &&
+		mPlayer->mCurrentState != PlayerState::Fired  &&
+		mPlayer->mCurrentState != PlayerState::Climbing &&
+		mPlayer->mCurrentState != PlayerState::ClimbingHori &&
+		mPlayer->mCurrentState != PlayerState::Revive)
 	{
 		mPlayer->SetState(new PlayerFiredState(mPlayer->mPlayerData));
 	}
@@ -262,13 +266,13 @@ void Enemy2::CheckAction()
 
 
 	int deltax = abs(GetPosition().x - mPlayer->GetPosition().x);
-	if (deltax > 120)
+	if (deltax > 180)
 	{
 		CheckRunning = false;
 		CheckFire = false;
 		return;
 	}
-	if (deltax <= 120 && deltax >= 50)
+	if (deltax <= 180 && deltax >= 50)
 	{
 		CheckRunning = true;
 		CheckFire = false;

@@ -45,6 +45,7 @@ public:
 	void DrawFront();
 	vector<Camel*> listCamel;
 	vector<AppleObject*> listAppleObject;
+	vector<AppleObject*> listHeart;
 	vector<D3DXVECTOR2> listBowlPosition1;
 	vector<D3DXVECTOR2> listBowlPosition2;
 
@@ -56,6 +57,8 @@ public:
 	vector<CayBung*>	listCayBung;
 	vector<CheckPointSite*>	listCheckPointSite;
 
+	 D3DXVECTOR2 startStair1, endStair1;
+	 D3DXVECTOR2 startStair2, endStair2;
 private:
     void LoadMap(char* filePath);
 	QuadTree                        *mQuadTree;

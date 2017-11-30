@@ -10,6 +10,7 @@ public:
 	vector<RECT> LoadRect();
 	void OnCollision(Entity *impactor, CollisionReturn data, SideCollisions side);
 	void Update();
+	RECT GetBound();
 	~Camel();
 };
 

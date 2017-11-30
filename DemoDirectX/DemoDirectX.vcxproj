@@ -91,6 +91,7 @@
     <ClCompile Include="GameComponents\GameCollision.cpp" />
     <ClCompile Include="GameComponents\GameGlobal.cpp" />
     <ClCompile Include="GameComponents\GameMap.cpp" />
+    <ClCompile Include="GameComponents\GameMapBoss.cpp" />
     <ClCompile Include="GameComponents\GameTime.cpp" />
     <ClCompile Include="GameComponents\QuadTree.cpp" />
     <ClCompile Include="GameComponents\Scene.cpp" />
@@ -101,6 +102,12 @@
     <ClCompile Include="GameObjects\Apple\AppleBreakState.cpp" />
     <ClCompile Include="GameObjects\Apple\AppleFlyState.cpp" />
     <ClCompile Include="GameObjects\Apple\AppleState.cpp" />
+    <ClCompile Include="GameObjects\Boss\Boss.cpp" />
+    <ClCompile Include="GameObjects\Boss\BossData.cpp" />
+    <ClCompile Include="GameObjects\Boss\BossFightingSnake.cpp" />
+    <ClCompile Include="GameObjects\Boss\BossMagnetState.cpp" />
+    <ClCompile Include="GameObjects\Boss\BossStandHuman.cpp" />
+    <ClCompile Include="GameObjects\Boss\BossState.cpp" />
     <ClCompile Include="GameObjects\Enemy\Enemy1\Enemy1.cpp" />
     <ClCompile Include="GameObjects\Enemy\Enemy1\Enemy1Attacked.cpp" />
     <ClCompile Include="GameObjects\Enemy\Enemy1\Enemy1Data.cpp" />
@@ -171,6 +178,7 @@
     <ClCompile Include="MapReader\TmxTileOffset.cpp" />
     <ClCompile Include="MapReader\TmxTileset.cpp" />
     <ClCompile Include="MapReader\TmxUtil.cpp" />
+    <ClCompile Include="Scenes\BossScene.cpp" />
     <ClCompile Include="Scenes\DemoScene.cpp" />
     <ClCompile Include="Scenes\DieScene.cpp" />
   </ItemGroup>
@@ -181,6 +189,7 @@
     <ClInclude Include="GameComponents\GameCollision.h" />
     <ClInclude Include="GameComponents\GameGlobal.h" />
     <ClInclude Include="GameComponents\GameMap.h" />
+    <ClInclude Include="GameComponents\GameMapBoss.h" />
     <ClInclude Include="GameComponents\GameTime.h" />
     <ClInclude Include="GameComponents\QuadTree.h" />
     <ClInclude Include="GameComponents\Scene.h" />
@@ -192,6 +201,12 @@
     <ClInclude Include="GameObjects\Apple\AppleBreakState.h" />
     <ClInclude Include="GameObjects\Apple\AppleFlyState.h" />
     <ClInclude Include="GameObjects\Apple\AppleState.h" />
+    <ClInclude Include="GameObjects\Boss\Boss.h" />
+    <ClInclude Include="GameObjects\Boss\BossData.h" />
+    <ClInclude Include="GameObjects\Boss\BossFightingSnake.h" />
+    <ClInclude Include="GameObjects\Boss\BossMagnetState.h" />
+    <ClInclude Include="GameObjects\Boss\BossStandHuman.h" />
+    <ClInclude Include="GameObjects\Boss\BossState.h" />
     <ClInclude Include="GameObjects\Enemy\Enemy1\Enemy1.h" />
     <ClInclude Include="GameObjects\Enemy\Enemy1\Enemy1Attacked.h" />
     <ClInclude Include="GameObjects\Enemy\Enemy1\Enemy1Data.h" />
@@ -265,6 +280,7 @@
     <ClInclude Include="MapReader\zconf.h" />
     <ClInclude Include="MapReader\zlib.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="Scenes\BossScene.h" />
     <ClInclude Include="Scenes\DemoScene.h" />
     <ClInclude Include="Scenes\DieScene.h" />
   </ItemGroup>

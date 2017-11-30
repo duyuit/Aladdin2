@@ -12,11 +12,12 @@
 #include "PlayerStandingState.h"
 #include "PlayerFallingState.h"
 #include "PlayerFiredState.h"
-#include "../../GameComponents/UI.h"
+
 #include "PLayerThrowClimb.h"
 #include "PlayerBung.h"
 #include "PlayerClimHori.h"
 #include "PLayerRevive.h"
+#include "../../GameComponents/GameMap.h"
 class Player : public Entity
 {
 public:
@@ -69,7 +70,7 @@ public:
 	vector<Apple*> listApple;
 	int AppleCount = 10;
 	int HPCount = 9;
-	UI *mUI;
+
 	bool allowJump, allowThrow, mCurrentReverse,isAttacked=false;
 	int Count_temp = 0;
 	PlayerData *mPlayerData;
@@ -77,6 +78,13 @@ public:
 	PlayerState::StateName mCurrentState;
 	Animation *mAnimationThrowClimb;
 	D3DXVECTOR2 CheckPoint;
+	D3DXVECTOR2 LastPosition;
+
+	bool CheckStair1 = false;
+	bool CheckStair2 = false;
+
+	D3DXVECTOR2 startStair1, endStair1;
+	D3DXVECTOR2 startStair2, endStair2;
 protected:
 
 	Camera      *mCamera;
@@ -86,6 +94,7 @@ protected:
 		*mAnimationStanding,
 		*mAnimationRunning,
 		*mAnimationJumping,
+		*mAnimationFalling,
 		*mAnimationThrowing,
 		*mAnimationClimbing,
 		*mAnimationSiting,

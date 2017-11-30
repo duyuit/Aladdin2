@@ -21,10 +21,13 @@
 #include "../GameObjects/MapObject/CayBung.h"
 #include "../GameControllers/SceneManager.h"
 #include "DieScene.h"
+#include "../../GameComponents/UI.h"
+#include "BossScene.h"
 class DemoScene : public Scene
 {
 public:
     DemoScene();
+	~DemoScene();
 
     void Update(float dt);
     void LoadContent();
@@ -34,9 +37,10 @@ public:
     void OnKeyUp(int keyCode);
     void OnMouseDown(float x, float y);
 	DieScene *mDieScene;
+	int lastKey;
 
 protected:
-
+	UI* mUI;
 	Animation *EatItem;
     GameMap *mMap;
     Camera *mCamera;

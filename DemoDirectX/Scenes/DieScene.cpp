@@ -49,9 +49,10 @@ void DieScene::LoadContent()
 		rect.left = 1049; rect.top = 2325; rect.right = rect.left + 66; rect.bottom = rect.top + 73; listRect.push_back(rect);
 		die = new Animation("Resources/Aladdin.png", 27, listRect, (float)1 / 0.2, D3DXVECTOR2(0.5, 0.5), D3DCOLOR_XRGB(255, 0, 255));
 		die->SetPosition(GameGlobal::GetWidth() / 2, GameGlobal::GetHeight() / 2);
-		die->GetSprite()->SetScale(D3DXVECTOR2(2, 2));
+		die->GetSprite()->SetScale(D3DXVECTOR2(1,1));
 		dieText = new Sprite("Resources/die.png", RECT{ 0,0,341,87 });
-		dieText->SetPosition(GameGlobal::GetWidth() / 2, GameGlobal::GetHeight() / 2 + 150);
+		dieText->SetPosition(GameGlobal::GetWidth() / 2, GameGlobal::GetHeight() / 2+50);
+		dieText->SetScale(D3DXVECTOR2(0.5, 0.5));
 }
 int Count = 0;
 void DieScene::Update(float dt)

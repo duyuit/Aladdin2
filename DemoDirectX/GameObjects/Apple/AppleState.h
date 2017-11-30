@@ -18,6 +18,7 @@ public:
 	D3DXVECTOR3 getPos();
 	virtual StateName GetNameState();
 	float acceX, acceY;
+	void SetVx(float x);
 protected:
 	float posx, posy;
 

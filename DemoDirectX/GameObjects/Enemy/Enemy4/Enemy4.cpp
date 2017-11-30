@@ -42,7 +42,7 @@ Enemy4::Enemy4(vector<D3DXVECTOR2> listpos)
 	DieAnimate->SetScale(D3DXVECTOR2(1.5, 1.5));
 
 	mKnife = new Apple(Entity::KnifeEnemy3);
-	Tag = Entity::None;
+	Tag = Entity::Enemy;
 
 
 

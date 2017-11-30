@@ -22,10 +22,12 @@
 #include "../GameControllers/SceneManager.h"
 #include "DieScene.h"
 #include "../../GameComponents/UI.h"
+#include "BossScene.h"
 class DemoScene : public Scene
 {
 public:
     DemoScene();
+	~DemoScene();
 
     void Update(float dt);
     void LoadContent();

@@ -266,13 +266,13 @@ void Enemy2::CheckAction()
 
 
 	int deltax = abs(GetPosition().x - mPlayer->GetPosition().x);
-	if (deltax > 120)
+	if (deltax > 180)
 	{
 		CheckRunning = false;
 		CheckFire = false;
 		return;
 	}
-	if (deltax <= 120 && deltax >= 50)
+	if (deltax <= 180 && deltax >= 50)
 	{
 		CheckRunning = true;
 		CheckFire = false;

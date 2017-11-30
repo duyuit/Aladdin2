@@ -67,15 +67,53 @@ void PlayerRunningState::HandleKeyboard(std::map<int, bool> keys)
 		this->mPlayerData->player->SetState(new PlayerStandingState(this->mPlayerData));
 		return;
 	}
-	//if (keys[VK_NUMPAD1])
-	//{
-	//	this->mPlayerData->player->SetState(new PlayerFighting(this->mPlayerData));
-	//	return;
-	//}
+	
 }
 
 void PlayerRunningState::OnCollision(Entity *impactor, Entity::SideCollisions side, Entity::CollisionReturn data)
 {
+
+
+	if (impactor->Tag == Entity::stair )
+	{
+		D3DXVECTOR2 A = impactor->GetPosition();
+		D3DXVECTOR2 B = D3DXVECTOR2(A.x + impactor->GetWidth() / 2, A.y - impactor->GetHeight() / 2);
+		D3DXVECTOR2 vtcp = D3DXVECTOR2(B.x - A.x, B.y - A.y);
+		D3DXVECTOR2 vtpt = D3DXVECTOR2(vtcp.y, -vtcp.x);
+
+		float y = (-vtpt.x*(mPlayerData->player->GetPosition().x - A.x)) / vtpt.y + A.y;
+
+		mPlayerData->player->SetPosition(mPlayerData->player->GetPosition().x, y);
+		return;
+	}
+
+	if (impactor->Tag == Entity::stair2)
+	{
+		D3DXVECTOR2 A = mPlayerData->player->startStair2;
+		D3DXVECTOR2 B = mPlayerData->player->endStair2;
+		D3DXVECTOR2 vtcp = D3DXVECTOR2(B.x - A.x, B.y - A.y);
+		D3DXVECTOR2 vtpt = D3DXVECTOR2(vtcp.y, -vtcp.x);
+
+		float y = (-vtpt.x*(mPlayerData->player->GetPosition().x - A.x)) / vtpt.y + A.y;
+
+		mPlayerData->player->SetPosition(mPlayerData->player->GetPosition().x, y);
+		return;
+	}
+
+	if (impactor->Tag == Entity::stair1)
+	{
+		D3DXVECTOR2 A = mPlayerData->player->startStair1;
+		D3DXVECTOR2 B = mPlayerData->player->endStair1;
+		D3DXVECTOR2 vtcp = D3DXVECTOR2(B.x - A.x, B.y - A.y);
+		D3DXVECTOR2 vtpt = D3DXVECTOR2(vtcp.y, -vtcp.x);
+
+		float y = (-vtpt.x*(mPlayerData->player->GetPosition().x - A.x)) / vtpt.y + A.y;
+
+		mPlayerData->player->SetPosition(mPlayerData->player->GetPosition().x, y);
+		return;
+	}
+
+
 	//lay phia va cham so voi player
 	//GameCollision::SideCollisions side = GameCollision::getSideCollision(this->mPlayerData->player, data);
 	//if (impactor->Tag == Entity::LandWood || impactor->Tag == Entity::string) return;

@@ -234,10 +234,11 @@ void Apple::changeAnim(AppleState::StateName state)
 
 void Apple::Update(float dt)
 {
+	
 
 	if (mCurrentAnim != nullptr)
 	{
-		mCurrentAnim->Update(dt);
+		mCurrentAnim->Update(1);
 		width = mCurrentAnim->GetSprite()->GetWidth();
 		height = mCurrentAnim->GetSprite()->GetHeight();
 		if (mCurrentAnim == BreakingAnim)
@@ -252,7 +253,7 @@ void Apple::Update(float dt)
 	
 	if (curState != nullptr)
 	{
-		curState->Update(dt);
+		curState->Update(1);
 		posX = curState->getPos().x;
 		posY = curState->getPos().y;
 	}

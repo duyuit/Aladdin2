@@ -62,6 +62,9 @@
     <Filter Include="FrameWork\GameObjects\Enemy\Enemy4">
       <UniqueIdentifier>{2ac949c0-c9ef-4aa8-a8da-0de883d2330b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="FrameWork\GameObjects\Boss">
+      <UniqueIdentifier>{2843e092-da75-4897-af3d-f353bb74efa2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -327,6 +330,30 @@
     </ClCompile>
     <ClCompile Include="GameObjects\MapObject\CheckPointSite.cpp">
       <Filter>FrameWork\GameObjects\MapObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Scenes\BossScene.cpp">
+      <Filter>FrameWork\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="GameComponents\GameMapBoss.cpp">
+      <Filter>FrameWork\GameComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObjects\Boss\Boss.cpp">
+      <Filter>FrameWork\GameObjects\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObjects\Boss\BossData.cpp">
+      <Filter>FrameWork\GameObjects\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObjects\Boss\BossState.cpp">
+      <Filter>FrameWork\GameObjects\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObjects\Boss\BossFightingSnake.cpp">
+      <Filter>FrameWork\GameObjects\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObjects\Boss\BossMagnetState.cpp">
+      <Filter>FrameWork\GameObjects\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObjects\Boss\BossStandHuman.cpp">
+      <Filter>FrameWork\GameObjects\Boss</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -605,6 +632,30 @@
     </ClInclude>
     <ClInclude Include="GameObjects\MapObject\CheckPointSite.h">
       <Filter>FrameWork\GameObjects\MapObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Scenes\BossScene.h">
+      <Filter>FrameWork\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="GameComponents\GameMapBoss.h">
+      <Filter>FrameWork\GameComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjects\Boss\Boss.h">
+      <Filter>FrameWork\GameObjects\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjects\Boss\BossData.h">
+      <Filter>FrameWork\GameObjects\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjects\Boss\BossState.h">
+      <Filter>FrameWork\GameObjects\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjects\Boss\BossFightingSnake.h">
+      <Filter>FrameWork\GameObjects\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjects\Boss\BossMagnetState.h">
+      <Filter>FrameWork\GameObjects\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjects\Boss\BossStandHuman.h">
+      <Filter>FrameWork\GameObjects\Boss</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

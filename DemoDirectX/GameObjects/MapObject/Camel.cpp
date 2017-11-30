@@ -42,7 +42,15 @@ Camel::Camel(const char* FilePath,
 	mCurrentAnimation = new Animation(filePath, totalFrame, source, timePerFrame, center, D3DCOLOR_XRGB(248, 0, 248));
 }
 
-
+RECT Camel::GetBound()
+{
+	RECT re;
+	re.left = posX - represent->GetWidth() / 2;
+	re.right = re.left + represent->GetWidth();
+	re.top=posY- represent->GetHeight() / 2;
+	re.bottom=re.top+ represent->GetHeight();
+	return re;
+}
 Camel::~Camel()
 {
 }
@@ -60,6 +68,7 @@ void Camel::Update()
 }
 void Camel::OnCollision(Entity *impactor, CollisionReturn data, SideCollisions side)
 {
+	
 	Actived = true;
 
 }

@@ -8,6 +8,35 @@ vector<RECT> LoadRECT(PlayerState::StateName state)
 	RECT rect;
 	switch (state)
 	{
+	case PlayerState::Falling:
+		rect.left = 333;
+		rect.top = 828;
+		rect.right = rect.left + 42;
+		rect.bottom = rect.top + 68;
+		listSourceRect.push_back(rect);
+	
+	
+		rect.left = 387;
+		rect.top = 815;
+		rect.right = rect.left + 41;
+		rect.bottom = rect.top + 83;
+		listSourceRect.push_back(rect);
+
+		rect.left = 447;
+		rect.top = 806;
+		rect.right = rect.left + 35;
+		rect.bottom = rect.top + 96;
+		listSourceRect.push_back(rect);
+
+		rect.left = 501;
+		rect.top = 806;
+		rect.right = rect.left + 38;
+		rect.bottom = rect.top + 98;
+		listSourceRect.push_back(rect);
+
+	
+		break;
+
 	case PlayerState::Revive:
 		rect.left = 2; rect.top = 2472; rect.right = rect.left + 63; rect.bottom = rect.top + 68; listSourceRect.push_back(rect);
 		rect.left = 77; rect.top = 2475; rect.right = rect.left + 57; rect.bottom = rect.top + 65; listSourceRect.push_back(rect);
@@ -223,8 +252,7 @@ vector<RECT> LoadRECT(PlayerState::StateName state)
 			listSourceRect.push_back(rect);
 		}
 		break;
-	case PlayerState::Falling:
-		break;
+
 	case PlayerState::Jumping:
 				rect.top = 703;
 				rect.bottom = rect.top + 45;
@@ -262,23 +290,8 @@ vector<RECT> LoadRECT(PlayerState::StateName state)
 				rect.right = rect.left + 61;
 				listSourceRect.push_back(rect);
 			
-				rect.top = 687;
-				rect.bottom = rect.top + 59;
-				rect.left = 419;
-				rect.right = rect.left + 54;
-				listSourceRect.push_back(rect);
 			
-				rect.top = 680;
-				rect.bottom = rect.top + 86;
-				rect.left = 490;
-				rect.right = rect.left + 51;
-				listSourceRect.push_back(rect);
-			
-				rect.top = 718;
-				rect.bottom = rect.top + 45;
-				rect.left = 560;
-				rect.right = rect.left + 61;
-				listSourceRect.push_back(rect);
+				
 
 				break;
 	case PlayerState::Die:
@@ -456,8 +469,8 @@ int curApple = 0;
 Player::Player()
 {
 	mAnimationStanding = new Animation("Resources/Aladdin.png", 39, LoadRECT(PlayerState::Standing), (float)1 / 15,D3DXVECTOR2(0.5,1), D3DCOLOR_XRGB(255, 0, 255));
-	mAnimationJumping = new Animation("Resources/Aladdin.png", 9, LoadRECT(PlayerState::Jumping), (float)1 / 30, D3DXVECTOR2(0.5, 1), D3DCOLOR_XRGB(255, 0, 255));
-	mAnimationRunning = new Animation("Resources/Aladdin.png", 13, LoadRECT(PlayerState::Running), (float)1 / 30, D3DXVECTOR2(0.5, 1), D3DCOLOR_XRGB(255, 0, 255));
+	mAnimationJumping = new Animation("Resources/Aladdin.png", 6, LoadRECT(PlayerState::Jumping), (float)1 / 30, D3DXVECTOR2(0.5, 1), D3DCOLOR_XRGB(255, 0, 255));
+	mAnimationRunning = new Animation("Resources/Aladdin.png", 13, LoadRECT(PlayerState::Running), (float)1 / 20, D3DXVECTOR2(0.5, 1), D3DCOLOR_XRGB(255, 0, 255));
 	mAnimationThrowing = new Animation("Resources/Aladdin.png", 6, LoadRECT(PlayerState::Throwing), (float)1 / 25, D3DXVECTOR2(0.5, 1), D3DCOLOR_XRGB(255, 0, 255));
 	mAnimationClimbing = new Animation("Resources/Aladdin.png", 10, LoadRECT(PlayerState::Climbing), (float)1 / 30, D3DXVECTOR2(0.5, 1), D3DCOLOR_XRGB(255, 0, 255));
 	mAnimationFighting=new Animation("Resources/Aladdin.png", 5, LoadRECT(PlayerState::Fighting), (float)1 / 20, D3DXVECTOR2(0.5, 1), D3DCOLOR_XRGB(255, 0, 255));
@@ -470,6 +483,7 @@ Player::Player()
 	mAnimationBung= new Animation("Resources/Aladdin.png",8, LoadRECT(PlayerState::Bung), (float)1 / 15, D3DXVECTOR2(0.5, 1), D3DCOLOR_XRGB(255, 0, 255));
 	mAnimationClimbHori= new Animation("Resources/Aladdin.png",11, LoadRECT(PlayerState::ClimbingHori), (float)1 /15, D3DXVECTOR2(0.5, 0), D3DCOLOR_XRGB(255, 0, 255));
 	mAnimationRevive= new Animation("Resources/Aladdin.png", 14, LoadRECT(PlayerState::Revive), (float)1 / 15, D3DXVECTOR2(0.5, 1), D3DCOLOR_XRGB(255, 0, 255));
+	mAnimationFalling= new Animation("Resources/Aladdin.png", 4, LoadRECT(PlayerState::Falling), (float)1 /2, D3DXVECTOR2(0.5, 1), D3DCOLOR_XRGB(255, 0, 255));
 	Tag = EntityTypes::PlayerOne;
 	this->mPlayerData = new PlayerData();
 	this->mPlayerData->player = this;
@@ -490,12 +504,15 @@ Player::Player()
 
 Player::~Player()
 {
+	delete mAnimationStanding, mAnimationJumping, mAnimationRunning, mAnimationThrowing, mAnimationClimbing, mAnimationFighting, mAnimationSiting,
+		mAnimationSitFight, mAnimationJumpThrow, mAnimationSitThrow, mAnimationFired, mAnimationThrowClimb, mAnimationBung, mAnimationClimbHori,
+		mAnimationRevive, mAnimationFalling;
 }
 
 void Player::Update(float dt)
 {
 
-
+	LastPosition = D3DXVECTOR2(GetPosition().x, GetPosition().y);
 	
 	if (this->mPlayerData->state)
 	{
@@ -514,13 +531,14 @@ void Player::Update(float dt)
 			temp->SetPosition(D3DXVECTOR3(0, posY - 30, 0));
 		}
 	}
+	if (HPCount > 9) HPCount = 9;
 	if (HPCount == 0)
 	{
 		HPCount = 9;
 		SetPosition(CheckPoint);
 		SetState(new PLayerRevive(mPlayerData));
 	}
-
+	
 }
 
 void Player::HandleKeyboard(std::map<int, bool> keys)
@@ -577,7 +595,7 @@ void Player::OnKeyPressed(int key)
 		}
 		allowThrow = false;
 	}
-	if (key == VK_NUMPAD5) HPCount = 0;
+	//if (key == VK_NUMPAD5) HPCount = 0;
 }
 
 void Player::OnKeyUp(int key)
@@ -692,7 +710,7 @@ break;
 		break;
 
 	case PlayerState::Falling:
-		mCurrentAnimation = mAnimationJumping;
+		mCurrentAnimation = mAnimationFalling;
 		break;
 
 	case PlayerState::Jumping:
@@ -777,8 +795,12 @@ void Player::OnNoCollisionWithBottom()
 		this->SetState(new PlayerFallingState(this->mPlayerData));
 	}
 }
+
+
+
 void Player::OnCollision(Entity *impactor, Entity::CollisionReturn data, Entity::SideCollisions side)
 {
+	
 	if ((impactor->Tag == Bowl || impactor->Tag == KnifeEnemy3) && this->getState() != PlayerState::Fired  && this->getState() != PlayerState::Climbing && this->getState() != PlayerState::ClimbingHori)
 		this->SetState(new PlayerFiredState(this->mPlayerData));
 
@@ -788,7 +810,23 @@ void Player::OnCollision(Entity *impactor, Entity::CollisionReturn data, Entity:
 		HPCount--;
 	}
 
+	if ((int)GetPosition().x > 2229 && (int)GetPosition().x < 2278 && ((int)LastPosition.x < 2229 || (int)LastPosition.x > 2278) && GetPosition().y>400)
+	{
+		if (CheckStair1)
+			CheckStair1 = false;
+		else CheckStair1 = true;
+	}
+
+
+	if ((int)GetPosition().x >= 2607 && (int)GetPosition().x <= 2658 && ((int)LastPosition.x < 2607 || (int)LastPosition.x > 2658) )
+	{
+		if (CheckStair2)
+			CheckStair2 = false;
+		else CheckStair2 = true;
+	}
 	
+	if (CheckStair1 && (int) GetPosition().y >=600) CheckStair1 = false;
+	if ((impactor->Tag == stair2 && CheckStair2 == false) ||(impactor->Tag == stair1 && CheckStair1 == false)) return;
 	this->mPlayerData->state->OnCollision(impactor, side, data);
 }
 

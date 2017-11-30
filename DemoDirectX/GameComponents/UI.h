@@ -16,5 +16,14 @@ public:
 	Sprite* hpBar;
 
 	~UI();
+
+	ID3DXFont				*myFont;
+	RECT myRect;
+	LPD3DXSPRITE mSpriteHandler = GameGlobal::GetCurrentSpriteHandler();
+	int startTime;
+	int EndTime;
+	float CurTime=0;
+	std::string message;
+
 };
 

@@ -55,7 +55,7 @@ void PlayerClimHori::HandleKeyboard(std::map<int, bool> keys)
 	
 	if (keys[VK_SPACE])
 	{
-		this->mPlayerData->player->SetPosition(this->mPlayerData->player->GetPosition().x, this->mPlayerData->player->GetPosition().y+80);
+		this->mPlayerData->player->SetPosition(this->mPlayerData->player->GetPosition().x, this->mPlayerData->player->GetPosition().y+100);
 		this->mPlayerData->player->SetState(new PlayerFallingState(this->mPlayerData));
 	}
 

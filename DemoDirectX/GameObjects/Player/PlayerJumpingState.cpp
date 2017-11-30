@@ -10,12 +10,12 @@ PlayerJumpingState::PlayerJumpingState(PlayerData *playerData)
     this->mPlayerData = playerData;
     this->mPlayerData->player->SetVy(Define::PLAYER_MIN_JUMP_VELOCITY);
 
-    acceleratorY = 30.0f;
+    acceleratorY =20.0f;
     acceleratorX = 0.0f;
 
 	
 	
-	this->mPlayerData->player->AddVy(-50);
+	this->mPlayerData->player->AddVy(100);
     noPressed = false;
 }
 
@@ -28,9 +28,10 @@ PlayerJumpingState::~PlayerJumpingState()
 void PlayerJumpingState::Update(float dt)
 {
     this->mPlayerData->player->AddVy(acceleratorY);   
-
+	if (mPlayerData->player->GetCurrentAnimation()->GetCurrentFrame() == 5) mPlayerData->player->GetCurrentAnimation()->SetCurrentFrame(4);
     if (mPlayerData->player->GetVy() >= 0)
     {
+		mPlayerData->player->GetCurrentAnimation()->Reset();
         mPlayerData->player->SetState(new PlayerFallingState(this->mPlayerData));
         return;
     }
@@ -91,7 +92,7 @@ PlayerState::StateName PlayerJumpingState::GetState()
 }
 void PlayerJumpingState::OnCollision(Entity *impactor, Entity::SideCollisions side, Entity::CollisionReturn data)
 {
-	if (impactor->Tag == Entity::Bung) return;
+	if (impactor->Tag == Entity::Bung || impactor->Tag == Entity::stair || impactor->Tag == Entity::stair1 || impactor->Tag == Entity::stair2) return;
 	if (impactor->Tag == Entity::string)
 	{
 		mPlayerData->player->SetPosition(impactor->GetPosition().x, mPlayerData->player->GetPosition().y);

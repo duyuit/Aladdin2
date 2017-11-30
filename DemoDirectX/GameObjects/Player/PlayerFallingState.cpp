@@ -7,7 +7,7 @@
 PlayerFallingState::PlayerFallingState(PlayerData *playerData)
 {
     this->mPlayerData = playerData;
-    acceleratorY = 15.0f;
+    acceleratorY =10.0f;
     acceleratorX = 3.0f;
 
     if (this->mPlayerData->player->GetVx() == 0)
@@ -28,7 +28,7 @@ PlayerFallingState::~PlayerFallingState()
 void PlayerFallingState::Update(float dt)
 {
     this->mPlayerData->player->AddVy(acceleratorY);
-
+	//if (mPlayerData->player->GetCurrentAnimation()->GetCurrentFrame() == 3) mPlayerData->player->GetCurrentAnimation()->SetCurrentFrame(2);
     if (mPlayerData->player->GetVy() > Define::PLAYER_MAX_JUMP_VELOCITY)
     {
         mPlayerData->player->SetVy(Define::PLAYER_MAX_JUMP_VELOCITY);
@@ -83,9 +83,29 @@ PlayerState::StateName PlayerFallingState::GetState()
 
 void PlayerFallingState::OnCollision(Entity *impactor, Entity::SideCollisions side, Entity::CollisionReturn data)
 {
+	
 	//lay phia va cham so voi player
 	//GameCollision::SideCollisions side = GameCollision::getSideCollision(this->mPlayerData->player, data);
-	
+	if (impactor->Tag == Entity::stair )
+	{
+		D3DXVECTOR2 A = impactor->GetPosition();
+		D3DXVECTOR2 B = D3DXVECTOR2(A.x + impactor->GetWidth() / 2, A.y - impactor->GetHeight() / 2);
+		D3DXVECTOR2 vtcp = D3DXVECTOR2(B.x - A.x, B.y - A.y);
+		D3DXVECTOR2 vtpt = D3DXVECTOR2(vtcp.y, -vtcp.x);
+
+		float y = (-vtpt.x*(mPlayerData->player->GetPosition().x - A.x)) / vtpt.y + A.y;
+
+		if (y - mPlayerData->player->GetPosition().y <= 30)
+		{
+		
+			mPlayerData->player->SetPosition(mPlayerData->player->GetPosition().x, y);
+			mPlayerData->player->SetState(new PlayerStandingState(this->mPlayerData));
+		}
+		return;
+	}
+
+
+
 	if (impactor->Tag == Entity::CheckPoint) return;
 	if (impactor->Tag == Entity::string)
 	{
@@ -151,10 +171,12 @@ void PlayerFallingState::OnCollision(Entity *impactor, Entity::SideCollisions si
 			RECT r = this->mPlayerData->player->GetBound();
 			if (isLeftOrRightKeyPressed)
 			{
+				mPlayerData->player->GetCurrentAnimation()->Reset();
 				this->mPlayerData->player->SetState(new PlayerRunningState(this->mPlayerData));
 			}
 			else
 			{
+				mPlayerData->player->GetCurrentAnimation()->Reset();
 				this->mPlayerData->player->SetState(new PlayerStandingState(this->mPlayerData));
 			}
 		}

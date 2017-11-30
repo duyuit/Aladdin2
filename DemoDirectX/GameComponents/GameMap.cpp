@@ -16,8 +16,10 @@ void GameMap::LoadMap(char* filePath)
 	//Load Sprite cho Apple Object
 	RECT rect;
 	rect.left = 370; rect.top = 45; rect.right = rect.left + 14; rect.bottom = rect.top + 14;
-	Sprite* sprite = new Sprite("Resources/Aladdin.png",rect,0,0, D3DCOLOR_XRGB(255, 0, 255), D3DXVECTOR2(0.5, 0.5));
+	Sprite* appleSprite = new Sprite("Resources/Aladdin.png",rect,0,0, D3DCOLOR_XRGB(255, 0, 255), D3DXVECTOR2(0.5, 0.5));
 
+	rect.left = 340; rect.top =170; rect.right = rect.left +24; rect.bottom = rect.top + 26;
+	Sprite* heartSprite = new Sprite("Resources/item.png", rect, 0, 0, D3DCOLOR_XRGB(248, 0, 248), D3DXVECTOR2(0.5, 0.5));
 
     mMap = new Tmx::Map();
     mMap->ParseFile(filePath);
@@ -37,8 +39,10 @@ void GameMap::LoadMap(char* filePath)
 		sprite->SetTransColor(D3DCOLOR_XRGB(63, 72, 204));
         mListTileset.insert(std::pair<int, Sprite*>(i, sprite));
     }
-#pragma region -OBJECTGROUP, STATIC OBJECT-
 
+
+#pragma region -OBJECTGROUP, STATIC OBJECT-
+	
 	for (size_t i = 0; i < mMap->GetNumObjectGroups(); i++)
 	{
 		const Tmx::ObjectGroup *objectGroup = mMap->GetObjectGroup(i);
@@ -59,31 +63,45 @@ void GameMap::LoadMap(char* filePath)
 			tag = Entity::AppleObject;
 		if (name == "fired")
 			tag = Entity::Fired;
-	
-		
+		if (name == "stair1")
+			tag = Entity::stair1;
+		if (name == "stair2")
+			tag = Entity::stair2;
+		if (name == "heart")
+			tag = Entity::Heart;
+		if (name == "stair")
+			tag = Entity::stair;
 		
 		for (size_t j = 0; j < objectGroup->GetNumObjects(); j++)
 		{
 			//lay object group chu khong phai layer
 			//object group se chua nhung body
 			Tmx::Object *object = objectGroup->GetObjects().at(j);
-			if (tag != Entity::Camel && tag != Entity::AppleObject && name != "dropbrick" && name != "civilianBowl" &&name != "civilianBowl2" && name!="caybung" 
-				&& name != "checkpoint")
+
+			if (object->GetId() == 459) endStair2 = D3DXVECTOR2(object->GetX(), object->GetY());
+			if (object->GetId() == 419) startStair2 = D3DXVECTOR2(object->GetX()+ object->GetWidth(), object->GetY()+object->GetHeight());
+
+			if (object->GetId() == 405) startStair1 = D3DXVECTOR2(object->GetX(), object->GetY() + object->GetHeight());
+			if (object->GetId() == 252) endStair1 = D3DXVECTOR2(object->GetX() + object->GetWidth(), object->GetY());
+
+
+			if (tag != Entity::Camel && 
+				tag != Entity::Heart &&
+				tag != Entity::AppleObject &&
+				name != "dropbrick" && 
+				name != "civilianBowl" &&
+				name != "civilianBowl2" &&
+				name!="caybung" &&
+				name != "checkpoint")
 			{
 				Entity *entity = new Entity();
 				entity->SetPosition(object->GetX() + object->GetWidth() / 2,
 					object->GetY() + object->GetHeight() / 2);
 				entity->SetWidth(object->GetWidth());
 				entity->SetHeight(object->GetHeight());
-
-				if (tag == Entity::string)
-				{
-					float x = object->GetX() + object->GetWidth() / 2;
-					float y = object->GetY() + object->GetHeight() / 2;
-					float z = object->GetY() + object->GetHeight() / 2;
-				}
 				entity->Tag = tag;
 				mQuadTree->insertEntity(entity);
+				
 			}
 			
 			
@@ -91,17 +109,29 @@ void GameMap::LoadMap(char* filePath)
 			{
 				Camel *camel=new Camel("Resources/camel.png", (float)1 / 20, D3DXVECTOR2(0.5, 0.5));
 				camel->SetPos(object->GetX() + object->GetWidth() / 2,object->GetY() + object->GetHeight()/2);
-				camel->SetWidth(camel->represent->GetWidth());
-				camel->SetHeight(camel->represent->GetHeight());
 				camel->Tag = tag;
 				listCamel.push_back(camel);
 				mQuadTree->insertEntity(camel);
 			}
+
+			if (tag == Entity::Heart)
+			{
+
+
+				AppleObject *heart = new AppleObject(heartSprite);
+				heart->SetPosition(object->GetX() + object->GetWidth() / 2, object->GetY() + object->GetHeight() / 2);
+				heart->SetWidth(heart->represent->GetWidth());
+				heart->SetHeight(heart->represent->GetHeight());
+				heart->Tag = tag;
+				listHeart.push_back(heart);
+				mQuadTree->insertEntity(heart);
+			}
+
 			if (tag == Entity::AppleObject)
 			{
 				
 				
-				AppleObject *apple = new AppleObject(sprite);
+				AppleObject *apple = new AppleObject(appleSprite);
 				apple->SetPosition(object->GetX() + object->GetWidth() / 2, object->GetY() + object->GetHeight() / 2);
 				apple->SetWidth(apple->represent->GetWidth());
 				apple->SetHeight(apple->represent->GetHeight());
@@ -301,7 +331,7 @@ void GameMap::Draw()
 		{
 			continue;
 		}
-
+	
 		for (size_t j = 0; j < mMap->GetNumTilesets(); j++)
 		{
 			const Tmx::Tileset *tileSet = mMap->GetTileset(j);
@@ -378,6 +408,11 @@ void GameMap::Draw()
 		{
 
 			listAppleObject.at(i)->Draw(D3DXVECTOR3(), RECT(), D3DXVECTOR2(), trans);
+		}
+		for (int i = 0; i < listHeart.size(); i++)
+		{
+
+			listHeart.at(i)->Draw(D3DXVECTOR3(), RECT(), D3DXVECTOR2(), trans);
 		}
 
 	}

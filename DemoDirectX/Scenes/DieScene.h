@@ -2,6 +2,7 @@
 #include "../GameComponents/Scene.h"
 #include "../GameComponents/Animation.h"
 #include "../GameControllers/SceneManager.h"
+#include "BossScene.h"
 
 class DieScene : public Scene
 {
@@ -17,5 +18,6 @@ public:
 
 	 void OnKeyDown(int keyCode);
 	 void OnKeyUp(int keyCode);
+
 };
 

@@ -32,7 +32,8 @@ public:
 
 	enum EntityTypes
 	{
-		None, PlayerOne, Enemy,CheckPoint ,Land,string,LandWood,Camel,AppleObject,Fired,AppleThrow, Bowl,KnifeEnemy3, Bung,StringHori, BrickDrop
+		None, PlayerOne, Enemy,CheckPoint ,Land,string,LandWood,Camel,AppleObject,Fired,AppleThrow, Bowl,KnifeEnemy3, Bung,StringHori, BrickDrop,
+		stair1,stair2,Heart,stair,box
 	};
 
 	EntityTypes Tag; //Tag de nhan vien loai Entity

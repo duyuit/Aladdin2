@@ -23,3 +23,7 @@ AppleState::StateName AppleState::GetNameState()
 {
 	return StateName::NONE;
 }
+void AppleState::SetVx(float x)
+{
+	vX = x;
+}

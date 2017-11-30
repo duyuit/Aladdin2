@@ -11,7 +11,7 @@ public:
     float GetCouter();
     static GameTime* GetInstance();
     ~GameTime();
-
+	static LARGE_INTEGER temp;
 private:
     GameTime();
     LARGE_INTEGER mStartTime, mEndTime, mDelta, mClockRate;

@@ -46,13 +46,18 @@ void GameMapBoss::LoadMap(char* filePath)
 		string name = objectGroup->GetName();
 		if (name == "box")
 			tag = Entity::box;
+		if (name == "land")
+			tag = Entity::Land;
 
 		for (size_t j = 0; j < objectGroup->GetNumObjects(); j++)
 		{
 			//lay object group chu khong phai layer
 			//object group se chua nhung body
+			
 			Tmx::Object *object = objectGroup->GetObjects().at(j);
 			
+			if (name != "app1" && name != "app2" && name != "app3")
+			{
 				Entity *entity = new Entity();
 				entity->SetPosition(object->GetX() + object->GetWidth() / 2,
 					object->GetY() + object->GetHeight() / 2);
@@ -67,8 +72,29 @@ void GameMapBoss::LoadMap(char* filePath)
 				}
 				entity->Tag = tag;
 				mQuadTree->insertEntity(entity);
+
+
 			}
+			
+				if (name == "app1")
+				{
+					listPosApp1.push_back(D3DXVECTOR3(object->GetX() + object->GetWidth() / 2,
+						object->GetY() + object->GetHeight() / 2, 0));
+				}
+				if (name == "app2")
+				{
+					listPosApp2.push_back(D3DXVECTOR3(object->GetX() + object->GetWidth() / 2,
+						object->GetY() + object->GetHeight() / 2, 0));
+				}
+				if (name == "app3")
+				{
+					listPosApp3.push_back(D3DXVECTOR3(object->GetX() + object->GetWidth() / 2,
+						object->GetY() + object->GetHeight() / 2, 0));
+				}
+		}
+	
 	}
+
 
 #pragma endregion
 }

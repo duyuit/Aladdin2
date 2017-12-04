@@ -31,14 +31,14 @@ void PlayerStandingState::HandleKeyboard(std::map<int, bool> keys)
         return;
     }
 	else
-	if (keys[VK_NUMPAD0])
+	if (keys[VkKeyScan('z')])
 	{
 		
 		this->mPlayerData->player->SetState(new PlayerThrowAppleState(this->mPlayerData));
 		return;
 	}
 	else
-	if (keys[VK_NUMPAD1])
+	if (keys[VkKeyScan('x')])
 	{
 
 		this->mPlayerData->player->SetState(new PlayerFighting(this->mPlayerData));

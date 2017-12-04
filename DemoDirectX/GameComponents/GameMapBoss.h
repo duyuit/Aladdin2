@@ -33,6 +33,9 @@ public:
 	bool IsBoundBottom(); // kiem tra xem co o vi tri bien ben phai worldmap khong
 
 	QuadTree* GetQuadTree();
+	vector<D3DXVECTOR3> listPosApp1;
+	vector<D3DXVECTOR3> listPosApp2;
+	vector<D3DXVECTOR3> listPosApp3;
 private:
 	void LoadMap(char* filePath);
 	QuadTree                        *mQuadTree;

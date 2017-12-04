@@ -30,7 +30,7 @@ void PlayerSit::HandleKeyboard(std::map<int, bool> keys)
 		this->mPlayerData->player->SetState(new PlayerSitFight(this->mPlayerData));
 		return;
 	} else 
-		if (keys[VK_NUMPAD0])
+		if (keys[VkKeyScan('z')])
 		{
 			this->mPlayerData->player->SetState(new PlayerSitThrow(this->mPlayerData));
 			return;

@@ -9,18 +9,36 @@ BossScene::BossScene(Player* pl,UI* ui)
 	LoadContent();
 
 }
-vector<RECT>  BossScene::loadRect()
+vector<RECT>  BossScene::loadRect(bool flag)
 {
 	vector<RECT> listSourceRect;
 	RECT rect;
+	if (flag)
+	{
+		rect.left = 8; rect.top = 180; rect.right = rect.left + 26; rect.bottom = rect.top + 23; listSourceRect.push_back(rect);
+		rect.left = 48; rect.top = 155; rect.right = rect.left + 60; rect.bottom = rect.top + 48; listSourceRect.push_back(rect);
+		rect.left = 120; rect.top = 118; rect.right = rect.left + 81; rect.bottom = rect.top + 85; listSourceRect.push_back(rect);
+		rect.left = 208; rect.top = 123; rect.right = rect.left + 83; rect.bottom = rect.top + 80; listSourceRect.push_back(rect);
+		rect.left = 304; rect.top = 124; rect.right = rect.left + 82; rect.bottom = rect.top + 79; listSourceRect.push_back(rect);
+		rect.left = 400; rect.top = 128; rect.right = rect.left + 83; rect.bottom = rect.top + 75; listSourceRect.push_back(rect);
+		rect.left = 496; rect.top = 131; rect.right = rect.left + 83; rect.bottom = rect.top + 72; listSourceRect.push_back(rect);
+		rect.left = 8; rect.top = 214; rect.right = rect.left + 80; rect.bottom = rect.top + 69; listSourceRect.push_back(rect);
+		rect.left = 96; rect.top = 217; rect.right = rect.left + 82; rect.bottom = rect.top + 66; listSourceRect.push_back(rect);
+		rect.left = 192; rect.top = 222; rect.right = rect.left + 83; rect.bottom = rect.top + 61; listSourceRect.push_back(rect);
+		rect.left = 288; rect.top = 231; rect.right = rect.left + 80; rect.bottom = rect.top + 52; listSourceRect.push_back(rect);
+		rect.left = 376; rect.top = 236; rect.right = rect.left + 76; rect.bottom = rect.top + 47; listSourceRect.push_back(rect);
+		rect.left = 464; rect.top = 243; rect.right = rect.left + 52; rect.bottom = rect.top + 40; listSourceRect.push_back(rect);
+		rect.left = 528; rect.top = 244; rect.right = rect.left + 41; rect.bottom = rect.top + 38; listSourceRect.push_back(rect);
+		rect.left = 584; rect.top = 251; rect.right = rect.left + 43; rect.bottom = rect.top + 32; listSourceRect.push_back(rect);
+	}
+	else
+	{
+		rect.left = 758; rect.top = 31; rect.right = rect.left + 15; rect.bottom = rect.top + 10; listSourceRect.push_back(rect);
+		rect.left = 756; rect.top = 32; rect.right = rect.left + 24; rect.bottom = rect.top + 18; listSourceRect.push_back(rect);
+		rect.left = 731; rect.top = 25; rect.right = rect.left + 22; rect.bottom = rect.top + 23; listSourceRect.push_back(rect);
+		rect.left = 794; rect.top = 23; rect.right = rect.left + 32; rect.bottom = rect.top + 21; listSourceRect.push_back(rect);
 
-	rect.left = 310; rect.top = 30; rect.right = rect.left + 21; rect.bottom = rect.top +25; listSourceRect.push_back(rect);
-	rect.left = 342; rect.top = 24; rect.right = rect.left + 31; rect.bottom = rect.top + 30; listSourceRect.push_back(rect);
-	rect.left = 384; rect.top = 21; rect.right = rect.left + 30; rect.bottom = rect.top + 33; listSourceRect.push_back(rect);
-	rect.left = 424; rect.top = 7; rect.right = rect.left + 43; rect.bottom = rect.top + 46; listSourceRect.push_back(rect);
-	rect.left = 481; rect.top = 13; rect.right = rect.left + 38; rect.bottom = rect.top +41; listSourceRect.push_back(rect);
-	rect.left = 527; rect.top = 9; rect.right = rect.left + 44; rect.bottom = rect.top + 44; listSourceRect.push_back(rect);
-	rect.left = 580; rect.top = 7; rect.right = rect.left + 46; rect.bottom = rect.top + 47; listSourceRect.push_back(rect);
+	}
 
 	
 	return listSourceRect;
@@ -31,9 +49,13 @@ BossScene::~BossScene()
 void BossScene::LoadContent()
 {
 	mBackColor = 0x54acd2;
-	EatItem = new Animation("Resources/flare.png", 7, loadRect(), (float)1 / 1, D3DXVECTOR2(0.5, 0.5), D3DCOLOR_XRGB(186, 254, 202));
+	EatItem = new Animation("Resources/Aladdin.png", 4, loadRect(false), (float)1 / 0.5, D3DXVECTOR2(0.5, 0.5), D3DCOLOR_XRGB(255, 0, 255));
 	EatItem->SetScale(D3DXVECTOR2(1.5, 1.5));
-	EatItem->SetPosition(300, 250);
+
+
+	Damage = new Animation("Resources/flare.png",15, loadRect(true), (float)1 / 0.4, D3DXVECTOR2(0.5, 0.5), D3DCOLOR_XRGB(186, 254, 202));
+	//Damage->SetScale(D3DXVECTOR2(0.5, 0.5));
+
 	mMap = new GameMapBoss("Resources/boss.tmx");
 	
 	mCamera = new Camera(GameGlobal::GetWidth(), GameGlobal::GetHeight());
@@ -47,13 +69,28 @@ void BossScene::LoadContent()
 
 	mPlayer->SetCamera(mCamera);
 
-	mBoss = new Boss(mPlayer);
-	mBoss->SetPosition(350, 250);
+	mBoss = new Boss(mPlayer,D3DXVECTOR3(350, 280,0));
 
+
+	RECT rect;
+	rect.left = 370; rect.top = 45; rect.right = rect.left + 14; rect.bottom = rect.top + 14;
+	Sprite* appleSprite1 = new Sprite("Resources/Aladdin.png", rect, 0, 0, D3DCOLOR_XRGB(255, 0, 255), D3DXVECTOR2(0.5, 0.5));
+	Sprite* appleSprite2 = new Sprite("Resources/Aladdin.png", rect, 0, 0, D3DCOLOR_XRGB(255, 0, 255), D3DXVECTOR2(0.5, 0.5));
+	Sprite* appleSprite3 = new Sprite("Resources/Aladdin.png", rect, 0, 0, D3DCOLOR_XRGB(255, 0, 255), D3DXVECTOR2(0.5, 0.5));
+	app1 = new AppleObject(appleSprite1); app1->SetPos(0, 0);
+	app2= new AppleObject(appleSprite2); app2->SetPos(0, 0);
+	app3 = new AppleObject(appleSprite3); app3->SetPos(0, 0);
+
+	
+	
+	
 }
+
 
 void BossScene::Update(float dt)
 {
+
+
 	CheckCameraAndWorldMap();
 	checkCollision();
 	mPlayer->HandleKeyboard(keys);
@@ -61,13 +98,27 @@ void BossScene::Update(float dt)
 	mPlayer->Update(dt);
 
 	mUI->Update();
+
 	EatItem->Update(1);
-	if (EatItem->GetCurrentFrame() == 6)
+
+	if (EatItem->GetCurrentFrame() == 3)
 	{
-	
 		EatItem->SetPosition(0, 0);
 	}
+
+	Damage->Update(1);
+	if (Damage->GetCurrentFrame() == 14)
+	{
+
+		Damage->SetPosition(0, 0);
+	}
+
+
 	mBoss->Update();
+
+	AppleObjectHandle();
+
+	
 }
 
 void BossScene::Draw()
@@ -75,12 +126,23 @@ void BossScene::Draw()
 
 	D3DXVECTOR2 trans = D3DXVECTOR2(GameGlobal::GetWidth() / 2 - mCamera->GetPosition().x, GameGlobal::GetHeight() / 2 - mCamera->GetPosition().y); //Lay TranSition hien tai
 	mMap->Draw(); //Ve Map
-	mPlayer->Draw();
 	mBoss->Draw(trans);
+	mPlayer->Draw();
+	
+
 
 	EatItem->Draw(D3DXVECTOR3(), RECT(), D3DXVECTOR2(), trans);
+	Damage->Draw(D3DXVECTOR3(), RECT(), D3DXVECTOR2(), trans);
+
+	app1->Draw(D3DXVECTOR3(), RECT(), D3DXVECTOR2(), trans);
+	app2->Draw(D3DXVECTOR3(), RECT(), D3DXVECTOR2(), trans);
+	app3->Draw(D3DXVECTOR3(), RECT(), D3DXVECTOR2(), trans);
 	
+	
+	
+
 	mUI->Draw();
+
 	
 
 }
@@ -126,6 +188,7 @@ void BossScene::OnKeyDown(int keyCode)
 	keys[keyCode] = true;
 	mPlayer->OnKeyPressed(keyCode);
 }
+Entity *lastFire = NULL;
 void BossScene::checkCollision()
 {
 	//Check apple va cham voi map
@@ -152,7 +215,7 @@ void BossScene::checkCollision()
 		}
 	}
 
-
+	//Check Apple vs Boss
 	for (int i = 0; i < mPlayer->listApple.size(); i++)
 	{
 		if (mPlayer->listApple.at(i)->mCurrentAnim == nullptr || mPlayer->listApple.at(i)->curState == nullptr) continue;
@@ -160,17 +223,90 @@ void BossScene::checkCollision()
 			mBoss->GetBound());
 		if (re.IsCollided)
 		{
-			EatItem->Reset();
-			EatItem->SetPosition(mPlayer->listApple.at(i)->GetPosition());
+			if (mPlayer->listApple.at(i)->GetCurrentState() == AppleState::Breaking) continue;
+			Damage->Reset();
+			Damage->SetPosition(mPlayer->listApple.at(i)->GetPosition());
+			mBoss->OnCollision(mPlayer->listApple.at(i), re, Entity::NotKnow);
+			if(mBoss->mCurrentState == BossState::StandHuman || mBoss->mCurrentState == BossState::Magnet)
 			mBoss->SetState(new BossStandHuman(mBoss->mData));
 			mPlayer->listApple.at(i)->OnCollision(mBoss, re, Entity::NotKnow);
 		}
+	}
+
+	//Check Fire Ammo With object
+	for (int i = 0; i < mBoss->listAmmo.size(); i++)
+	{
+		vector<Entity*> listCollision;
+		mMap->GetQuadTree()->getEntitiesCollideAble(listCollision, mBoss->listAmmo.at(i));
+
+		for (int j = 0; j < listCollision.size(); j++)
+		{
+			Entity::CollisionReturn r = GameCollision::RecteAndRect(mBoss->listAmmo.at(i)->GetBound(),
+				listCollision.at(j)->GetBound());
+			if (r.IsCollided)
+			{
+
+				mBoss->listAmmo.at(i)->OnCollision(listCollision.at(j), r, Entity::NotKnow);
+			}
+		}
+	}
+	//Check Fire Ammo With Player
+
+	for (int i = 0; i < mBoss->listAmmo.size(); i++)
+	{
+		Entity::CollisionReturn r = GameCollision::RecteAndRect(mBoss->listAmmo.at(i)->GetBound(),
+			mPlayer->GetBound());
+		if (r.IsCollided)
+		{
+			if (mBoss->listAmmo.at(i) == lastFire || !mBoss->listAmmo.at(i)->isActive) continue;
+			mPlayer->SetState(new PlayerFiredState(mPlayer->mPlayerData));
+			lastFire = mBoss->listAmmo.at(i);
+		}
+	}
+	
+#pragma region Check AppleObject with Player
+	Entity::CollisionReturn App1 = GameCollision::RecteAndRect(mPlayer->GetBound(),
+		app1->GetBound());
+	if (App1.IsCollided)
+	{
+	
+		mPlayer->AppleCount++;
+		EatItem->Reset();
+		EatItem->SetPosition(app1->GetPosition());
+		app1->OnCollision(NULL, App1, Entity::NotKnow);
+
 
 	}
+
+	Entity::CollisionReturn App2 = GameCollision::RecteAndRect(mPlayer->GetBound(),
+		app2->GetBound());
+	if (App2.IsCollided)
+	{
+		EatItem->Reset();
+		EatItem->SetPosition(app2->GetPosition());
+		mPlayer->AppleCount++;
+		app2->OnCollision(NULL, App2, Entity::NotKnow);
+		
+	}
+
+	Entity::CollisionReturn App3 = GameCollision::RecteAndRect(mPlayer->GetBound(),
+		app3->GetBound());
+	if (App3.IsCollided)
+	{
+		EatItem->Reset();
+		EatItem->SetPosition(app3->GetPosition());
+		mPlayer->AppleCount++;
+		app3->OnCollision(NULL, App3, Entity::NotKnow);
+		
+	}
+#pragma endregion
+	
+#pragma region player va cham voi object
+	//Check player va cham voi object
 	int widthBottom = 0;
 	Entity::EntityTypes tag = Entity::None;
 	vector<Entity*> listCollision;
-	//Check player va cham voi object
+	
 	mMap->GetQuadTree()->getEntitiesCollideAble(listCollision, mPlayer);
 
 	for (size_t i = 0; i < listCollision.size(); i++)
@@ -228,7 +364,7 @@ void BossScene::checkCollision()
 
 		}
 	}
-
+#pragma endregion
 
 	
 	if (mPlayer->getState() == PlayerState::Revive) return;
@@ -236,4 +372,19 @@ void BossScene::checkCollision()
 	{
 		mPlayer->OnNoCollisionWithBottom();
 	}
+}
+
+void BossScene::AppleObjectHandle()
+{
+	
+	if ((GetTickCount()-lastTime)/1000.0f >=10.0f)
+	{
+		int a = rand() %4 + 1;
+
+		app1->SetPos(mMap->listPosApp1.at(a - 1).x, mMap->listPosApp1.at(a - 1).y);
+		app2->SetPos(mMap->listPosApp2.at(a - 1).x, mMap->listPosApp2.at(a - 1).y);
+		app3->SetPos(mMap->listPosApp3.at(a - 1).x, mMap->listPosApp3.at(a - 1).y);
+		lastTime = GetTickCount();
+	}
+
 }

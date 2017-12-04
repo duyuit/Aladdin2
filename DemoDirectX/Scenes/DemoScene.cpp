@@ -59,6 +59,7 @@ void DemoScene::LoadContent()
 
     mPlayer = new Player();
     mPlayer->SetPosition(4600,50);
+	
 
 	mPlayer->endStair1 = mMap->endStair1;
 	mPlayer->endStair2 = mMap->endStair2;

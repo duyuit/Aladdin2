@@ -49,19 +49,42 @@ vector<RECT> Boss::LoadRECT(BossState::StateName state)
 		break;
 	case BossState::Die:
 		break;
-	default:
-		break;
+
 	}
 	return listSourceRect;
 }
-Boss::Boss(Player* player)
+vector<RECT> Boss::LoadRectFire()
 {
+	vector<RECT> listSourceRect;
+	RECT rect;
+	rect.left = 14; rect.top = 193; rect.right = rect.left + 24; rect.bottom = rect.top + 46; listSourceRect.push_back(rect);
+	rect.left = 46; rect.top = 187; rect.right = rect.left + 21; rect.bottom = rect.top + 52; listSourceRect.push_back(rect);
+	rect.left = 78; rect.top = 193; rect.right = rect.left + 24; rect.bottom = rect.top + 46; listSourceRect.push_back(rect);
+	rect.left = 110; rect.top = 190; rect.right = rect.left + 27; rect.bottom = rect.top + 49; listSourceRect.push_back(rect);
+	rect.left = 150; rect.top = 194; rect.right = rect.left + 35; rect.bottom = rect.top + 45; listSourceRect.push_back(rect);
+	return listSourceRect;
+}
+Boss::Boss(Player* player,D3DXVECTOR3 pos)
+{
+	SetPosition(pos);
 	mPlayer = player;
+	mPlayer->AppleCount = 50;
 	mAnimationStandHuman= new Animation("Resources/jafar.png", 5, LoadRECT(BossState::StandHuman), (float)1 / 0.15, D3DXVECTOR2(0.5, 1), D3DCOLOR_XRGB(186, 254, 202));
 	mAnimationMagnet= new Animation("Resources/jafar.png", 8, LoadRECT(BossState::Magnet), (float)1 / 0.15, D3DXVECTOR2(0.5, 1), D3DCOLOR_XRGB(186, 254, 202));
-	mAnimationFightingSnake =new Animation("Resources/jafar.png", 11, LoadRECT(BossState::FightingSnake), (float)1 / 0.5, D3DXVECTOR2(0.5, 1), D3DCOLOR_XRGB(186, 254, 202));
+	mAnimationFightingSnake =new Animation("Resources/jafar.png", 11, LoadRECT(BossState::FightingSnake), (float)1 / 0.25, D3DXVECTOR2(0.5, 1), D3DCOLOR_XRGB(186, 254, 202));
 	mAnimationStandSnake= new Animation("Resources/jafar.png",6, LoadRECT(BossState::StandSnake), (float)1 / 0.15, D3DXVECTOR2(0.5, 1), D3DCOLOR_XRGB(186, 254, 202));
 	
+	mAnimationFire1 = new Animation("Resources/jafar.png", 5, LoadRectFire(), (float)1 / 0.15, D3DXVECTOR2(0.5, 1), D3DCOLOR_XRGB(186, 254, 202));
+	mAnimationFire2 = new Animation("Resources/jafar.png", 5, LoadRectFire(), (float)1 / 0.15, D3DXVECTOR2(0.5, 1), D3DCOLOR_XRGB(186, 254, 202));
+	mAnimationFire3 = new Animation("Resources/jafar.png", 5, LoadRectFire(), (float)1 / 0.15, D3DXVECTOR2(0.5, 1), D3DCOLOR_XRGB(186, 254, 202));
+	mAnimationFire1->SetScale(D3DXVECTOR2(1, 1.5));
+	mAnimationFire2->SetScale(D3DXVECTOR2(1, 1.5));
+	mAnimationFire3->SetScale(D3DXVECTOR2(1, 1));
+	mAnimationFire1->SetPosition(GetPosition().x - 30, GetPosition().y);
+	mAnimationFire2->SetPosition(GetPosition().x + 30, GetPosition().y);
+	mAnimationFire3->SetPosition(GetPosition());
+
+
 	RECT rect;
 	rect.left = 198; rect.top = 226; rect.right = rect.left + 27; rect.bottom = rect.top + 13; 
 	star1 = new Sprite("Resources/jafar.png", rect, 0, 0, D3DCOLOR_XRGB(186, 254, 202));
@@ -75,7 +98,26 @@ Boss::Boss(Player* player)
 	this->mData = new BossData();
 	this->mData->boss = this;
 
-	SetState(new BossMagnetState(mData));
+	SetState(new BossStandHuman(mData));
+
+	rect.left = 0; rect.top = 0; rect.right = rect.left + 173; rect.bottom = rect.top + 105;
+	arg = new Sprite("Resources/arg.png", rect, 0, 0, D3DCOLOR_XRGB(255, 0, 255), D3DXVECTOR2(0.5, 0.5));
+	arg->SetScale(D3DXVECTOR2(0.5, 0.5));
+	arg->SetPosition(350, 180);
+
+
+	rect.left = 0; rect.top = 0; rect.right = 76; rect.bottom = 12;
+	hp_green = new Sprite("Resources/hp_green.png", rect); hp_green->SetPosition(GetPosition().x, GetPosition().y - 120);
+	hp_yellow = new Sprite("Resources/hp_yellow.png", rect); hp_yellow->SetPosition(GetPosition().x, GetPosition().y - 120);
+	hp_red = new Sprite("Resources/hp_red.png", rect); hp_red->SetPosition(GetPosition().x, GetPosition().y - 120);
+	hp_white = new Sprite("Resources/hp_white.png", rect); hp_white->SetPosition(GetPosition().x, GetPosition().y - 120);
+
+
+
+	listAmmo.push_back(new FireAmmo(D3DXVECTOR2(GetPosition().x, GetPosition().y)));
+	listAmmo.push_back(new FireAmmo(D3DXVECTOR2(GetPosition().x, GetPosition().y)));
+	listAmmo.push_back(new FireAmmo(D3DXVECTOR2(GetPosition().x, GetPosition().y)));
+	
 }
 
 
@@ -84,13 +126,58 @@ Boss::~Boss()
 }
 void Boss::Update()
 {
+	if (mData->boss->mPlayer->GetPosition().x < mData->boss->GetPosition().x)
+		Reverse = true; 
+	else if (mData->boss->mPlayer->GetPosition().x > mData->boss->GetPosition().x) 
+		Reverse = false; 
 
+	if (BossAttacked)
+	{
+		if ((GetTickCount() - lastTimeBossAttacked) / 1000.0f >= 0.7f)
+			BossAttacked = false;
+	}
+	if (HPCount == 12 && mCurrentState != BossState::FightingSnake &&  mCurrentState != BossState::StandSnake)
+	{
+		SetState(new BossFightingSnake(mData));
+		return;
+	}
+	if (mCurrentState == BossState::FightingSnake || mCurrentState == BossState::StandSnake)
+	{
+
+		mAnimationFire1->Update(1);
+		mAnimationFire2->Update(1);
+		mAnimationFire3->Update(1);
+	}
 	mCurrentAnimation->Update(1);
+	
+
 	if (this->mData->state)
 	{
 		this->mData->state->Update();
 	}
+
 	
+	for (int i = 0; i < listAmmo.size(); i++)
+	{
+		listAmmo.at(i)->Update();
+	}
+	
+	int temp;
+	if (HPCount >= 22 && HPCount <= 30)
+		temp = 30 - HPCount;
+	else 
+	if (HPCount > 12 && HPCount <= 21)
+		 temp = 21 - HPCount;
+	else if (HPCount >= 2 && HPCount <= 12)
+		temp = 12 - HPCount;
+	else return;
+
+	RECT rect{ 0,0,(float)(9 - temp)* (76 / 9.0f),12 };
+	hp_yellow->SetSourceRect(rect);
+	hp_green->SetSourceRect(rect);
+	hp_red->SetSourceRect(rect);
+	
+		
 }
 void Boss::DrawStar(D3DXVECTOR2 transform)
 {
@@ -110,21 +197,51 @@ void Boss::DrawStar(D3DXVECTOR2 transform)
 }
 void Boss::Draw(D3DXVECTOR2 transform)
 {
-	if (mData->boss->mPlayer->GetPosition().x < mData->boss->GetPosition().x) 	mCurrentAnimation->GetSprite()->FlipVertical(true);
-	else if (mData->boss->mPlayer->GetPosition().x > mData->boss->GetPosition().x) mCurrentAnimation->GetSprite()->FlipVertical(false);
+	if (mCurrentState == BossState::FightingSnake || mCurrentState == BossState::StandSnake)
+	{
+		mAnimationFire1->Draw(D3DXVECTOR3(), RECT(), D3DXVECTOR2(), transform);
+		mAnimationFire2->Draw(D3DXVECTOR3(), RECT(), D3DXVECTOR2(), transform);
+
+	}
+
+	mCurrentAnimation->GetSprite()->FlipVertical(Reverse);
 	mCurrentAnimation->SetPosition(GetPosition());
 	mCurrentAnimation->Draw(D3DXVECTOR3(), RECT(), D3DXVECTOR2(), transform);
 	
 	if(mCurrentState==BossState::Magnet  && mCurrentAnimation->GetCurrentFrame()==6)
 	DrawStar(transform);
 	
+	if (BossAttacked)
+	arg->Draw(D3DXVECTOR3(), RECT(), D3DXVECTOR2(), transform);
+
+	if (mCurrentState == BossState::FightingSnake || mCurrentState == BossState::StandSnake)
+		mAnimationFire3->Draw(D3DXVECTOR3(), RECT(), D3DXVECTOR2(), transform);
 
 	
+	for (int i = 0; i <  listAmmo.size(); i++)
+	{
+		listAmmo.at(i)->Draw(transform);
+	}
+	hp_white->Draw(D3DXVECTOR3(), RECT(), D3DXVECTOR2(), transform);
+	if(HPCount >= 22 && HPCount <= 30)
+		hp_green->Draw(D3DXVECTOR3(), RECT(), D3DXVECTOR2(),transform, 0, D3DXVECTOR2(0, 0.5));
+	else
+		if(HPCount > 12 && HPCount <= 21)
+			hp_yellow->Draw(D3DXVECTOR3(), RECT(), D3DXVECTOR2(), transform, 0, D3DXVECTOR2(0, 0.5));
+	else 
+		if (HPCount >= 1 && HPCount <= 12)
+			hp_red->Draw(D3DXVECTOR3(), RECT(), D3DXVECTOR2(), transform, 0, D3DXVECTOR2(0, 0.5));
+
 }
 
 void Boss::OnCollision(Entity *impactor, Entity::CollisionReturn data, Entity::SideCollisions side)
 {
-
+	if (impactor->Tag == Entity::AppleThrow)
+	{
+		HPCount--; 
+		lastTimeBossAttacked = GetTickCount();
+		BossAttacked = true;
+	}
 }
 void Boss::SetState(BossState *newState)
 {
@@ -155,8 +272,7 @@ void Boss::changeAnimation(BossState::StateName state)
 	case BossState::FightingSnake:
 		mCurrentAnimation = mAnimationFightingSnake;
 		break;
-	default:
-		break;
+
 	}
 
 	this->width = mCurrentAnimation->GetSprite()->GetWidth();

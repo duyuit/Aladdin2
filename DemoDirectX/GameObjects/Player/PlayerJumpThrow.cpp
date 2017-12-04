@@ -5,6 +5,7 @@
 PlayerJumpThrow::PlayerJumpThrow(PlayerData *playerData)
 {
 	this->mPlayerData = playerData;
+	acceleratorY = 20.0f;
 }
 
 
@@ -20,10 +21,12 @@ PlayerJumpThrow::~PlayerJumpThrow()
 
 void PlayerJumpThrow::Update(float dt)
 {
-	if (this->mPlayerData->player->GetCurrentAnimation()->GetCurrentFrame() == 4)
+	this->mPlayerData->player->AddVy(acceleratorY);
+	if ( mPlayerData->player->GetCurrentAnimation()->GetCurrentFrame() == 4)
 	{
-		this->mPlayerData->player->GetCurrentAnimation()->Reset();
-		this->mPlayerData->player->SetState(new PlayerFallingState(this->mPlayerData));
+		mPlayerData->player->GetCurrentAnimation()->Reset();
+		mPlayerData->player->SetState(new PlayerFallingState(this->mPlayerData));
+		return;
 	}
 }
 

@@ -355,6 +355,12 @@
     <ClCompile Include="GameObjects\Boss\BossStandHuman.cpp">
       <Filter>FrameWork\GameObjects\Boss</Filter>
     </ClCompile>
+    <ClCompile Include="GameObjects\Boss\BossStandSnake.cpp">
+      <Filter>FrameWork\GameObjects\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObjects\Boss\FireAmmo.cpp">
+      <Filter>FrameWork\GameObjects\Boss</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameComponents\Game.h">
@@ -655,6 +661,12 @@
       <Filter>FrameWork\GameObjects\Boss</Filter>
     </ClInclude>
     <ClInclude Include="GameObjects\Boss\BossStandHuman.h">
+      <Filter>FrameWork\GameObjects\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjects\Boss\BossStandSnake.h">
+      <Filter>FrameWork\GameObjects\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjects\Boss\FireAmmo.h">
       <Filter>FrameWork\GameObjects\Boss</Filter>
     </ClInclude>
   </ItemGroup>

@@ -61,5 +61,5 @@ AppleObject::AppleObject(Sprite *sprite)
 }
 void AppleObject::OnCollision(Entity *impactor, CollisionReturn data, SideCollisions side)
 {
-	SetPosition(0, 0);
+	SetPos(0, 0);
 }

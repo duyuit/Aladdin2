@@ -20,14 +20,16 @@ void PlayerThrowAppleState::Update(float dt)
 	if (curFrame == 5)
 	{
 		this->mPlayerData->player->GetCurrentAnimation()->Reset();
-	
 		this->mPlayerData->player->SetState(new PlayerStandingState(mPlayerData));
 	}
 }
 void PlayerThrowAppleState::HandleKeyboard(std::map<int, bool> keys)
 {
 	
-
+	if (keys[VK_LEFT] || keys[VK_RIGHT])
+	{
+		return;
+	}
 }
 
 PlayerState::StateName PlayerThrowAppleState::GetState()

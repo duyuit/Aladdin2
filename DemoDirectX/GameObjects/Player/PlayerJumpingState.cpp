@@ -40,12 +40,13 @@ void PlayerJumpingState::Update(float dt)
 
 void PlayerJumpingState::HandleKeyboard(std::map<int, bool> keys)
 {
-	if (keys[VK_NUMPAD0])
+	if (keys[VkKeyScan('z')])
 	{
 		this->mPlayerData->player->SetState(new PlayerJumpThrow(this->mPlayerData));
-	}
-    if (keys[VK_RIGHT])
+	}else
+    if (keys[VK_RIGHT] )
     {
+
         mPlayerData->player->SetReverse(false);
 
         //di chuyen sang phai
@@ -61,7 +62,7 @@ void PlayerJumpingState::HandleKeyboard(std::map<int, bool> keys)
 
         noPressed = false;
     }
-    else if (keys[VK_LEFT])
+    else if (keys[VK_LEFT] )
     {
         mPlayerData->player->SetReverse(true);
 

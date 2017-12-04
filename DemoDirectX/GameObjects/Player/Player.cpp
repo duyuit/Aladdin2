@@ -567,7 +567,7 @@ void Player::OnKeyPressed(int key)
 
 	}
 	//Nem tao
-	if (key == VK_NUMPAD0)
+	if (key == VkKeyScan('z'))
 	{
 		if (allowThrow)
 		{
@@ -575,8 +575,7 @@ void Player::OnKeyPressed(int key)
 			if (AppleCount < 1) return;
 			if (curApple > 2)
 				curApple = 0;
-			if(mCurrentState==PlayerState::Sit)
-				listApple.at(curApple)->SetPosition(D3DXVECTOR2(posX, posY - 30));
+			
 			if (mCurrentState == PlayerState::ClimbingHori)
 			{
 				listApple.at(curApple)->SetPosition(D3DXVECTOR2(posX, posY));
@@ -588,6 +587,8 @@ void Player::OnKeyPressed(int key)
 			}
 			else
 				listApple.at(curApple)->SetPosition(D3DXVECTOR2(posX, posY -50 ));
+			if (mCurrentState == PlayerState::Sit || mCurrentState == PlayerState::SitThrow)
+				listApple.at(curApple)->SetPosition(D3DXVECTOR2(posX, posY-30));
 			listApple.at(curApple)->mReverse= mCurrentReverse;
 			listApple.at(curApple)->SetState(AppleState::Flying);
 			curApple++;
@@ -605,8 +606,12 @@ void Player::OnKeyUp(int key)
 	
 		allowJump = true;
 	}
-	if (key == VK_NUMPAD0)
+	
+
+	if (key == VkKeyScan('z'))
+	{
 		allowThrow = true;
+	}
 }
 
 

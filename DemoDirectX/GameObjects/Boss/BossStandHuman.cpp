@@ -11,7 +11,7 @@ BossStandHuman::~BossStandHuman()
 
 
 
-int StartTime;
+
 
 
 BossStandHuman::BossStandHuman(BossData *data)

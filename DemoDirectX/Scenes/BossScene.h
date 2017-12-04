@@ -24,12 +24,12 @@ public:
 	void Draw();
 	void OnKeyDown(int keyCode);
 	void OnKeyUp(int keyCode);
-	vector<RECT> loadRect();
+	vector<RECT> loadRect(bool flag);
 protected:
 	Player* mPlayer;
 	UI* mUI;
 	Boss* mBoss;
-	Animation *EatItem;
+	Animation *EatItem,*Damage;
 	GameMapBoss *mMap;
 	Camera *mCamera;
 
@@ -37,9 +37,14 @@ protected:
 	void CheckCameraAndWorldMap();
 
 	void checkCollision();
-
-
+	void AppleObjectHandle();
+	AppleObject *app1, *app2, *app3;
+	
 	std::map<int, bool> keys;
+
+	
+	float lastTime = 0;
+
 
 };
 

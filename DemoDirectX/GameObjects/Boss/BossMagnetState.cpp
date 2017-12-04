@@ -39,6 +39,8 @@ void BossMagnetState::Update()
 				mData->boss->mPlayer->AddPosition(D3DXVECTOR2(-50, 0));
 			CheckLeftorRight = !CheckLeftorRight;
 			mData->boss->GetCurrentAnimation()->Reset();
+			if( mData->boss->mPlayer->mCurrentState != PlayerState::Fired )
+			mData->boss->mPlayer->SetState(new PlayerFiredState(mData->boss->mPlayer->mPlayerData));
 			mData->boss->SetState(new BossStandHuman(mData));
 			return;
 		}

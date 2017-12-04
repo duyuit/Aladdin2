@@ -7,10 +7,13 @@
 #include <cstdlib>
 #include <ctime>
 #include "BossStandHuman.h"
+#include "BossStandSnake.h"
+#include "BossFightingSnake.h"
+#include "FireAmmo.h"
 class Boss:public Entity
 {
 public:
-	Boss(Player *player);
+	Boss(Player *player, D3DXVECTOR3 pos);
 	~Boss();
 
 	void Update();
@@ -26,19 +29,29 @@ public:
 	Animation* GetCurrentAnimation();
 	vector<D3DXVECTOR3> starPos;
 	RECT GetBound();
+	int HPCount =30;
+	int currentAmmo = 0;
+	vector<FireAmmo*> listAmmo;
+	bool Reverse = false;
 private:
 	vector<RECT> LoadRECT(BossState::StateName state);
+	vector<RECT> LoadRectFire();
 	Sprite *star1, *star2, *star3;
-
+	Sprite *hp_green, *hp_yellow, *hp_red,*hp_white;
 	Animation
 		*mAnimationStandHuman,
 		*mAnimationFightingSnake,
 		*mAnimationAttackedSnake,
 		*mAnimationStandSnake,
-		*mAnimationMagnet;
+		*mAnimationMagnet,
+		*mAnimationFire1,
+		*mAnimationFire2,
+		*mAnimationFire3;
 	Sprite *mSprite;
 	void DrawStar(D3DXVECTOR2 transform);
-
+	Sprite *arg;
+	bool BossAttacked = false;
+	float lastTimeBossAttacked = 0;
 	
 	void changeAnimation(BossState::StateName state);
 

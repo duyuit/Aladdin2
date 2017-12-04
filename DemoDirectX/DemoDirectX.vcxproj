@@ -107,7 +107,9 @@
     <ClCompile Include="GameObjects\Boss\BossFightingSnake.cpp" />
     <ClCompile Include="GameObjects\Boss\BossMagnetState.cpp" />
     <ClCompile Include="GameObjects\Boss\BossStandHuman.cpp" />
+    <ClCompile Include="GameObjects\Boss\BossStandSnake.cpp" />
     <ClCompile Include="GameObjects\Boss\BossState.cpp" />
+    <ClCompile Include="GameObjects\Boss\FireAmmo.cpp" />
     <ClCompile Include="GameObjects\Enemy\Enemy1\Enemy1.cpp" />
     <ClCompile Include="GameObjects\Enemy\Enemy1\Enemy1Attacked.cpp" />
     <ClCompile Include="GameObjects\Enemy\Enemy1\Enemy1Data.cpp" />
@@ -206,7 +208,9 @@
     <ClInclude Include="GameObjects\Boss\BossFightingSnake.h" />
     <ClInclude Include="GameObjects\Boss\BossMagnetState.h" />
     <ClInclude Include="GameObjects\Boss\BossStandHuman.h" />
+    <ClInclude Include="GameObjects\Boss\BossStandSnake.h" />
     <ClInclude Include="GameObjects\Boss\BossState.h" />
+    <ClInclude Include="GameObjects\Boss\FireAmmo.h" />
     <ClInclude Include="GameObjects\Enemy\Enemy1\Enemy1.h" />
     <ClInclude Include="GameObjects\Enemy\Enemy1\Enemy1Attacked.h" />
     <ClInclude Include="GameObjects\Enemy\Enemy1\Enemy1Data.h" />

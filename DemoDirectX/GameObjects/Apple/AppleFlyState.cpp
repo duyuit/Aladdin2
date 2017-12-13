@@ -10,10 +10,15 @@ AppleFlyState::AppleFlyState(D3DXVECTOR3 pos,bool reverse, Entity::EntityTypes t
 		acceX = 3.2f;
 		acceY = 0.025f;
 	}
-	else if(type=Entity::Bowl)
+	else if(type==Entity::Bowl)
 	{
 		acceX = 0.0f;
 		acceY = 0.4f;
+	}
+	else if (type == Entity::Meteor)
+	{
+		acceX = 0.0f;
+		acceY = 0.1f;
 	}
 	Reverse = reverse;
 }

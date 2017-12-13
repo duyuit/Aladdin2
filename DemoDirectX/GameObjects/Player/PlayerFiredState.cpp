@@ -17,6 +17,7 @@ PlayerFiredState::PlayerFiredState(PlayerData *playerData)
 	this->mPlayerData = playerData;
 	mPlayerData->player->HPCount--;
 	mPlayerData->player->isAttacked = true;
+	Sound::getInstance()->play("Aladdin Hurt", false,1);
 
 }
 

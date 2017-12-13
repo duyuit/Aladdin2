@@ -4,14 +4,14 @@
 
 
 #include "Sprite.h"
-
+#include "../GameObjects/Entity.h"
 using namespace std;
 
 class Animation
 {
 public:
 	//ham ho tro lay animation voi anh co duy nhat 1 hang
-	Animation(const char* filePath, int totalFrame, vector<RECT> source, float timePerFrame = 0.1f, D3DXVECTOR2 center= D3DXVECTOR2(0.5,0.5), D3DCOLOR colorKey = D3DCOLOR_XRGB(255,0,255));
+	Animation(const char* filePath, int totalFrame, vector<RECT> source, float timePerFrame = 0.1f, D3DXVECTOR2 center= D3DXVECTOR2(0.5,0.5), D3DCOLOR colorKey = D3DCOLOR_XRGB(255,0,255),Entity::EntityTypes type=Entity::None);
 
 	Animation();
 
@@ -61,7 +61,7 @@ protected:
 		mCurrentTotalTime; //tong thoi gian hien tai de thuc hien timeperframe
 
 
-	
+	Entity::EntityTypes mType;
 	Sprite*			mSprite;
 };
 

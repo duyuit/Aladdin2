@@ -25,8 +25,9 @@ void PlayerSit::Update(float dt)
 
 void PlayerSit::HandleKeyboard(std::map<int, bool> keys)
 {
-	if (keys[VK_NUMPAD1])
+	if (keys[VkKeyScan('x')])
 	{
+		Sound::getInstance()->play("Sword Spinning", false, 1);
 		this->mPlayerData->player->SetState(new PlayerSitFight(this->mPlayerData));
 		return;
 	} else 

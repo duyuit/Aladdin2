@@ -15,7 +15,7 @@ PlayerJumpingState::PlayerJumpingState(PlayerData *playerData)
 
 	
 	
-	this->mPlayerData->player->AddVy(100);
+	this->mPlayerData->player->AddVy(50);
     noPressed = false;
 }
 

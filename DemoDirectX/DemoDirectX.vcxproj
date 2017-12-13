@@ -95,6 +95,7 @@
     <ClCompile Include="GameComponents\GameTime.cpp" />
     <ClCompile Include="GameComponents\QuadTree.cpp" />
     <ClCompile Include="GameComponents\Scene.cpp" />
+    <ClCompile Include="GameComponents\Sound.cpp" />
     <ClCompile Include="GameComponents\Sprite.cpp" />
     <ClCompile Include="GameComponents\UI.cpp" />
     <ClCompile Include="GameControllers\SceneManager.cpp" />
@@ -109,6 +110,7 @@
     <ClCompile Include="GameObjects\Boss\BossStandHuman.cpp" />
     <ClCompile Include="GameObjects\Boss\BossStandSnake.cpp" />
     <ClCompile Include="GameObjects\Boss\BossState.cpp" />
+    <ClCompile Include="GameObjects\Boss\BossSummon.cpp" />
     <ClCompile Include="GameObjects\Boss\FireAmmo.cpp" />
     <ClCompile Include="GameObjects\Enemy\Enemy1\Enemy1.cpp" />
     <ClCompile Include="GameObjects\Enemy\Enemy1\Enemy1Attacked.cpp" />
@@ -183,6 +185,7 @@
     <ClCompile Include="Scenes\BossScene.cpp" />
     <ClCompile Include="Scenes\DemoScene.cpp" />
     <ClCompile Include="Scenes\DieScene.cpp" />
+    <ClCompile Include="Scenes\MenuScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameComponents\Animation.h" />
@@ -195,6 +198,7 @@
     <ClInclude Include="GameComponents\GameTime.h" />
     <ClInclude Include="GameComponents\QuadTree.h" />
     <ClInclude Include="GameComponents\Scene.h" />
+    <ClInclude Include="GameComponents\Sound.h" />
     <ClInclude Include="GameComponents\Sprite.h" />
     <ClInclude Include="GameComponents\UI.h" />
     <ClInclude Include="GameControllers\SceneManager.h" />
@@ -210,6 +214,7 @@
     <ClInclude Include="GameObjects\Boss\BossStandHuman.h" />
     <ClInclude Include="GameObjects\Boss\BossStandSnake.h" />
     <ClInclude Include="GameObjects\Boss\BossState.h" />
+    <ClInclude Include="GameObjects\Boss\BossSummon.h" />
     <ClInclude Include="GameObjects\Boss\FireAmmo.h" />
     <ClInclude Include="GameObjects\Enemy\Enemy1\Enemy1.h" />
     <ClInclude Include="GameObjects\Enemy\Enemy1\Enemy1Attacked.h" />
@@ -287,6 +292,7 @@
     <ClInclude Include="Scenes\BossScene.h" />
     <ClInclude Include="Scenes\DemoScene.h" />
     <ClInclude Include="Scenes\DieScene.h" />
+    <ClInclude Include="Scenes\MenuScene.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

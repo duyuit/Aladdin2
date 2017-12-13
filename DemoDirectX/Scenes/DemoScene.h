@@ -23,6 +23,7 @@
 #include "DieScene.h"
 #include "../../GameComponents/UI.h"
 #include "BossScene.h"
+#include "../GameComponents/Sound.h"
 class DemoScene : public Scene
 {
 public:

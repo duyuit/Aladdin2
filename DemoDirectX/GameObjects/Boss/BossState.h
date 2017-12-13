@@ -10,6 +10,7 @@ public:
 	enum StateName
 	{
 		None,
+		MeteorSummon,
 		StandHuman,
 		StandSnake,
 		Magnet,

@@ -85,6 +85,7 @@ public:
 
 	D3DXVECTOR2 startStair1, endStair1;
 	D3DXVECTOR2 startStair2, endStair2;
+	int lastTimeThrow = 0;
 protected:
 
 	Camera      *mCamera;
@@ -110,7 +111,7 @@ protected:
 	
 	
     void changeAnimation(PlayerState::StateName state);
-	
+
   
     //chi cho phep jump khi nhan nhim space, muon nhay lai phai tha phim space roi nhan lai
    

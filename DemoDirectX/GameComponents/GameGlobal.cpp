@@ -4,15 +4,216 @@ HINSTANCE GameGlobal::mHInstance = NULL;
 HWND GameGlobal::mHwnd = NULL;
 LPD3DXSPRITE GameGlobal::mSpriteHandler = NULL;
 int GameGlobal::mWidth = 400; //900 test //400
-int GameGlobal::mHeight = 250; //600 test  //250
+int GameGlobal::mHeight = 225; //600 test  //250
 LPDIRECT3DDEVICE9 GameGlobal::mDevice = nullptr;
 bool GameGlobal::isGameRunning = true;
 IDirect3DSurface9* GameGlobal::backSurface = nullptr;
-
-
+LPDIRECT3DTEXTURE9 GameGlobal::mAladdintexture = NULL;
+LPDIRECT3DTEXTURE9 GameGlobal::mEnemytexture = NULL;
+LPDIRECT3DTEXTURE9 GameGlobal::mMaptexture = NULL;
+LPDIRECT3DTEXTURE9 GameGlobal::mFlaretexture = NULL;
+LPDIRECT3DTEXTURE9 GameGlobal::mCiviliantexture = NULL;
+LPDIRECT3DTEXTURE9 GameGlobal::mCameltexture = NULL;
+LPDIRECT3DTEXTURE9 GameGlobal::mCayBungtexture = NULL;
+LPDIRECT3DTEXTURE9 GameGlobal::mItemtexture = NULL;
+LPDIRECT3DTEXTURE9 GameGlobal::mNumbertexture = NULL;
+LPDIRECT3DTEXTURE9 GameGlobal::mJafartexture = NULL;
 GameGlobal::GameGlobal()
 {
+	if (mSpriteHandler)
+	{
 
+		LPDIRECT3DDEVICE9 device;
+		mSpriteHandler->GetDevice(&device);
+
+	
+		D3DXCreateTextureFromFileExA(
+			device,
+			"Resources/Aladdin.png",
+			1121,
+			2718,
+			1,
+			D3DUSAGE_DYNAMIC,
+			D3DFMT_UNKNOWN,
+			D3DPOOL_DEFAULT,
+			D3DX_DEFAULT,
+			D3DX_DEFAULT,
+			D3DCOLOR_XRGB(255, 0, 255),
+			NULL,
+			NULL,
+			&mAladdintexture);
+
+
+		D3DXCreateTextureFromFileExA(
+			device,
+			"Resources/guard.png",
+			498,
+			1053,
+			1,
+			D3DUSAGE_DYNAMIC,
+			D3DFMT_UNKNOWN,
+			D3DPOOL_DEFAULT,
+			D3DX_DEFAULT,
+			D3DX_DEFAULT,
+			D3DCOLOR_XRGB(120, 193, 152),
+			NULL,
+			NULL,
+			&mEnemytexture);
+
+		D3DXCreateTextureFromFileExA(
+			device,
+			"Resources/67733.png",
+			4773,
+			1383,
+			1,
+			D3DUSAGE_DYNAMIC,
+			D3DFMT_UNKNOWN,
+			D3DPOOL_DEFAULT,
+			D3DX_DEFAULT,
+			D3DX_DEFAULT,
+			D3DCOLOR_XRGB(63, 72, 204),
+			NULL,
+			NULL,
+			&mMaptexture);
+
+		D3DXCreateTextureFromFileExA(
+			device,
+			"Resources/flare.png",
+			658,
+			324,
+			1,
+			D3DUSAGE_DYNAMIC,
+			D3DFMT_UNKNOWN,
+			D3DPOOL_DEFAULT,
+			D3DX_DEFAULT,
+			D3DX_DEFAULT,
+			D3DCOLOR_XRGB(186, 254, 202),
+			NULL,
+			NULL,
+			&mFlaretexture);
+
+
+		D3DXCreateTextureFromFileExA(
+			device,
+			"Resources/civilian.png",
+			1065,
+			588,
+			1,
+			D3DUSAGE_DYNAMIC,
+			D3DFMT_UNKNOWN,
+			D3DPOOL_DEFAULT,
+			D3DX_DEFAULT,
+			D3DX_DEFAULT,
+			D3DCOLOR_XRGB(120, 193, 152),
+			NULL,
+			NULL,
+			&mCiviliantexture);
+
+
+		D3DXCreateTextureFromFileExA(
+			device,
+			"Resources/camel.png",
+			882,
+			99,
+			1,
+			D3DUSAGE_DYNAMIC,
+			D3DFMT_UNKNOWN,
+			D3DPOOL_DEFAULT,
+			D3DX_DEFAULT,
+			D3DX_DEFAULT,
+			D3DCOLOR_XRGB(248, 0, 248),
+			NULL,
+			NULL,
+			&mCameltexture);
+
+		D3DXCreateTextureFromFileExA(
+			device,
+			"Resources/cay.png",
+			171,
+			36,
+			1,
+			D3DUSAGE_DYNAMIC,
+			D3DFMT_UNKNOWN,
+			D3DPOOL_DEFAULT,
+			D3DX_DEFAULT,
+			D3DX_DEFAULT,
+			D3DCOLOR_XRGB(255, 0, 255),
+			NULL,
+			NULL,
+			&mCayBungtexture);
+
+
+		D3DXCreateTextureFromFileExA(
+			device,
+			"Resources/item.png",
+			664,
+			474,
+			1,
+			D3DUSAGE_DYNAMIC,
+			D3DFMT_UNKNOWN,
+			D3DPOOL_DEFAULT,
+			D3DX_DEFAULT,
+			D3DX_DEFAULT,
+			D3DCOLOR_XRGB(248, 0, 248),
+			NULL,
+			NULL,
+			&mItemtexture);
+
+
+
+		D3DXCreateTextureFromFileExA(
+			device,
+			"Resources/number.png",
+			600,
+			515,
+			1,
+			D3DUSAGE_DYNAMIC,
+			D3DFMT_UNKNOWN,
+			D3DPOOL_DEFAULT,
+			D3DX_DEFAULT,
+			D3DX_DEFAULT,
+			D3DCOLOR_XRGB(255, 0, 255),
+			NULL,
+			NULL,
+			&mNumbertexture);
+
+		D3DXCreateTextureFromFileExA(
+			device,
+			"Resources/jafar.png",
+			863,
+			348,
+			1,
+			D3DUSAGE_DYNAMIC,
+			D3DFMT_UNKNOWN,
+			D3DPOOL_DEFAULT,
+			D3DX_DEFAULT,
+			D3DX_DEFAULT,
+			D3DCOLOR_XRGB(186, 254, 202),
+			NULL,
+			NULL,
+			&mJafartexture);
+
+	
+
+	}
+
+	Sound::getInstance()->loadSound("Resources/sound/Aladdin Hurt.wav", "Aladdin Hurt");
+	Sound::getInstance()->loadSound("Resources/sound/Apple Collect.wav", "Apple Collect");
+	Sound::getInstance()->loadSound("Resources/sound/Apple Splat.wav", "Apple Splat");
+	Sound::getInstance()->loadSound("Resources/sound/Camel Spit.wav", "Camel Spit");
+	Sound::getInstance()->loadSound("Resources/sound/Canopy Bounce.wav", "Canopy Bounce");
+	Sound::getInstance()->loadSound("Resources/sound/Clay Pot.wav", "Clay Pot");
+	Sound::getInstance()->loadSound("Resources/sound/Continue Point.wav", "Continue Point");
+	Sound::getInstance()->loadSound("Resources/sound/Extra Health.wav", "Extra Health");
+	Sound::getInstance()->loadSound("Resources/sound/Guard Hit 1.wav", "Guard Hit 1");
+	Sound::getInstance()->loadSound("Resources/sound/Guard Hit 2.wav", "Guard Hit 2");
+	Sound::getInstance()->loadSound("Resources/sound/Guard's Pants.wav", "Guard's Pants");
+	Sound::getInstance()->loadSound("Resources/sound/Continue Point.wav", "Continue Point");
+	Sound::getInstance()->loadSound("Resources/sound/Coming Out.wav", "Coming Out"); 
+	Sound::getInstance()->loadSound("Resources/sound/Outta Apples.wav", "Outta Apples");
+	Sound::getInstance()->loadSound("Resources/sound/Sword Spinning.wav", "Sword Spinning"); 
+	Sound::getInstance()->loadSound("Resources/sound/Fire From Coal.wav", "Fire From Coal");
+	Sound::getInstance()->loadSound("Resources/sound/background_market.wav", "background_market");
 }
 
 
@@ -26,8 +227,8 @@ void GameGlobal::SetCurrentDevice(LPDIRECT3DDEVICE9 device)
 }
 
 LPDIRECT3DDEVICE9 GameGlobal::GetCurrentDevice()
-{
-    return mDevice;
+{	
+   return mDevice;
 }
 
 

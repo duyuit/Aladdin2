@@ -80,7 +80,7 @@ void PlayerClimbState::HandleKeyboard(std::map<int, bool> keys)
 		this->mPlayerData->player->SetState(new PlayerJumpingState(this->mPlayerData));
 	}
 
-	if (keys[VK_NUMPAD0])
+	if (keys[VkKeyScanA('z')])
 	{
 		this->mPlayerData->player->mAnimationThrowClimb->GetSprite()->SetCenterDraw(D3DXVECTOR2(0.5, 1));
 		this->mPlayerData->player->SetState(new PLayerThrowClimb(this->mPlayerData));

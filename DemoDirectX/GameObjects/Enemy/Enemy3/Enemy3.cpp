@@ -61,15 +61,15 @@ Enemy3::Enemy3(Player *player, vector<D3DXVECTOR2> list)
 	mListPosition = list;
 	
 
-	mAnimationRunning = new Animation("Resources/guard.png", 8, LoadRECT(Enemy3State::Running), (float)1 / 1, D3DXVECTOR2(0.5, 1), D3DCOLOR_XRGB(120, 193, 152));
-	mAnimationFighting = new Animation("Resources/guard.png",9, LoadRECT(Enemy3State::Fighting), (float)1 / 0.2, D3DXVECTOR2(0.5, 1), D3DCOLOR_XRGB(120, 193, 152));
-	mAnimationAttacked = new Animation("Resources/guard.png",10, LoadRECT(Enemy3State::Attacked), (float)1 / 0.25, D3DXVECTOR2(0.5, 1), D3DCOLOR_XRGB(120, 193, 152));
-	mAnimationDied = new Animation("Resources/flare.png", 5, LoadRECT(Enemy3State::Die), (float)1 / 0.5, D3DXVECTOR2(0.5, 1), D3DCOLOR_XRGB(186, 254, 202));
+	mAnimationRunning = new Animation("Resources/guard.png", 8, LoadRECT(Enemy3State::Running), (float)1 / 1, D3DXVECTOR2(0.5, 1), D3DCOLOR_XRGB(120, 193, 152), Entity::Enemy);
+	mAnimationFighting = new Animation("Resources/guard.png",9, LoadRECT(Enemy3State::Fighting), (float)1 / 0.2, D3DXVECTOR2(0.5, 1), D3DCOLOR_XRGB(120, 193, 152), Entity::Enemy);
+	mAnimationAttacked = new Animation("Resources/guard.png",10, LoadRECT(Enemy3State::Attacked), (float)1 / 0.25, D3DXVECTOR2(0.5, 1), D3DCOLOR_XRGB(120, 193, 152), Entity::Enemy);
+	mAnimationDied = new Animation("Resources/flare.png", 5, LoadRECT(Enemy3State::Die), (float)1 / 0.5, D3DXVECTOR2(0.5, 1), D3DCOLOR_XRGB(186, 254, 202),Entity::flare);
 	mAnimationDied->SetScale(D3DXVECTOR2(1.5, 1.5));
 
 	RECT rect;
 	rect.left = 9; rect.top = 663; rect.right = rect.left + 43; rect.bottom = rect.top + 49; 
-	mSprite = new Sprite("Resources/guard.png", rect, 0, 0, D3DCOLOR_XRGB(120, 193, 152), D3DXVECTOR2(0.5, 1));
+	mSprite = new Sprite("Resources/guard.png", rect, 0, 0, D3DCOLOR_XRGB(120, 193, 152), D3DXVECTOR2(0.5, 1),GameGlobal::mEnemytexture);
 
 	mCurrentAnimation = nullptr;
 	mCurrentState = Enemy3State::None;
@@ -242,7 +242,7 @@ void Enemy3::changeAnimation(Enemy3State::StateName state)
 void Enemy3::OnCollision(Entity *impactor, Entity::CollisionReturn data, Entity::SideCollisions side)
 {
 
-	if (this->mPlayer->getState() == PlayerState::Fighting || impactor->Tag == Entity::AppleThrow)
+	if (this->mPlayer->getState() == PlayerState::Fighting || (impactor->Tag == Entity::AppleThrow && impactor->GetPosition().x != 0))
 	{
 		SetState(new Enemy3Attacked(this->mData));
 	}

@@ -34,7 +34,42 @@ vector<RECT> Apple::LoadRECT(AppleState::StateName state)
 		default:
 			break;
 		}
-	else if (Tag == EntityTypes::AppleThrow)
+	else
+		if (Tag == EntityTypes::Meteor)
+			switch (state)
+			{
+			case AppleState::Flying:
+
+				rect.left = 171; rect.top = 240; rect.right = rect.left + 74; rect.bottom = rect.top + 213; listSourceRect.push_back(rect);
+				rect.left = 457; rect.top = 223; rect.right = rect.left + 76; rect.bottom = rect.top + 234; listSourceRect.push_back(rect);
+				rect.left = 750; rect.top = 250; rect.right = rect.left + 73; rect.bottom = rect.top + 205; listSourceRect.push_back(rect);
+				rect.left = 1041; rect.top = 229; rect.right = rect.left + 74; rect.bottom = rect.top + 226; listSourceRect.push_back(rect);
+				rect.left = 169; rect.top = 570; rect.right = rect.left + 74; rect.bottom = rect.top + 174; listSourceRect.push_back(rect);
+				rect.left = 459; rect.top = 566; rect.right = rect.left + 75; rect.bottom = rect.top + 178; listSourceRect.push_back(rect);
+				rect.left = 749; rect.top = 518; rect.right = rect.left + 74; rect.bottom = rect.top + 226; listSourceRect.push_back(rect);
+				rect.left = 1039; rect.top = 595; rect.right = rect.left + 73; rect.bottom = rect.top + 148; listSourceRect.push_back(rect);
+				rect.left = 170; rect.top = 884; rect.right = rect.left + 76; rect.bottom = rect.top + 149; listSourceRect.push_back(rect);
+				rect.left = 460; rect.top = 846; rect.right = rect.left + 74; rect.bottom = rect.top + 187; listSourceRect.push_back(rect);
+				rect.left = 750; rect.top = 814; rect.right = rect.left + 73; rect.bottom = rect.top + 219; listSourceRect.push_back(rect);
+				rect.left = 1042; rect.top = 802; rect.right = rect.left + 74; rect.bottom = rect.top + 230; listSourceRect.push_back(rect);
+
+				break;
+			case AppleState::Breaking:
+				rect.left = 56; rect.top = 50; rect.right = rect.left + 47; rect.bottom = rect.top + 49; listSourceRect.push_back(rect);
+				rect.left = 190; rect.top = 32; rect.right = rect.left + 77; rect.bottom = rect.top + 75; listSourceRect.push_back(rect);
+				rect.left = 322; rect.top = 18; rect.right = rect.left + 113; rect.bottom = rect.top + 102; listSourceRect.push_back(rect);
+				rect.left = 497; rect.top = 7; rect.right = rect.left + 140; rect.bottom = rect.top + 125; listSourceRect.push_back(rect);
+				rect.left = 41; rect.top = 189; rect.right = rect.left + 136; rect.bottom = rect.top + 130; listSourceRect.push_back(rect);
+				rect.left = 273; rect.top = 183; rect.right = rect.left + 149; rect.bottom = rect.top + 152; listSourceRect.push_back(rect);
+				rect.left = 744; rect.top = 194; rect.right = rect.left + 126; rect.bottom = rect.top + 113; listSourceRect.push_back(rect);
+				break;
+			case AppleState::NONE:
+				break;
+			default:
+				break;
+			}
+	else
+		if (Tag == EntityTypes::AppleThrow)
 	{
 			switch (state)
 			{
@@ -178,21 +213,29 @@ Apple::Apple(EntityTypes type)
 	Tag = type;
 	if (Tag == EntityTypes::Bowl)
 	{
-		FlyingAnim = new Animation("Resources/civilian.png", 6, LoadRECT(AppleState::Flying), (float)1 / 0.2, D3DXVECTOR2(0.5, 0.5), D3DCOLOR_XRGB(120, 193, 152));
-		BreakingAnim = new Animation("Resources/civilian.png",8, LoadRECT(AppleState::Breaking), (float)1 /10, D3DXVECTOR2(0.5, 0.5), D3DCOLOR_XRGB(120, 193, 152));
+		FlyingAnim = new Animation("Resources/civilian.png", 6, LoadRECT(AppleState::Flying), (float)1 / 0.2, D3DXVECTOR2(0.5, 0.5), D3DCOLOR_XRGB(120, 193, 152), Entity::civilian);
+		BreakingAnim = new Animation("Resources/civilian.png",8, LoadRECT(AppleState::Breaking), (float)1 /10, D3DXVECTOR2(0.5, 0.5), D3DCOLOR_XRGB(120, 193, 152), Entity::civilian);
 		
 	}
 	else if (Tag == EntityTypes::AppleThrow)
 	{
-		FlyingAnim = new Animation("Resources/Aladdin.png", 8, LoadRECT(AppleState::Flying), (float)1 / 20, D3DXVECTOR2(0.5, 0.5), D3DCOLOR_XRGB(255, 0, 255));
-		BreakingAnim = new Animation("Resources/Aladdin.png", 5, LoadRECT(AppleState::Breaking), (float)1 / 20, D3DXVECTOR2(0.5, 0.5), D3DCOLOR_XRGB(255, 0, 255));
+		FlyingAnim = new Animation("Resources/Aladdin.png", 8, LoadRECT(AppleState::Flying), (float)1 / 20, D3DXVECTOR2(0.5, 0.5), D3DCOLOR_XRGB(255, 0, 255),Entity::PlayerOne);
+		BreakingAnim = new Animation("Resources/Aladdin.png", 5, LoadRECT(AppleState::Breaking), (float)1 / 20, D3DXVECTOR2(0.5, 0.5), D3DCOLOR_XRGB(255, 0, 255), Entity::PlayerOne);
 		
+	}
+	else 
+	if (Tag == EntityTypes::Meteor)
+	{
+		FlyingAnim = new Animation("Resources/meteor.png", 12, LoadRECT(AppleState::Flying), (float)1 / 10, D3DXVECTOR2(0.5,1), D3DCOLOR_XRGB(120, 193, 152));
+		BreakingAnim = new Animation("Resources/meteor2.png", 7, LoadRECT(AppleState::Breaking), (float)1 / 10, D3DXVECTOR2(0.5,1), D3DCOLOR_XRGB(120, 193, 152));
+		FlyingAnim->SetScale(D3DXVECTOR2(0.3, 0.3));
+		BreakingAnim->SetScale(D3DXVECTOR2(0.3, 0.3));
 	}
 	else
 	{
-		FlyingAnim = new Animation("Resources/guard.png", 7, LoadRECT(AppleState::Flying), (float)1 / 20, D3DXVECTOR2(0.5, 0.5), D3DCOLOR_XRGB(120, 193, 152));
+		FlyingAnim = new Animation("Resources/guard.png", 7, LoadRECT(AppleState::Flying), (float)1 / 20, D3DXVECTOR2(0.5, 0.5), D3DCOLOR_XRGB(120, 193, 152),Entity::Enemy);
 	
-		BreakingAnim = new Animation("Resources/Aladdin.png", 10, LoadRECT(AppleState::Breaking), (float)1 / 0.4, D3DXVECTOR2(0.5, 0.5), D3DCOLOR_XRGB(255, 0, 255));
+		BreakingAnim = new Animation("Resources/Aladdin.png", 10, LoadRECT(AppleState::Breaking), (float)1 / 0.4, D3DXVECTOR2(0.5, 0.5), D3DCOLOR_XRGB(255, 0, 255),Entity::PlayerOne);
 		BreakingAnim->SetScale(D3DXVECTOR2(2, 2));
 	}
 	
@@ -243,10 +286,10 @@ void Apple::Update(float dt)
 		height = mCurrentAnim->GetSprite()->GetHeight();
 		if (mCurrentAnim == BreakingAnim)
 		{
-			if (mCurrentAnim->GetCurrentFrame() == mCurrentAnim->GetTotalFrame()-1)
+			if (mCurrentAnim->GetCurrentFrame() == mCurrentAnim->GetTotalFrame() - 1)
 			{
 				this->SetState(AppleState::NONE);
-				
+
 			}
 		}
 	}
@@ -277,10 +320,20 @@ RECT Apple::GetBound()
 {
 
 	RECT rect;
-	rect.left = this->posX - width/2;// -mCurrentAnim->GetSprite()->GetWidth() / 2;
-	rect.right = rect.left +width;// +mCurrentAnim->GetSprite()->GetWidth();
-	rect.top = this->posY - height/2;// -mCurrentAnim->GetSprite()->GetHeight() / 2;
-	rect.bottom = rect.top +height;// +mCurrentAnim->GetSprite()->GetHeight();
+	if (Tag != EntityTypes::Meteor)
+	{
+		rect.left = this->posX - width / 2;// -mCurrentAnim->GetSprite()->GetWidth() / 2;
+		rect.right = rect.left + width;// +mCurrentAnim->GetSprite()->GetWidth();
+		rect.top = this->posY - height / 2;// -mCurrentAnim->GetSprite()->GetHeight() / 2;
+		rect.bottom = rect.top + height;// +mCurrentAnim->GetSprite()->GetHeight();
+	}
+	else
+	{
+		rect.left = this->posX - (width*0.3) / 2;// -mCurrentAnim->GetSprite()->GetWidth() / 2;
+		rect.right = rect.left + width*0.3;// +mCurrentAnim->GetSprite()->GetWidth();
+		rect.top = this->posY - height*0.3;// -mCurrentAnim->GetSprite()->GetHeight() / 2;
+		rect.bottom = this->posY;// +mCurrentAnim->GetSprite()->GetHeight();
+	}
 
 	return rect;
 }
@@ -307,7 +360,9 @@ void Apple::SetState(AppleState::StateName newState)
 
 void Apple::OnCollision(Entity *impactor, CollisionReturn data, SideCollisions side)
 {
-	if (impactor->Tag == Entity::AppleObject) return;
+	if (impactor->Tag == Entity::AppleObject || GetPosition().x==0) return;
+	if(Tag==Entity::AppleThrow) 	Sound::getInstance()->play("Apple Splat", false,1);
+	if (Tag == Entity::Bowl) 	Sound::getInstance()->play("Clay Pot", false, 1);
 	SetState(AppleState::Breaking);
 }
 AppleState::StateName Apple::GetCurrentState()

@@ -1,9 +1,13 @@
 #include "Sprite.h"
 
-Sprite::Sprite(const char* filePath, RECT sourceRect, int width, int height, D3DCOLOR colorKey, D3DXVECTOR2 center)
+Sprite::Sprite(const char* filePath, RECT sourceRect, int width, int height, D3DCOLOR colorKey, D3DXVECTOR2 center, LPDIRECT3DTEXTURE9 textureType)
 {    
+
 	mCenterDraw = center;
+	if (textureType != NULL)
+		mTexture = textureType;
     this->InitWithSprite(filePath, sourceRect, width, height, colorKey);
+	
 }
 
 Sprite::Sprite()
@@ -19,67 +23,74 @@ Sprite::~Sprite()
 
 void Sprite::InitWithSprite(const char* filePath, RECT sourceRect, int width, int height, D3DCOLOR colorKey)
 {
-    HRESULT result;
-    mSpriteHandler = GameGlobal::GetCurrentSpriteHandler();
-    mPosition = D3DXVECTOR3(0, 0, 0);
-    mRotation = 0;
-    mRotationCenter = D3DXVECTOR2(mPosition.x, mPosition.y);
-    mTranslation = D3DXVECTOR2(0, 0);
-    mScale = D3DXVECTOR2(0, 1);
-    mSourceRect = sourceRect;
-    mScale.x = mScale.y = 1;
+	
+		HRESULT result;
+		mSpriteHandler = GameGlobal::GetCurrentSpriteHandler();
+		mPosition = D3DXVECTOR3(0, 0, 0);
+		mRotation = 0;
+		mRotationCenter = D3DXVECTOR2(mPosition.x, mPosition.y);
+		mTranslation = D3DXVECTOR2(0, 0);
+		mScale = D3DXVECTOR2(0, 1);
+		mSourceRect = sourceRect;
+		mScale.x = mScale.y = 1;
 
-    D3DXGetImageInfoFromFileA(filePath, &mImageInfo);
+		D3DXGetImageInfoFromFileA(filePath, &mImageInfo);
 
-    if (width == NULL)
-    {
-        if (!isRect(sourceRect))
-            mWidth = mImageInfo.Width;
-        else
-            mWidth = sourceRect.right - sourceRect.left;
-    }
-    else
-        mWidth = width;
+		if (width == NULL)
+		{
+			if (!isRect(sourceRect))
+				mWidth = mImageInfo.Width;
+			else
+				mWidth = sourceRect.right - sourceRect.left;
+		}
+		else
+			mWidth = width;
 
-    if (height == NULL)
-    {
-        if (!isRect(sourceRect))
-            mHeight = mImageInfo.Height;
-        else
-            mHeight = sourceRect.bottom - sourceRect.top;
-    }
-    else
-        mHeight = height;
+		if (height == NULL)
+		{
+			if (!isRect(sourceRect))
+				mHeight = mImageInfo.Height;
+			else
+				mHeight = sourceRect.bottom - sourceRect.top;
+		}
+		else
+			mHeight = height;
 
-    if (!isRect(sourceRect))
-    {
-        mSourceRect.left = 0;
-        mSourceRect.right = mWidth;
-        mSourceRect.top = 0;
-        mSourceRect.bottom = mHeight;            
-    }
+		if (!isRect(sourceRect))
+		{
+			mSourceRect.left = 0;
+			mSourceRect.right = mWidth;
+			mSourceRect.top = 0;
+			mSourceRect.bottom = mHeight;
+		}
 
-    LPDIRECT3DDEVICE9 device;
-    mSpriteHandler->GetDevice(&device);
+		if (mTexture == NULL)
+		{
+			LPDIRECT3DDEVICE9 device;
+			mSpriteHandler->GetDevice(&device);
 
-	if (mColorTrans != D3DCOLOR_XRGB(0,0,0))
-		colorKey = mColorTrans;
+			if (mColorTrans != D3DCOLOR_XRGB(0, 0, 0))
+				colorKey = mColorTrans;
 
-    D3DXCreateTextureFromFileExA(
-        device,
-        filePath,
-        mImageInfo.Width,
-        mImageInfo.Height,
-        1,
-        D3DUSAGE_DYNAMIC,
-        D3DFMT_UNKNOWN,
-        D3DPOOL_DEFAULT,
-        D3DX_DEFAULT,
-        D3DX_DEFAULT,
-		colorKey,// D3DCOLOR_XRGB(63, 72, 204)
-        &mImageInfo,
-        NULL,
-        &mTexture);
+			D3DXCreateTextureFromFileExA(
+				device,
+				filePath,
+				mImageInfo.Width,
+				mImageInfo.Height,
+				1,
+				D3DUSAGE_DYNAMIC,
+				D3DFMT_UNKNOWN,
+				D3DPOOL_DEFAULT,
+				D3DX_DEFAULT,
+				D3DX_DEFAULT,
+				colorKey,
+				&mImageInfo,
+				NULL,
+				&mTexture);
+
+		}
+		
+  
 }
 
 bool Sprite::isRect(RECT rect)
@@ -136,6 +147,7 @@ void Sprite::Draw(D3DXVECTOR3 position, RECT sourceRect, D3DXVECTOR2 scale, D3DX
         angle, &inTranslation);
 
     D3DXMATRIX oldMatrix;
+	
     mSpriteHandler->GetTransform(&oldMatrix);
     mSpriteHandler->SetTransform(&mMatrix);
 

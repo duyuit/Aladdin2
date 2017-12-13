@@ -7,7 +7,7 @@ DropBrick::DropBrick(D3DXVECTOR2 startPOS)
 	SetPosition(startPOS);
 	mStartPOS = startPOS;
 	RECT rect = { 1050,171,1083,188};
-	Brick = new Sprite("Resources/Aladdin.png", rect, 33, 17, D3DCOLOR_XRGB(255, 0, 255));
+	Brick = new Sprite("Resources/Aladdin.png", rect, 33, 17, D3DCOLOR_XRGB(255, 0, 255),D3DXVECTOR2(0.5,0.5),GameGlobal::mAladdintexture);
 	Brick->SetPosition(startPOS);
 	Tag = Entity::BrickDrop;
 }

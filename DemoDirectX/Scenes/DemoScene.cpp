@@ -43,23 +43,24 @@ vector<RECT> LoadEatItem()
 }
 void DemoScene::LoadContent()
 {
-    //set mau backcolor cho scene o day la mau xanh
-    mBackColor = 0x54acd2;
+	//set mau backcolor cho scene o day la mau xanh
+	mBackColor = 0x54acd2;
+	GameGlobal();
 
-    mMap = new GameMap("Resources/untitled.tmx");
+	mMap = new GameMap("Resources/untitled.tmx");
 
-    mCamera = new Camera(GameGlobal::GetWidth(), GameGlobal::GetHeight());
+	mCamera = new Camera(GameGlobal::GetWidth(), GameGlobal::GetHeight());
 	mCamera->SetPosition(GameGlobal::GetWidth() / 2,
 		mMap->GetHeight() - mCamera->GetHeight());
 
-    mMap->SetCamera(mCamera);
-	EatItem = new Animation("Resources/Aladdin.png", 4, LoadEatItem(), (float)1 /0.5,D3DXVECTOR2(0.5,0.5),D3DCOLOR_XRGB(255,0,255));
+	mMap->SetCamera(mCamera);
+	EatItem = new Animation("Resources/Aladdin.png", 4, LoadEatItem(), (float)1 / 0.5, D3DXVECTOR2(0.5, 0.5), D3DCOLOR_XRGB(255, 0, 255));
 	EatItem->SetScale(D3DXVECTOR2(2, 2));
 	EatItem->SetPosition(0, 0);
 
-    mPlayer = new Player();
-    mPlayer->SetPosition(4600,50);
-	
+	mPlayer = new Player();
+	mPlayer->SetPosition(50, 50);
+
 
 	mPlayer->endStair1 = mMap->endStair1;
 	mPlayer->endStair2 = mMap->endStair2;
@@ -72,7 +73,7 @@ void DemoScene::LoadContent()
 	Bowl1 = new ManThrowBowl(mMap->listBowlPosition1); // Truyen list cho bowl1
 	Bowl2 = new ManThrowBowl(mMap->listBowlPosition2);// Truyen list cho bowl2
 
-	enemy1 = new Enemy1(mPlayer,mMap->listEnemy1Position);
+	enemy1 = new Enemy1(mPlayer, mMap->listEnemy1Position);
 	enemy2 = new Enemy2(mPlayer, mMap->listEnemy2Position);
 	enemy3 = new Enemy3(mPlayer, mMap->listEnemy3Position);
 	enemy4 = new Enemy4(mMap->listEnemy4Position);
@@ -80,7 +81,11 @@ void DemoScene::LoadContent()
 
 	mUI = new UI(mPlayer);
 
+	Sound::getInstance()->setVolume(100.0f, "background_market");
 	
+	Sound::getInstance()->play("background_market", true, 0);
+	
+
 }
 
 void DemoScene::Update(float dt)
@@ -94,7 +99,7 @@ void DemoScene::Update(float dt)
 		SceneManager::GetInstance()->ReplaceScene(mDieScene);
 		OnKeyUp(lastKey);
 	}
-
+	
 	if(mPlayer->GetPosition().x >= 4702 && mPlayer->GetPosition().y<=226)
 		SceneManager::GetInstance()->ReplaceScene(new BossScene(mPlayer,mUI));
 	mPlayer->HandleKeyboard(keys); //Xu ly ban phim cho player
@@ -131,10 +136,11 @@ void DemoScene::Update(float dt)
 		mMap->listDropBrick.at(i)->Update();
 	}
 
-	//enemy1->Update();
-	//enemy2->Update();
-	//enemy3->Update();
-	//enemy4->Update(mPlayer);
+
+	enemy1->Update();
+	enemy2->Update();
+	enemy3->Update();
+	enemy4->Update(mPlayer);
 
 	EatItem->Update(1);
 	if (EatItem->GetCurrentFrame() == 3) EatItem->SetPosition(0, 0);
@@ -466,7 +472,7 @@ void DemoScene::checkCollision()
 	
 	//Check bowl Collision voi Map
 
-	if (Bowl1->mCurrentApple->GetCurrentState() != AppleState::NONE)
+	if (Bowl1->mCurrentApple->GetCurrentState() != AppleState::NONE && Bowl1->mCurrentApple->GetCurrentState() != AppleState::Breaking)
 	{
 		vector<Entity*> listCollisionWithBowl;
 		mMap->GetQuadTree()->getEntitiesCollideAble(listCollisionWithBowl, Bowl1->mCurrentApple);
@@ -482,7 +488,7 @@ void DemoScene::checkCollision()
 	}
 
 
-	if (Bowl2->mCurrentApple->GetCurrentState() != AppleState::NONE)
+	if (Bowl2->mCurrentApple->GetCurrentState() != AppleState::NONE  && Bowl2->mCurrentApple->GetCurrentState() != AppleState::Breaking)
 	{
 		vector<Entity*> listCollisionWithBowl;
 		mMap->GetQuadTree()->getEntitiesCollideAble(listCollisionWithBowl, Bowl2->mCurrentApple);
@@ -546,15 +552,18 @@ void DemoScene::checkCollision()
 			if (listCollision.at(i)->Tag == Entity::AppleObject)
 			{
 				mPlayer->AppleCount++;
+				Sound::getInstance()->play("Apple Collect", false, 1);
 				EatItem->SetPosition(listCollision.at(i)->GetPosition());
 			}
 			else if(listCollision.at(i)->Tag == Entity::Heart)
 			{
 				mPlayer->HPCount += 5;
+				Sound::getInstance()->play("Extra Health", false, 1);
 				EatItem->SetPosition(listCollision.at(i)->GetPosition());
 			}
 			else if (listCollision.at(i)->Tag == Entity::Camel)
 			{
+				Sound::getInstance()->play("Camel Spit", false, 1);
 				mPlayer->listApple.at(2)->SetPosition(listCollision.at(i)->GetPosition().x + 50, listCollision.at(i)->GetPosition().y);
 				mPlayer->listApple.at(2)->SetState(AppleState::Flying);
 			}
@@ -565,6 +574,7 @@ void DemoScene::checkCollision()
 		
 			if (listCollision.at(i)->Tag == Entity::CheckPoint && mPlayer->mCurrentState!=PlayerState::Falling)
 			{
+				
 				mPlayer->CheckPoint = D3DXVECTOR2(listCollision.at(i)->GetPosition().x+10, listCollision.at(i)->GetPosition().y+15);
 				return;
 			}

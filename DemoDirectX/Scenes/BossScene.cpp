@@ -49,11 +49,11 @@ BossScene::~BossScene()
 void BossScene::LoadContent()
 {
 	mBackColor = 0x54acd2;
-	EatItem = new Animation("Resources/Aladdin.png", 4, loadRect(false), (float)1 / 0.5, D3DXVECTOR2(0.5, 0.5), D3DCOLOR_XRGB(255, 0, 255));
+	EatItem = new Animation("Resources/Aladdin.png", 4, loadRect(false), (float)1 / 0.5, D3DXVECTOR2(0.5, 0.5), D3DCOLOR_XRGB(255, 0, 255),Entity::PlayerOne);
 	EatItem->SetScale(D3DXVECTOR2(1.5, 1.5));
 
 
-	Damage = new Animation("Resources/flare.png",15, loadRect(true), (float)1 / 0.4, D3DXVECTOR2(0.5, 0.5), D3DCOLOR_XRGB(186, 254, 202));
+	Damage = new Animation("Resources/flare.png",15, loadRect(true), (float)1 / 0.4, D3DXVECTOR2(0.5, 0.5), D3DCOLOR_XRGB(186, 254, 202),Entity::flare);
 	//Damage->SetScale(D3DXVECTOR2(0.5, 0.5));
 
 	mMap = new GameMapBoss("Resources/boss.tmx");
@@ -74,15 +74,25 @@ void BossScene::LoadContent()
 
 	RECT rect;
 	rect.left = 370; rect.top = 45; rect.right = rect.left + 14; rect.bottom = rect.top + 14;
-	Sprite* appleSprite1 = new Sprite("Resources/Aladdin.png", rect, 0, 0, D3DCOLOR_XRGB(255, 0, 255), D3DXVECTOR2(0.5, 0.5));
-	Sprite* appleSprite2 = new Sprite("Resources/Aladdin.png", rect, 0, 0, D3DCOLOR_XRGB(255, 0, 255), D3DXVECTOR2(0.5, 0.5));
-	Sprite* appleSprite3 = new Sprite("Resources/Aladdin.png", rect, 0, 0, D3DCOLOR_XRGB(255, 0, 255), D3DXVECTOR2(0.5, 0.5));
+	Sprite* appleSprite1 = new Sprite("Resources/Aladdin.png", rect, 0, 0, D3DCOLOR_XRGB(255, 0, 255), D3DXVECTOR2(0.5, 0.5),GameGlobal::mAladdintexture);
+	Sprite* appleSprite2 = new Sprite("Resources/Aladdin.png", rect, 0, 0, D3DCOLOR_XRGB(255, 0, 255), D3DXVECTOR2(0.5, 0.5), GameGlobal::mAladdintexture);
+	Sprite* appleSprite3 = new Sprite("Resources/Aladdin.png", rect, 0, 0, D3DCOLOR_XRGB(255, 0, 255), D3DXVECTOR2(0.5, 0.5), GameGlobal::mAladdintexture);
 	app1 = new AppleObject(appleSprite1); app1->SetPos(0, 0);
 	app2= new AppleObject(appleSprite2); app2->SetPos(0, 0);
 	app3 = new AppleObject(appleSprite3); app3->SetPos(0, 0);
 
 	
-	
+	myFont = NULL;
+
+	HRESULT rs = D3DXCreateFont(GameGlobal::GetCurrentDevice(), 50, 30, FW_NORMAL, 1, false, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, ANTIALIASED_QUALITY, FF_DONTCARE, (LPCWSTR) "Arial", &myFont);
+	if (!SUCCEEDED(rs))
+	{
+		return;
+	}
+	myRect.left = 0;
+	myRect.top = GameGlobal::GetHeight()/2;
+	myRect.bottom = myRect.top + GameGlobal::GetHeight() / 2;
+	myRect.right = myRect.left + GameGlobal::GetWidth();
 	
 }
 
@@ -90,12 +100,23 @@ void BossScene::LoadContent()
 void BossScene::Update(float dt)
 {
 
+	
 
 	CheckCameraAndWorldMap();
 	checkCollision();
 	mPlayer->HandleKeyboard(keys);
 
 	mPlayer->Update(dt);
+	if (isEnd)
+	{
+		if (mPlayer->mCurrentState != PlayerState::Standing)
+		{
+			mPlayer->SetState(new PlayerStandingState(mPlayer->mPlayerData));
+			return;
+		}
+		else
+		return;
+	}
 
 	mUI->Update();
 
@@ -118,6 +139,7 @@ void BossScene::Update(float dt)
 
 	AppleObjectHandle();
 
+	if (mBoss->HPCount == 3) isEnd = true;
 	
 }
 
@@ -126,7 +148,11 @@ void BossScene::Draw()
 
 	D3DXVECTOR2 trans = D3DXVECTOR2(GameGlobal::GetWidth() / 2 - mCamera->GetPosition().x, GameGlobal::GetHeight() / 2 - mCamera->GetPosition().y); //Lay TranSition hien tai
 	mMap->Draw(); //Ve Map
-	mBoss->Draw(trans);
+	if (!isEnd)
+	{
+		mBoss->Draw(trans);
+	}
+	
 	mPlayer->Draw();
 	
 
@@ -143,6 +169,14 @@ void BossScene::Draw()
 
 	mUI->Draw();
 
+	if (myFont  && isEnd)
+	{
+		int r = rand() % 255 + 1;
+		int g = rand() % 255 + 1;
+		int b = rand() % 255 + 1;
+		myFont->DrawTextA(mUI->hpBar->GetSpriteHandle(), "YOU WIN", -1, &myRect, DT_CENTER, D3DCOLOR_XRGB(r, g, b));
+	
+	}
 	
 
 }
@@ -179,16 +213,19 @@ void BossScene::CheckCameraAndWorldMap()
 }
 void BossScene::OnKeyUp(int keyCode)
 {
+	if (isEnd) return;
 	keys[keyCode] = false;
 	mPlayer->OnKeyUp(keyCode);
 
 }
 void BossScene::OnKeyDown(int keyCode)
 {
+	if (isEnd) return;
 	keys[keyCode] = true;
 	mPlayer->OnKeyPressed(keyCode);
 }
 Entity *lastFire = NULL;
+
 void BossScene::checkCollision()
 {
 	//Check apple va cham voi map
@@ -227,8 +264,8 @@ void BossScene::checkCollision()
 			Damage->Reset();
 			Damage->SetPosition(mPlayer->listApple.at(i)->GetPosition());
 			mBoss->OnCollision(mPlayer->listApple.at(i), re, Entity::NotKnow);
-			if(mBoss->mCurrentState == BossState::StandHuman || mBoss->mCurrentState == BossState::Magnet)
-			mBoss->SetState(new BossStandHuman(mBoss->mData));
+			/*if(mBoss->mCurrentState == BossState::StandHuman || mBoss->mCurrentState == BossState::Magnet)
+			mBoss->SetState(new BossStandHuman(mBoss->mData));*/
 			mPlayer->listApple.at(i)->OnCollision(mBoss, re, Entity::NotKnow);
 		}
 	}
@@ -251,7 +288,6 @@ void BossScene::checkCollision()
 		}
 	}
 	//Check Fire Ammo With Player
-
 	for (int i = 0; i < mBoss->listAmmo.size(); i++)
 	{
 		Entity::CollisionReturn r = GameCollision::RecteAndRect(mBoss->listAmmo.at(i)->GetBound(),
@@ -263,7 +299,48 @@ void BossScene::checkCollision()
 			lastFire = mBoss->listAmmo.at(i);
 		}
 	}
-	
+
+	//Check Meteor with Object Map
+	for (int i = 0; i < mBoss->listMeteor.size(); i++)
+	{
+		vector<Entity*> listCollision;
+		mMap->GetQuadTree()->getEntitiesCollideAble(listCollision, mBoss->listMeteor.at(i));
+
+		for (int j = 0; j < listCollision.size(); j++)
+		{
+			Entity::CollisionReturn r = GameCollision::RecteAndRect(mBoss->listMeteor.at(i)->GetBound(),
+				listCollision.at(j)->GetBound());
+			if (r.IsCollided)
+			{
+				if (listCollision.at(j)->Tag != Entity::Land) continue;
+				if(mBoss->listMeteor.at(i)->GetCurrentState()!=AppleState::Flying) continue;
+				mBoss->listMeteor.at(i)->OnCollision(listCollision.at(j), r, Entity::NotKnow);
+			}
+		}
+	}
+
+	//Check Meteor with Player
+	for (int i = 0; i < mBoss->listMeteor.size(); i++)
+	{
+		
+		Entity::CollisionReturn r = GameCollision::RecteAndRect(mBoss->listMeteor.at(i)->GetBound(),
+			mPlayer->GetBound());
+		if (r.IsCollided && mBoss->listMeteor.at(i)->GetCurrentState()==AppleState::Flying)
+		{
+			
+			if (mPlayer->mCurrentState == PlayerState::Standing)
+			{
+				mPlayer->SetState(new PlayerFiredState(mPlayer->mPlayerData));
+			}
+			else
+			{
+				mPlayer->isAttacked = true;
+				mPlayer->HPCount--;
+			}
+			
+			mBoss->listMeteor.at(i)->OnCollision(mPlayer, r, Entity::NotKnow);
+		}
+	}
 #pragma region Check AppleObject with Player
 	Entity::CollisionReturn App1 = GameCollision::RecteAndRect(mPlayer->GetBound(),
 		app1->GetBound());
@@ -319,8 +396,8 @@ void BossScene::checkCollision()
 
 			//lay phia va cham cua Entity so voi Player
 			Entity::SideCollisions sidePlayer = GameCollision::getSideCollision(mPlayer, r);
-			if (mPlayer->mCurrentState == PlayerState::Jumping) return;
-			if (sidePlayer != Entity::Bottom && sidePlayer != Entity::BottomLeft && sidePlayer != Entity::BottomLeft) return;
+			
+			if (listCollision.at(i)->Tag==Entity::box && sidePlayer != Entity::Bottom && sidePlayer != Entity::BottomLeft && sidePlayer != Entity::BottomLeft) return;
 			//lay phia va cham cua Player so voi Entity
 			Entity::SideCollisions sideImpactor = GameCollision::getSideCollision(listCollision.at(i), r);
 

@@ -31,7 +31,7 @@ Camel::Camel(const char* FilePath,
 	this->timePerFrame = TimePerFrame;
 	this->center = Center;
 	this->colorKey = D3DCOLOR_XRGB(248, 0, 248);
-	represent = new Sprite(filePath, RECT(), 0, 0, D3DCOLOR_XRGB(248, 0, 248), center);
+	represent = new Sprite(filePath, RECT(), 0, 0, D3DCOLOR_XRGB(248, 0, 248), center,GameGlobal::mCameltexture);
 
 	RECT rect = source.at(0);
 
@@ -39,7 +39,7 @@ Camel::Camel(const char* FilePath,
 	represent->SetWidth(rect.right - rect.left);
 	represent->SetHeight(rect.bottom - rect.top);
 
-	mCurrentAnimation = new Animation(filePath, totalFrame, source, timePerFrame, center, D3DCOLOR_XRGB(248, 0, 248));
+	mCurrentAnimation = new Animation(filePath, totalFrame, source, timePerFrame, center, D3DCOLOR_XRGB(248, 0, 248),Entity::Camel);
 }
 
 RECT Camel::GetBound()

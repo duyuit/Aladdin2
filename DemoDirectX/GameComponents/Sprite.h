@@ -10,7 +10,7 @@
 class Sprite
 {
 public:
-    Sprite(const char* filePath, RECT sourceRect = RECT(), int width = NULL, int height = NULL, D3DCOLOR colorKey = NULL, D3DXVECTOR2 center= D3DXVECTOR2(0.5,0.5));
+    Sprite(const char* filePath, RECT sourceRect = RECT(), int width = NULL, int height = NULL, D3DCOLOR colorKey = NULL, D3DXVECTOR2 center= D3DXVECTOR2(0.5,0.5), LPDIRECT3DTEXTURE9 tt=NULL);
 
     Sprite();
 
@@ -63,7 +63,7 @@ protected:
     bool isRect(RECT rect);
 
     D3DXVECTOR3             mPosition; // vi tri cua Sprite, co goc la chinh giua hinh anh Texture
-    LPDIRECT3DTEXTURE9      mTexture; // load hinh anh vao day
+    LPDIRECT3DTEXTURE9      mTexture=NULL; // load hinh anh vao day
     LPD3DXSPRITE            mSpriteHandler; //SpriteHandler ho tro ve hinh
     D3DXIMAGE_INFO          mImageInfo; // thong tin thuc cua hinh anh duoc lay
     RECT                    mSourceRect; // hinh chu nhat cat tu anh cua texture

@@ -19,15 +19,19 @@ Enemy3Attacked::~Enemy3Attacked()
 Enemy3Attacked::Enemy3Attacked(Enemy3Data *data)
 {
 	this->mData = data;
-
+	Sound::getInstance()->play("Guard's Pants", false, 1);
 }
 
 void Enemy3Attacked::Update()
 {
+	if (this->mData->enemy->GetCurrentAnimation()->GetCurrentFrame() == 0)
+	{
+		this->mData->enemy->Heal--;
+	}
 
 	if (this->mData->enemy->GetCurrentAnimation()->GetCurrentFrame() == 9)
 	{
-		this->mData->enemy->Heal--;
+		
 		this->mData->enemy->GetCurrentAnimation()->Reset();
 		this->mData->enemy->SetState(new Enemy3Running(this->mData));
 	}

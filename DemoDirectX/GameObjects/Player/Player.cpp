@@ -468,23 +468,23 @@ vector<RECT> LoadRECT(PlayerState::StateName state)
 int curApple = 0;
 Player::Player()
 {
-	mAnimationStanding = new Animation("Resources/Aladdin.png", 39, LoadRECT(PlayerState::Standing), (float)1 / 15,D3DXVECTOR2(0.5,1), D3DCOLOR_XRGB(255, 0, 255));
-	mAnimationJumping = new Animation("Resources/Aladdin.png", 6, LoadRECT(PlayerState::Jumping), (float)1 / 30, D3DXVECTOR2(0.5, 1), D3DCOLOR_XRGB(255, 0, 255));
-	mAnimationRunning = new Animation("Resources/Aladdin.png", 13, LoadRECT(PlayerState::Running), (float)1 / 20, D3DXVECTOR2(0.5, 1), D3DCOLOR_XRGB(255, 0, 255));
-	mAnimationThrowing = new Animation("Resources/Aladdin.png", 6, LoadRECT(PlayerState::Throwing), (float)1 / 25, D3DXVECTOR2(0.5, 1), D3DCOLOR_XRGB(255, 0, 255));
-	mAnimationClimbing = new Animation("Resources/Aladdin.png", 10, LoadRECT(PlayerState::Climbing), (float)1 / 30, D3DXVECTOR2(0.5, 1), D3DCOLOR_XRGB(255, 0, 255));
-	mAnimationFighting=new Animation("Resources/Aladdin.png", 5, LoadRECT(PlayerState::Fighting), (float)1 / 20, D3DXVECTOR2(0.5, 1), D3DCOLOR_XRGB(255, 0, 255));
-	mAnimationSiting= new Animation("Resources/Aladdin.png", 4, LoadRECT(PlayerState::Sit), (float)1 / 20, D3DXVECTOR2(0.5, 1), D3DCOLOR_XRGB(255, 0, 255));
-	mAnimationSitFight= new Animation("Resources/Aladdin.png",7, LoadRECT(PlayerState::SitFight), (float)1 / 20, D3DXVECTOR2(0.2, 1), D3DCOLOR_XRGB(255, 0, 255));
-	mAnimationJumpThrow= new Animation("Resources/Aladdin.png",5, LoadRECT(PlayerState::JumpThrow), (float)1 /30, D3DXVECTOR2(0.5, 1), D3DCOLOR_XRGB(255, 0, 255));
-	mAnimationSitThrow = new Animation("Resources/Aladdin.png", 5, LoadRECT(PlayerState::SitThrow), (float)1 / 20, D3DXVECTOR2(0.5, 1), D3DCOLOR_XRGB(255, 0, 255));
-	mAnimationFired=new Animation("Resources/Aladdin.png", 6, LoadRECT(PlayerState::Fired), (float)1 /15, D3DXVECTOR2(0.5, 1), D3DCOLOR_XRGB(255, 0, 255));
-	mAnimationThrowClimb= new Animation("Resources/Aladdin.png",5, LoadRECT(PlayerState::ThrowCLimb), (float)1 / 15, D3DXVECTOR2(0.5, 1), D3DCOLOR_XRGB(255, 0, 255));
-	mAnimationBung= new Animation("Resources/Aladdin.png",8, LoadRECT(PlayerState::Bung), (float)1 / 15, D3DXVECTOR2(0.5, 1), D3DCOLOR_XRGB(255, 0, 255));
-	mAnimationClimbHori= new Animation("Resources/Aladdin.png",11, LoadRECT(PlayerState::ClimbingHori), (float)1 /15, D3DXVECTOR2(0.5, 0), D3DCOLOR_XRGB(255, 0, 255));
-	mAnimationRevive= new Animation("Resources/Aladdin.png", 14, LoadRECT(PlayerState::Revive), (float)1 / 15, D3DXVECTOR2(0.5, 1), D3DCOLOR_XRGB(255, 0, 255));
-	mAnimationFalling= new Animation("Resources/Aladdin.png", 4, LoadRECT(PlayerState::Falling), (float)1 /2, D3DXVECTOR2(0.5, 1), D3DCOLOR_XRGB(255, 0, 255));
-	Tag = EntityTypes::PlayerOne;
+	mAnimationStanding = new Animation("Resources/Aladdin.png", 39, LoadRECT(PlayerState::Standing), (float)1 / 15,D3DXVECTOR2(0.5,1), D3DCOLOR_XRGB(255, 0, 255),Entity::Entity::EntityTypes::PlayerOne);
+	mAnimationJumping = new Animation("Resources/Aladdin.png", 6, LoadRECT(PlayerState::Jumping), (float)1 / 30, D3DXVECTOR2(0.5, 1), D3DCOLOR_XRGB(255, 0, 255), Entity::Entity::EntityTypes::PlayerOne);
+	mAnimationRunning = new Animation("Resources/Aladdin.png", 13, LoadRECT(PlayerState::Running), (float)1 / 20, D3DXVECTOR2(0.5, 1), D3DCOLOR_XRGB(255, 0, 255), Entity::EntityTypes::PlayerOne);
+	mAnimationThrowing = new Animation("Resources/Aladdin.png", 6, LoadRECT(PlayerState::Throwing), (float)1 / 25, D3DXVECTOR2(0.5, 1), D3DCOLOR_XRGB(255, 0, 255), Entity::EntityTypes::PlayerOne);
+	mAnimationClimbing = new Animation("Resources/Aladdin.png", 10, LoadRECT(PlayerState::Climbing), (float)1 / 30, D3DXVECTOR2(0.5, 1), D3DCOLOR_XRGB(255, 0, 255), Entity::EntityTypes::PlayerOne);
+	mAnimationFighting=new Animation("Resources/Aladdin.png", 5, LoadRECT(PlayerState::Fighting), (float)1 / 20, D3DXVECTOR2(0.5, 1), D3DCOLOR_XRGB(255, 0, 255), Entity::EntityTypes::PlayerOne);
+	mAnimationSiting= new Animation("Resources/Aladdin.png", 4, LoadRECT(PlayerState::Sit), (float)1 / 20, D3DXVECTOR2(0.5, 1), D3DCOLOR_XRGB(255, 0, 255), Entity::EntityTypes::PlayerOne);
+	mAnimationSitFight= new Animation("Resources/Aladdin.png",7, LoadRECT(PlayerState::SitFight), (float)1 / 20, D3DXVECTOR2(0.2, 1), D3DCOLOR_XRGB(255, 0, 255), Entity::EntityTypes::PlayerOne);
+	mAnimationJumpThrow= new Animation("Resources/Aladdin.png",5, LoadRECT(PlayerState::JumpThrow), (float)1 /30, D3DXVECTOR2(0.5, 1), D3DCOLOR_XRGB(255, 0, 255), Entity::EntityTypes::PlayerOne);
+	mAnimationSitThrow = new Animation("Resources/Aladdin.png", 5, LoadRECT(PlayerState::SitThrow), (float)1 / 20, D3DXVECTOR2(0.5, 1), D3DCOLOR_XRGB(255, 0, 255), Entity::EntityTypes::PlayerOne);
+	mAnimationFired=new Animation("Resources/Aladdin.png", 6, LoadRECT(PlayerState::Fired), (float)1 /15, D3DXVECTOR2(0.5, 1), D3DCOLOR_XRGB(255, 0, 255), Entity::EntityTypes::PlayerOne);
+	mAnimationThrowClimb= new Animation("Resources/Aladdin.png",5, LoadRECT(PlayerState::ThrowCLimb), (float)1 / 15, D3DXVECTOR2(0.5, 1), D3DCOLOR_XRGB(255, 0, 255), Entity::EntityTypes::PlayerOne);
+	mAnimationBung= new Animation("Resources/Aladdin.png",8, LoadRECT(PlayerState::Bung), (float)1 / 15, D3DXVECTOR2(0.5, 1), D3DCOLOR_XRGB(255, 0, 255), Entity::EntityTypes::PlayerOne);
+	mAnimationClimbHori= new Animation("Resources/Aladdin.png",11, LoadRECT(PlayerState::ClimbingHori), (float)1 /15, D3DXVECTOR2(0.5, 0), D3DCOLOR_XRGB(255, 0, 255), Entity::EntityTypes::PlayerOne);
+	mAnimationRevive= new Animation("Resources/Aladdin.png", 14, LoadRECT(PlayerState::Revive), (float)1 / 15, D3DXVECTOR2(0.5, 1), D3DCOLOR_XRGB(255, 0, 255), Entity::EntityTypes::PlayerOne);
+	mAnimationFalling= new Animation("Resources/Aladdin.png", 4, LoadRECT(PlayerState::Falling), (float)1 /2, D3DXVECTOR2(0.5, 1), D3DCOLOR_XRGB(255, 0, 255), Entity::EntityTypes::PlayerOne);
+	Tag = Entity::EntityTypes::PlayerOne;
 	this->mPlayerData = new PlayerData();
 	this->mPlayerData->player = this;
 	this->vx = 0;
@@ -536,7 +536,9 @@ void Player::Update(float dt)
 	{
 		HPCount = 9;
 		SetPosition(CheckPoint);
+		
 		SetState(new PLayerRevive(mPlayerData));
+	
 	}
 	
 }
@@ -559,6 +561,7 @@ void Player::OnKeyPressed(int key)
 			if (mCurrentState == PlayerState::Running || mCurrentState == PlayerState::Standing)
 			{
 				//vx = 150;
+				this->mPlayerData->player->GetCurrentAnimation()->Reset();
 				this->SetState(new PlayerJumpingState(this->mPlayerData));
 			}
 
@@ -569,32 +572,37 @@ void Player::OnKeyPressed(int key)
 	//Nem tao
 	if (key == VkKeyScan('z'))
 	{
-		if (allowThrow)
+		if (GetTickCount() - lastTimeThrow >= 500)
 		{
-		
-			if (AppleCount < 1) return;
-			if (curApple > 2)
-				curApple = 0;
-			
-			if (mCurrentState == PlayerState::ClimbingHori)
+			if (allowThrow)
 			{
-				listApple.at(curApple)->SetPosition(D3DXVECTOR2(posX, posY));
-				listApple.at(curApple)->mReverse = !mCurrentReverse;
+				Sound::getInstance()->play("Outta Apples", false, 1); 
+				if (AppleCount < 1) return;
+				if (curApple > 2)
+					curApple = 0;
+
+				if (mCurrentState == PlayerState::ClimbingHori)
+				{
+					listApple.at(curApple)->SetPosition(D3DXVECTOR2(posX, posY));
+					listApple.at(curApple)->mReverse = !mCurrentReverse;
+					listApple.at(curApple)->SetState(AppleState::Flying);
+					curApple++;
+					AppleCount--;
+					return;
+				}
+				else
+					listApple.at(curApple)->SetPosition(D3DXVECTOR2(posX, posY - 50));
+				if (mCurrentState == PlayerState::Sit || mCurrentState == PlayerState::SitThrow)
+					listApple.at(curApple)->SetPosition(D3DXVECTOR2(posX, posY - 30));
+				listApple.at(curApple)->mReverse = mCurrentReverse;
 				listApple.at(curApple)->SetState(AppleState::Flying);
 				curApple++;
 				AppleCount--;
-				return;
 			}
-			else
-				listApple.at(curApple)->SetPosition(D3DXVECTOR2(posX, posY -50 ));
-			if (mCurrentState == PlayerState::Sit || mCurrentState == PlayerState::SitThrow)
-				listApple.at(curApple)->SetPosition(D3DXVECTOR2(posX, posY-30));
-			listApple.at(curApple)->mReverse= mCurrentReverse;
-			listApple.at(curApple)->SetState(AppleState::Flying);
-			curApple++;
-			AppleCount--;
+			allowThrow = false;
+			lastTimeThrow = GetTickCount();
 		}
-		allowThrow = false;
+		else return;
 	}
 	//if (key == VK_NUMPAD5) HPCount = 0;
 }
@@ -812,6 +820,7 @@ void Player::OnCollision(Entity *impactor, Entity::CollisionReturn data, Entity:
 	if ((impactor->Tag == Bowl || impactor->Tag == KnifeEnemy3) && (this->getState() == PlayerState::Climbing || this->getState() == PlayerState::ClimbingHori))
 	{
 		isAttacked = true;
+		Sound::getInstance()->play("Aladdin Hurt", false, 1);
 		HPCount--;
 	}
 

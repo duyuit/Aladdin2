@@ -37,8 +37,8 @@ Enemy4::Enemy4(vector<D3DXVECTOR2> listpos)
 {
 	mListPosition = listpos;
 	SetPosition(listpos.at(0));
-	ThrowAnimate = new Animation("Resources/civilian.png", 11, LoadRect(true), (float)1 / 0.3, D3DXVECTOR2(0.5, 1), D3DCOLOR_XRGB(120, 193, 152));
-	DieAnimate=new Animation("Resources/flare.png", 5, LoadRect(false), (float)1 / 0.5, D3DXVECTOR2(0.5, 1), D3DCOLOR_XRGB(186, 254, 202));
+	ThrowAnimate = new Animation("Resources/civilian.png", 11, LoadRect(true), (float)1 / 0.3, D3DXVECTOR2(0.5, 1), D3DCOLOR_XRGB(120, 193, 152), Entity::civilian);
+	DieAnimate=new Animation("Resources/flare.png", 5, LoadRect(false), (float)1 / 0.5, D3DXVECTOR2(0.5, 1), D3DCOLOR_XRGB(186, 254, 202),Entity::flare);
 	DieAnimate->SetScale(D3DXVECTOR2(1.5, 1.5));
 
 	mKnife = new Apple(Entity::KnifeEnemy3);

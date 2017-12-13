@@ -24,6 +24,8 @@ PlayerBung::PlayerBung(PlayerData *playerData)
 	acceleratorX = 0.0f;
 
 	this->mPlayerData->player->AddVy(-180);
+	Sound::getInstance()->play("Canopy Bounce", false, 1);
+
 
 }
 

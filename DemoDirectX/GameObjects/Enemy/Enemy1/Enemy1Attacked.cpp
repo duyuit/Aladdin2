@@ -19,6 +19,8 @@ Enemy1Attacked::~Enemy1Attacked()
 Enemy1Attacked::Enemy1Attacked(Enemy1Data *data)
 {
 	this->mData = data;
+	Sound::getInstance()->play("Guard Hit 1", false, 1);
+
 	
 }
 

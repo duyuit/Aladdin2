@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="24" height="10" tilewidth="30" tileheight="30" nextobjectid="46">
+<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="24" height="10" tilewidth="30" tileheight="30" nextobjectid="49">
  <tileset firstgid="1" name="67733" tilewidth="30" tileheight="30" tilecount="0" columns="159">
   <image source="Resources/67733.png" trans="3f48cc" width="4773" height="1383"/>
  </tileset>
@@ -46,15 +46,15 @@
 </data>
  </layer>
  <objectgroup name="land">
-  <object id="4" x="0" y="3" width="11" height="297"/>
-  <object id="5" x="706" y="8" width="11" height="292"/>
+  <object id="4" x="-53" y="-11.6667" width="13.6667" height="297"/>
+  <object id="5" x="747" y="-5" width="18" height="292"/>
+  <object id="47" x="-40.6667" y="289" width="762.667" height="33"/>
  </objectgroup>
  <objectgroup name="box">
   <object id="6" x="33" y="231.5" width="65.5" height="44"/>
   <object id="7" x="187.75" y="230.5" width="90.5" height="44"/>
   <object id="8" x="410.75" y="232" width="108" height="44"/>
   <object id="9" x="605.75" y="232" width="62.5" height="44"/>
-  <object id="44" x="-1" y="289" width="720" height="10"/>
  </objectgroup>
  <objectgroup name="app1">
   <object id="28" x="33.5" y="202"/>

@@ -5,6 +5,7 @@
 #include <d3d9.h>
 #include <Windows.h>
 #include "Scene.h"
+#include "Sound.h"
 class GameGlobal
 {
 public:
@@ -32,13 +33,24 @@ public:
     static LPDIRECT3DSURFACE9 backSurface;
 	
     static bool isGameRunning; //trang thai xem game co dang chay khong
-
+	static LPDIRECT3DTEXTURE9 mAladdintexture;
+	static LPDIRECT3DTEXTURE9 mEnemytexture;
+	static LPDIRECT3DTEXTURE9 mMaptexture;
+	static LPDIRECT3DTEXTURE9 mFlaretexture;
+	static LPDIRECT3DTEXTURE9 mCiviliantexture;
+	static LPDIRECT3DTEXTURE9 mCameltexture;
+	static LPDIRECT3DTEXTURE9 mCayBungtexture;
+	static LPDIRECT3DTEXTURE9 mItemtexture;
+	static LPDIRECT3DTEXTURE9 mNumbertexture;
+	static LPDIRECT3DTEXTURE9 mJafartexture;
 private:
     static HINSTANCE mHInstance; //hInstance của windows hiện tại
     static HWND mHwnd; // hwnd hiện tại
     static LPD3DXSPRITE mSpriteHandler; //spriteHanlder hiện tại
     static int mWidth, mHeight; //size của cửa sổ
     static LPDIRECT3DDEVICE9 mDevice; //device directX hiện tại
+
+
 	
 };
 

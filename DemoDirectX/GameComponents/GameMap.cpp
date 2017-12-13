@@ -16,10 +16,10 @@ void GameMap::LoadMap(char* filePath)
 	//Load Sprite cho Apple Object
 	RECT rect;
 	rect.left = 370; rect.top = 45; rect.right = rect.left + 14; rect.bottom = rect.top + 14;
-	Sprite* appleSprite = new Sprite("Resources/Aladdin.png",rect,0,0, D3DCOLOR_XRGB(255, 0, 255), D3DXVECTOR2(0.5, 0.5));
+	Sprite* appleSprite = new Sprite("Resources/Aladdin.png",rect,0,0, D3DCOLOR_XRGB(255, 0, 255), D3DXVECTOR2(0.5, 0.5),GameGlobal::mAladdintexture);
 
 	rect.left = 340; rect.top =170; rect.right = rect.left +24; rect.bottom = rect.top + 26;
-	Sprite* heartSprite = new Sprite("Resources/item.png", rect, 0, 0, D3DCOLOR_XRGB(248, 0, 248), D3DXVECTOR2(0.5, 0.5));
+	Sprite* heartSprite = new Sprite("Resources/item.png", rect, 0, 0, D3DCOLOR_XRGB(248, 0, 248), D3DXVECTOR2(0.5, 0.5),GameGlobal::mItemtexture);
 
     mMap = new Tmx::Map();
     mMap->ParseFile(filePath);
@@ -35,7 +35,8 @@ void GameMap::LoadMap(char* filePath)
     for (size_t i = 0; i < mMap->GetNumTilesets(); i++)
     {
         const Tmx::Tileset *tileset = mMap->GetTileset(i);
-        Sprite *sprite = new Sprite(tileset->GetImage()->GetSource().c_str(),RECT(),0,0, D3DCOLOR_XRGB(63, 72, 204));
+        
+		Sprite *sprite = new Sprite(tileset->GetImage()->GetSource().c_str(), RECT(), 0, 0, D3DCOLOR_XRGB(63, 72, 204) , D3DXVECTOR2(0.5, 0.5), GameGlobal::mMaptexture);
 		sprite->SetTransColor(D3DCOLOR_XRGB(63, 72, 204));
         mListTileset.insert(std::pair<int, Sprite*>(i, sprite));
     }

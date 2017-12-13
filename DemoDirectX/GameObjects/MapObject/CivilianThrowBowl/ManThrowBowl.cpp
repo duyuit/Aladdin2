@@ -21,7 +21,7 @@ ManThrowBowl::ManThrowBowl(vector<D3DXVECTOR2> listpos)
 {
 	mListPosition = listpos;
 	SetPosition(listpos.at(0));
-	ThrowAnimate = new Animation("Resources/civilian.png", 10, LoadRect(),(float)1/0.3,D3DXVECTOR2(0,0.5),D3DCOLOR_XRGB(120, 193, 152));
+	ThrowAnimate = new Animation("Resources/civilian.png", 10, LoadRect(),(float)1/0.3,D3DXVECTOR2(0,0.5),D3DCOLOR_XRGB(120, 193, 152),Entity::civilian);
 	ThrowAnimate->SetScale(D3DXVECTOR2(1,1));
 
 	mApple = new Apple(Entity::Bowl);

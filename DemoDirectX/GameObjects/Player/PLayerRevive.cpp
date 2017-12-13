@@ -8,6 +8,7 @@ PLayerRevive::PLayerRevive(PlayerData *playerData)
 	this->mPlayerData = playerData;
 	this->mPlayerData->player->SetVx(0);
 	this->mPlayerData->player->SetVy(0);
+	
 }
 
 
@@ -16,6 +17,8 @@ PLayerRevive::~PLayerRevive()
 }
 void PLayerRevive::Update(float dt)
 {
+	if (this->mPlayerData->player->GetCurrentAnimation()->GetCurrentFrame()==0)
+	Sound::getInstance()->play("Coming Out", false, 1);
 	if (this->mPlayerData->player->GetCurrentAnimation()->GetCurrentFrame() == 13)
 	{
 		this->mPlayerData->player->GetCurrentAnimation()->Reset();

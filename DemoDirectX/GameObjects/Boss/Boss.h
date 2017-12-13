@@ -9,6 +9,7 @@
 #include "BossStandHuman.h"
 #include "BossStandSnake.h"
 #include "BossFightingSnake.h"
+#include "BossSummon.h"
 #include "FireAmmo.h"
 class Boss:public Entity
 {
@@ -32,6 +33,7 @@ public:
 	int HPCount =30;
 	int currentAmmo = 0;
 	vector<FireAmmo*> listAmmo;
+	vector<Apple*> listMeteor;
 	bool Reverse = false;
 private:
 	vector<RECT> LoadRECT(BossState::StateName state);
@@ -52,7 +54,7 @@ private:
 	Sprite *arg;
 	bool BossAttacked = false;
 	float lastTimeBossAttacked = 0;
-	
+	float lastTimeCreateMeteor = 0;
 	void changeAnimation(BossState::StateName state);
 
 

@@ -19,7 +19,7 @@ Enemy2Attacked::~Enemy2Attacked()
 Enemy2Attacked::Enemy2Attacked(Enemy2Data *data)
 {
 	this->mData = data;
-
+	Sound::getInstance()->play("Guard Hit 2", false, 1);
 }
 
 void Enemy2Attacked::Update()

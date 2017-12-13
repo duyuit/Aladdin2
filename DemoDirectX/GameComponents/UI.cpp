@@ -65,7 +65,7 @@ UI::UI(Player* pl)
 	RECT rect;
 	rect.left = 14; rect.top = 1; rect.right = rect.left + 97; rect.bottom = rect.top + 146;
 
-	apple1 = new Sprite("Resources/number.png", RECT(), 0, 0, D3DCOLOR_XRGB(255, 0, 255));
+	apple1 = new Sprite("Resources/number.png", RECT(), 0, 0, D3DCOLOR_XRGB(255, 0, 255),D3DXVECTOR2(0.5,0.5),GameGlobal::mNumbertexture);
 	apple1->SetPosition(D3DXVECTOR2(GameGlobal::GetWidth() - 25, GameGlobal::GetHeight() - 15));
 	apple1->SetScale(D3DXVECTOR2(0.15, 0.1));
 	apple1->SetSourceRect(rect);
@@ -73,7 +73,7 @@ UI::UI(Player* pl)
 	apple1->SetHeight(rect.bottom - rect.top);
 
 	rect.left = 14; rect.top = 1; rect.right = rect.left + 97; rect.bottom = rect.top + 146;
-	apple2 = new Sprite("Resources/number.png", RECT(), 0, 0, D3DCOLOR_XRGB(255, 0, 255));
+	apple2 = new Sprite("Resources/number.png", RECT(), 0, 0, D3DCOLOR_XRGB(255, 0, 255), D3DXVECTOR2(0.5, 0.5), GameGlobal::mNumbertexture);
 
 	apple2->SetPosition(D3DXVECTOR2(GameGlobal::GetWidth() - 10, GameGlobal::GetHeight() - 15));
 	apple2->SetScale(D3DXVECTOR2(0.15, 0.1));
@@ -83,7 +83,7 @@ UI::UI(Player* pl)
 
 
 	rect.left = 370; rect.top = 45; rect.right = rect.left + 14; rect.bottom = rect.top + 14;
-	apple = new Sprite("Resources/Aladdin.png", RECT(), 0, 0, D3DCOLOR_XRGB(255, 0, 255));
+	apple = new Sprite("Resources/Aladdin.png", RECT(), 0, 0, D3DCOLOR_XRGB(255, 0, 255), D3DXVECTOR2(0.5, 0.5), GameGlobal::mAladdintexture);
 	apple->SetPosition(D3DXVECTOR2(GameGlobal::GetWidth() - 50, GameGlobal::GetHeight() - 15));
 	apple->SetScale(D3DXVECTOR2(1.5, 1.5));
 	apple->SetSourceRect(rect);
@@ -91,7 +91,7 @@ UI::UI(Player* pl)
 	apple->SetHeight(rect.bottom - rect.top);
 
 	rect.left = 1037; rect.top = 75; rect.right = rect.left + 50; rect.bottom = rect.top + 26;
-	GoldenLamp = new Sprite("Resources/Aladdin.png", RECT(), 0, 0, D3DCOLOR_XRGB(255, 0, 255));
+	GoldenLamp = new Sprite("Resources/Aladdin.png", RECT(), 0, 0, D3DCOLOR_XRGB(255, 0, 255), D3DXVECTOR2(0.5, 0.5), GameGlobal::mAladdintexture);
 	GoldenLamp->SetPosition(D3DXVECTOR2(30, 20));
 	GoldenLamp->SetScale(D3DXVECTOR2(1, 1));
 	GoldenLamp->SetSourceRect(rect);

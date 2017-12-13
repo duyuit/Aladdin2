@@ -64,19 +64,19 @@ vector<RECT> Boss::LoadRectFire()
 	rect.left = 150; rect.top = 194; rect.right = rect.left + 35; rect.bottom = rect.top + 45; listSourceRect.push_back(rect);
 	return listSourceRect;
 }
-Boss::Boss(Player* player,D3DXVECTOR3 pos)
+Boss::Boss(Player* player, D3DXVECTOR3 pos)
 {
 	SetPosition(pos);
 	mPlayer = player;
 	mPlayer->AppleCount = 50;
-	mAnimationStandHuman= new Animation("Resources/jafar.png", 5, LoadRECT(BossState::StandHuman), (float)1 / 0.15, D3DXVECTOR2(0.5, 1), D3DCOLOR_XRGB(186, 254, 202));
-	mAnimationMagnet= new Animation("Resources/jafar.png", 8, LoadRECT(BossState::Magnet), (float)1 / 0.15, D3DXVECTOR2(0.5, 1), D3DCOLOR_XRGB(186, 254, 202));
-	mAnimationFightingSnake =new Animation("Resources/jafar.png", 11, LoadRECT(BossState::FightingSnake), (float)1 / 0.25, D3DXVECTOR2(0.5, 1), D3DCOLOR_XRGB(186, 254, 202));
-	mAnimationStandSnake= new Animation("Resources/jafar.png",6, LoadRECT(BossState::StandSnake), (float)1 / 0.15, D3DXVECTOR2(0.5, 1), D3DCOLOR_XRGB(186, 254, 202));
-	
-	mAnimationFire1 = new Animation("Resources/jafar.png", 5, LoadRectFire(), (float)1 / 0.15, D3DXVECTOR2(0.5, 1), D3DCOLOR_XRGB(186, 254, 202));
-	mAnimationFire2 = new Animation("Resources/jafar.png", 5, LoadRectFire(), (float)1 / 0.15, D3DXVECTOR2(0.5, 1), D3DCOLOR_XRGB(186, 254, 202));
-	mAnimationFire3 = new Animation("Resources/jafar.png", 5, LoadRectFire(), (float)1 / 0.15, D3DXVECTOR2(0.5, 1), D3DCOLOR_XRGB(186, 254, 202));
+	mAnimationStandHuman = new Animation("Resources/jafar.png", 5, LoadRECT(BossState::StandHuman), (float)1 / 0.15, D3DXVECTOR2(0.5, 1), D3DCOLOR_XRGB(186, 254, 202),Entity::jafar);
+	mAnimationMagnet = new Animation("Resources/jafar.png", 8, LoadRECT(BossState::Magnet), (float)1 / 0.15, D3DXVECTOR2(0.5, 1), D3DCOLOR_XRGB(186, 254, 202), Entity::jafar);
+	mAnimationFightingSnake = new Animation("Resources/jafar.png", 11, LoadRECT(BossState::FightingSnake), (float)1 / 0.25, D3DXVECTOR2(0.5, 1), D3DCOLOR_XRGB(186, 254, 202), Entity::jafar);
+	mAnimationStandSnake = new Animation("Resources/jafar.png", 6, LoadRECT(BossState::StandSnake), (float)1 / 0.15, D3DXVECTOR2(0.5, 1), D3DCOLOR_XRGB(186, 254, 202), Entity::jafar);
+
+	mAnimationFire1 = new Animation("Resources/jafar.png", 5, LoadRectFire(), (float)1 / 0.15, D3DXVECTOR2(0.5, 1), D3DCOLOR_XRGB(186, 254, 202), Entity::jafar);
+	mAnimationFire2 = new Animation("Resources/jafar.png", 5, LoadRectFire(), (float)1 / 0.15, D3DXVECTOR2(0.5, 1), D3DCOLOR_XRGB(186, 254, 202), Entity::jafar);
+	mAnimationFire3 = new Animation("Resources/jafar.png", 5, LoadRectFire(), (float)1 / 0.15, D3DXVECTOR2(0.5, 1), D3DCOLOR_XRGB(186, 254, 202), Entity::jafar);
 	mAnimationFire1->SetScale(D3DXVECTOR2(1, 1.5));
 	mAnimationFire2->SetScale(D3DXVECTOR2(1, 1.5));
 	mAnimationFire3->SetScale(D3DXVECTOR2(1, 1));
@@ -86,19 +86,19 @@ Boss::Boss(Player* player,D3DXVECTOR3 pos)
 
 
 	RECT rect;
-	rect.left = 198; rect.top = 226; rect.right = rect.left + 27; rect.bottom = rect.top + 13; 
-	star1 = new Sprite("Resources/jafar.png", rect, 0, 0, D3DCOLOR_XRGB(186, 254, 202));
+	rect.left = 198; rect.top = 226; rect.right = rect.left + 27; rect.bottom = rect.top + 13;
+	star1 = new Sprite("Resources/jafar.png", rect, 0, 0, D3DCOLOR_XRGB(186, 254, 202),D3DXVECTOR2(0.5,0.5),GameGlobal::mJafartexture);
 
 	rect.left = 238; rect.top = 224; rect.right = rect.left + 23; rect.bottom = rect.top + 15;
-	star2 = new Sprite("Resources/jafar.png", rect, 0, 0, D3DCOLOR_XRGB(186, 254, 202));
+	star2 = new Sprite("Resources/jafar.png", rect, 0, 0, D3DCOLOR_XRGB(186, 254, 202), D3DXVECTOR2(0.5, 0.5), GameGlobal::mJafartexture);
 
 	rect.left = 270; rect.top = 225; rect.right = rect.left + 25; rect.bottom = rect.top + 14;
-	star3 = new Sprite("Resources/jafar.png", rect, 0, 0, D3DCOLOR_XRGB(186, 254, 202));
+	star3 = new Sprite("Resources/jafar.png", rect, 0, 0, D3DCOLOR_XRGB(186, 254, 202), D3DXVECTOR2(0.5, 0.5), GameGlobal::mJafartexture);
 
 	this->mData = new BossData();
 	this->mData->boss = this;
 
-	SetState(new BossStandHuman(mData));
+	SetState(new BossSummon(mData));
 
 	rect.left = 0; rect.top = 0; rect.right = rect.left + 173; rect.bottom = rect.top + 105;
 	arg = new Sprite("Resources/arg.png", rect, 0, 0, D3DCOLOR_XRGB(255, 0, 255), D3DXVECTOR2(0.5, 0.5));
@@ -117,7 +117,10 @@ Boss::Boss(Player* player,D3DXVECTOR3 pos)
 	listAmmo.push_back(new FireAmmo(D3DXVECTOR2(GetPosition().x, GetPosition().y)));
 	listAmmo.push_back(new FireAmmo(D3DXVECTOR2(GetPosition().x, GetPosition().y)));
 	listAmmo.push_back(new FireAmmo(D3DXVECTOR2(GetPosition().x, GetPosition().y)));
+
 	
+	listMeteor.push_back(new Apple(Entity::Meteor));
+	lastTimeCreateMeteor = GetTickCount();
 }
 
 
@@ -126,6 +129,31 @@ Boss::~Boss()
 }
 void Boss::Update()
 {
+	if (GetTickCount() - lastTimeCreateMeteor >= 3500 && listMeteor.size() <2)
+	{
+		listMeteor.push_back(new Apple(Entity::Meteor));
+		lastTimeCreateMeteor = GetTickCount();
+	}
+
+	if(mCurrentState==BossState::MeteorSummon || mCurrentState == BossState::StandHuman || mCurrentState == BossState::Magnet)
+		for (int i = 0; i < listMeteor.size(); i++)
+	{
+
+		if (listMeteor.at(i)->GetCurrentState() == AppleState::NONE)
+		{
+			int left = mPlayer->GetPosition().x - 100;
+			int right = mPlayer->GetPosition().x + 100;
+			int a = rand() %  (right-left +1) + left;
+			listMeteor.at(i)->SetPosition(a, 50);
+
+			listMeteor.at(i)->SetState(AppleState::Flying);
+		}
+		else
+		listMeteor.at(i)->Update(1);
+
+	}
+
+
 	if (mData->boss->mPlayer->GetPosition().x < mData->boss->GetPosition().x)
 		Reverse = true; 
 	else if (mData->boss->mPlayer->GetPosition().x > mData->boss->GetPosition().x) 
@@ -136,11 +164,17 @@ void Boss::Update()
 		if ((GetTickCount() - lastTimeBossAttacked) / 1000.0f >= 0.7f)
 			BossAttacked = false;
 	}
+	if (HPCount < 22 && HPCount > 12 && mCurrentState != BossState::StandHuman  && mCurrentState != BossState::Magnet)
+	{
+		SetState(new BossMagnetState(mData));
+		return;
+	}
 	if (HPCount == 12 && mCurrentState != BossState::FightingSnake &&  mCurrentState != BossState::StandSnake)
 	{
 		SetState(new BossFightingSnake(mData));
 		return;
 	}
+
 	if (mCurrentState == BossState::FightingSnake || mCurrentState == BossState::StandSnake)
 	{
 
@@ -176,6 +210,10 @@ void Boss::Update()
 	hp_yellow->SetSourceRect(rect);
 	hp_green->SetSourceRect(rect);
 	hp_red->SetSourceRect(rect);
+
+
+
+
 	
 		
 }
@@ -232,6 +270,14 @@ void Boss::Draw(D3DXVECTOR2 transform)
 		if (HPCount >= 1 && HPCount <= 12)
 			hp_red->Draw(D3DXVECTOR3(), RECT(), D3DXVECTOR2(), transform, 0, D3DXVECTOR2(0, 0.5));
 
+	if (mCurrentState == BossState::MeteorSummon || mCurrentState == BossState::StandHuman || mCurrentState == BossState::Magnet)
+	for (int i = 0; i < listMeteor.size(); i++)
+	{
+		if (listMeteor.at(i)->GetCurrentState() != AppleState::NONE)
+			listMeteor.at(i)->Draw(D3DXVECTOR3(), RECT(), D3DXVECTOR2(), transform);
+
+	}
+
 }
 
 void Boss::OnCollision(Entity *impactor, Entity::CollisionReturn data, Entity::SideCollisions side)
@@ -257,6 +303,9 @@ void Boss::changeAnimation(BossState::StateName state)
 {
 	switch (state)
 	{
+	case BossState::MeteorSummon:
+		mCurrentAnimation = mAnimationStandHuman;
+		break;
 	case BossState::None:
 		mCurrentAnimation = nullptr;
 		break;

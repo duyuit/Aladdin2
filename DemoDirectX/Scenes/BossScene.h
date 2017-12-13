@@ -44,7 +44,10 @@ protected:
 
 	
 	float lastTime = 0;
-
+	ID3DXFont				*myFont;
+	RECT myRect;
+	
+	bool isEnd = false;
 
 };
 

@@ -30,7 +30,7 @@ void GameMapBoss::LoadMap(char* filePath)
 	for (size_t i = 0; i < mMap->GetNumTilesets(); i++)
 	{
 		const Tmx::Tileset *tileset = mMap->GetTileset(i);
-		Sprite *sprite = new Sprite(tileset->GetImage()->GetSource().c_str(), RECT(), 0, 0, D3DCOLOR_XRGB(63, 72, 204));
+		Sprite *sprite = new Sprite(tileset->GetImage()->GetSource().c_str(), RECT(), 0, 0, D3DCOLOR_XRGB(63, 72, 204),D3DXVECTOR2(0.5, 0.5), GameGlobal::mMaptexture);
 		sprite->SetTransColor(D3DCOLOR_XRGB(63, 72, 204));
 		mListTileset.insert(std::pair<int, Sprite*>(i, sprite));
 	}

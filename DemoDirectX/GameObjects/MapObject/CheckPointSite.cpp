@@ -53,7 +53,7 @@ CheckPointSite::CheckPointSite()
 	this->timePerFrame = (float)1 /0.5;
 	this->center = D3DXVECTOR2(0, 0.5);
 	this->colorKey = D3DCOLOR_XRGB(248, 0, 248);
-	represent = new Sprite(filePath, RECT(), 0, 0, colorKey, center);
+	represent = new Sprite(filePath, RECT(), 0, 0, colorKey, center,GameGlobal::mItemtexture);
 
 	RECT rect = source.at(0);
 
@@ -61,13 +61,15 @@ CheckPointSite::CheckPointSite()
 	represent->SetWidth(rect.right - rect.left);
 	represent->SetHeight(rect.bottom - rect.top);
 	Tag = Entity::CheckPoint;
-	mCurrentAnimation = new Animation(filePath, totalFrame, source, timePerFrame, center, colorKey);
+	mCurrentAnimation = new Animation(filePath, totalFrame, source, timePerFrame, center, colorKey,Entity::CheckPoint);
 }
 
 void CheckPointSite::Update()
 {
 	if (Actived)
 	{
+		if(mCurrentAnimation->GetCurrentFrame()==0)
+			Sound::getInstance()->play("Continue Point", false,1);
 		if (mCurrentAnimation->GetCurrentFrame() == totalFrame - 1)
 		{
 			RECT rect = source.at(totalFrame - 1);
@@ -81,7 +83,10 @@ void CheckPointSite::Update()
 }
 void CheckPointSite::OnCollision(Entity *impactor, CollisionReturn data, SideCollisions side)
 {
-	if(impactor->Tag==PlayerOne)
-	Actived = true;
+	if (impactor->Tag == PlayerOne)
+	{
+		Actived = true;
+		
+	}
 
 }

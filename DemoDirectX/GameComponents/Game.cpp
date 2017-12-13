@@ -2,12 +2,12 @@
 #include "GameGlobal.h"
 #include "../GameControllers/SceneManager.h"
 #include "../Scenes/DemoScene.h"
-
+#include "../Scenes/MenuScene.h"
 Game::Game(int fps)
 {
 	mFPS = fps;
 
-	SceneManager::GetInstance()->ReplaceScene(new DemoScene());
+	SceneManager::GetInstance()->ReplaceScene(new MenuScene());
 
 	InitLoop();
 

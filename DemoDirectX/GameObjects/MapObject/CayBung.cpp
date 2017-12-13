@@ -48,7 +48,7 @@ CayBung::CayBung()
 	this->timePerFrame = (float)1 / 20;
 	this->center = D3DXVECTOR2(0, 0.5);
 	this->colorKey = D3DCOLOR_XRGB(255, 0, 255);
-	represent = new Sprite(filePath, RECT(), 0, 0, colorKey, center);
+	represent = new Sprite(filePath, RECT(), 0, 0, colorKey, center,GameGlobal::mCayBungtexture);
 
 	RECT rect = source.at(0);
 
@@ -56,7 +56,7 @@ CayBung::CayBung()
 	represent->SetWidth(rect.right - rect.left);
 	represent->SetHeight(rect.bottom - rect.top);
 	Tag = Entity::Bung;
-	mCurrentAnimation = new Animation(filePath, totalFrame, source, timePerFrame, center, colorKey);
+	mCurrentAnimation = new Animation(filePath, totalFrame, source, timePerFrame, center, colorKey,Entity::Bung);
 }
 
 void CayBung::Update()

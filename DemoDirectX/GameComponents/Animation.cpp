@@ -20,7 +20,7 @@ void Animation::InitWithAnimation(const char* filePath, int totalFrame, vector<R
 	if(mType==Entity::EntityTypes::PlayerOne)
 		mSprite = new Sprite(filePath, RECT(), 0, 0,colorKey,center,GameGlobal::mAladdintexture);
 	else if(mType == Entity::Enemy)
-			mSprite = new Sprite(filePath, RECT(), 0, 0, colorKey, center, GameGlobal::mEnemytexture);
+		mSprite = new Sprite(filePath, RECT(), 0, 0, colorKey, center, GameGlobal::mEnemytexture);
 	else if(mType == Entity::flare)
 		mSprite = new Sprite(filePath, RECT(), 0, 0, colorKey, center, GameGlobal::mFlaretexture);
 	else if (mType == Entity::civilian)
@@ -48,6 +48,8 @@ void Animation::InitWithAnimation(const char* filePath, int totalFrame, vector<R
 Animation::~Animation()
 {
 	
+	mSprite->~Sprite();
+
 }
 
 void Animation::SetFlipVertical(bool flag)

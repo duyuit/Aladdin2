@@ -146,8 +146,13 @@ void PlayerFallingState::OnCollision(Entity *impactor, Entity::SideCollisions si
 		}
 		break;
 
-	case Entity::Top:
+	case Entity::TopRight: case Entity::TopLeft: case Entity::Top:
+	{
+		this->mPlayerData->player->AddPosition(0, data.RegionCollision.bottom - data.RegionCollision.top);
+		this->mPlayerData->player->SetVy(0);
 		break;
+
+	}
 
 	case Entity::Bottom:
 	case Entity::BottomRight:

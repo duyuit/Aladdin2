@@ -59,6 +59,10 @@ Enemy4::Enemy4(vector<D3DXVECTOR2> listpos)
 
 Enemy4::~Enemy4()
 {
+	/*ThrowAnimate->~Animation();
+	DieAnimate->~Animation();*/
+	//mKnife->~Apple();
+		
 }
 void Enemy4::Update(Entity* player)
 {
@@ -200,4 +204,9 @@ RECT Enemy4::GetBound()
 	float cHeight = this->posY - mCurrentAnimate->GetSprite()->GetHeight() / 2;
 	SetCenter(D3DXVECTOR2(cWidth, cHeight));
 	return rect;
+}
+void Enemy4::Reset()
+{
+	positionted.clear();
+	CurrentPosIndex = -1;
 }

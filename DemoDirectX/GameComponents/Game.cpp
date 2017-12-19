@@ -3,6 +3,8 @@
 #include "../GameControllers/SceneManager.h"
 #include "../Scenes/DemoScene.h"
 #include "../Scenes/MenuScene.h"
+#include "../Scenes/LevelComScene.h"
+#include "../Scenes/EndScene.h"
 Game::Game(int fps)
 {
 	mFPS = fps;

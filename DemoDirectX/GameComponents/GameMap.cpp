@@ -9,7 +9,8 @@ GameMap::GameMap(char* filePath)
 
 GameMap::~GameMap()
 {
-    delete mMap;
+
+
 }
 void GameMap::LoadMap(char* filePath)
 {
@@ -72,7 +73,8 @@ void GameMap::LoadMap(char* filePath)
 			tag = Entity::Heart;
 		if (name == "stair")
 			tag = Entity::stair;
-		
+		if (name == "flame")
+			tag = Entity::flameobject;
 		for (size_t j = 0; j < objectGroup->GetNumObjects(); j++)
 		{
 			//lay object group chu khong phai layer
@@ -93,7 +95,8 @@ void GameMap::LoadMap(char* filePath)
 				name != "civilianBowl" &&
 				name != "civilianBowl2" &&
 				name!="caybung" &&
-				name != "checkpoint")
+				name != "checkpoint" &&
+				tag != Entity::flameobject)
 			{
 				Entity *entity = new Entity();
 				entity->SetPosition(object->GetX() + object->GetWidth() / 2,
@@ -124,6 +127,7 @@ void GameMap::LoadMap(char* filePath)
 				heart->SetWidth(heart->represent->GetWidth());
 				heart->SetHeight(heart->represent->GetHeight());
 				heart->Tag = tag;
+				heart->startPos = D3DXVECTOR2(object->GetX() + object->GetWidth() / 2, object->GetY() + object->GetHeight() / 2);
 				listHeart.push_back(heart);
 				mQuadTree->insertEntity(heart);
 			}
@@ -137,6 +141,7 @@ void GameMap::LoadMap(char* filePath)
 				apple->SetWidth(apple->represent->GetWidth());
 				apple->SetHeight(apple->represent->GetHeight());
 				apple->Tag = tag;
+				apple->startPos = D3DXVECTOR2(object->GetX() + object->GetWidth() / 2, object->GetY() + object->GetHeight() / 2);
 				listAppleObject.push_back(apple);
 				mQuadTree->insertEntity(apple);
 			}
@@ -198,8 +203,16 @@ void GameMap::LoadMap(char* filePath)
 			{
 				CheckPointSite* cb = new CheckPointSite();
 				cb->SetPosition(object->GetX() + object->GetWidth() / 2, object->GetY() + object->GetHeight() / 2);
+				cb->startPos=D3DXVECTOR2(object->GetX() + object->GetWidth() / 2, object->GetY() + object->GetHeight() / 2);
 				listCheckPointSite.push_back(cb);
 				mQuadTree->insertEntity(cb);
+			}
+			if (name == "flame")
+			{
+				Flame* temp = new Flame();
+				temp->SetPos(object->GetX() + object->GetWidth() / 2,
+					object->GetY() + object->GetHeight() / 2);
+				listFlame.push_back(temp);
 			}
 		
 		}
@@ -468,4 +481,22 @@ QuadTree * GameMap::GetQuadTree()
 }
 void GameMap::Update(float dt)
 {
+}
+
+void GameMap::Reset()
+{
+	for (int i = 0; i < listAppleObject.size(); i++)
+	{
+		listAppleObject.at(i)->SetPos(listAppleObject.at(i)->startPos.x, listAppleObject.at(i)->startPos.y);
+	}
+	for (int i = 0; i < listHeart.size(); i++)
+	{
+		listHeart.at(i)->SetPos(listHeart.at(i)->startPos.x, listHeart.at(i)->startPos.y);
+	}
+
+	for (int i = 0; i < listCheckPointSite.size(); i++)
+	{
+		listCheckPointSite.at(i)->SetPos(listCheckPointSite.at(i)->startPos.x, listCheckPointSite.at(i)->startPos.y);
+		listCheckPointSite.at(i)->Actived = false;
+	}
 }

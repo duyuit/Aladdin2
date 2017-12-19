@@ -25,7 +25,9 @@ public:
 		ThrowCLimb,
 		Bung,
 		ClimbingHori,
-		Revive
+		Revive,
+		Stop,
+		JumpString
     };
 
     ~PlayerState();

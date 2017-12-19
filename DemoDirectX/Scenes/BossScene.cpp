@@ -48,6 +48,7 @@ BossScene::~BossScene()
 }
 void BossScene::LoadContent()
 {
+	
 	mBackColor = 0x54acd2;
 	EatItem = new Animation("Resources/Aladdin.png", 4, loadRect(false), (float)1 / 0.5, D3DXVECTOR2(0.5, 0.5), D3DCOLOR_XRGB(255, 0, 255),Entity::PlayerOne);
 	EatItem->SetScale(D3DXVECTOR2(1.5, 1.5));
@@ -71,6 +72,7 @@ void BossScene::LoadContent()
 
 	mBoss = new Boss(mPlayer,D3DXVECTOR3(350, 280,0));
 
+	die = new DieScene(this);
 
 	RECT rect;
 	rect.left = 370; rect.top = 45; rect.right = rect.left + 14; rect.bottom = rect.top + 14;
@@ -94,29 +96,45 @@ void BossScene::LoadContent()
 	myRect.bottom = myRect.top + GameGlobal::GetHeight() / 2;
 	myRect.right = myRect.left + GameGlobal::GetWidth();
 	
+	Sound::getInstance()->setVolume(90.0f,"Jafar Laugh");
+	Sound::getInstance()->setVolume(90.0f, "Aaah");
+	Sound::getInstance()->setVolume(90.0f, "Oooh");
+	Sound::getInstance()->setVolume(90.0f, "Jafar Snake");
+	Sound::getInstance()->setVolume(100.0f, "bosstheme");
+	Sound::getInstance()->play("Jafar Laugh", false, 1);
+	Sound::getInstance()->play("bosstheme", true, 0);
 }
 
 
 void BossScene::Update(float dt)
 {
-
+	if (GameGlobal::curSong == GameGlobal::Continuene) //Check de reset map
+	{
+		GameGlobal::curSong = GameGlobal::BossMusic;
+		mBoss->HPCount = 30;
+		mBoss->SetState(new BossSummon(mBoss->mData));
+		mPlayer->AppleCount = 10;
+		mPlayer->SetPosition(50, 50);
+		return;
+	}
 	
 
 	CheckCameraAndWorldMap();
 	checkCollision();
 	mPlayer->HandleKeyboard(keys);
+	mPlayer->PlayerLiveCount = GameGlobal::liveCount;
+	if (mPlayer->HPCount == 0)
+	{
+		Sound::getInstance()->play("chet", false, 1);
+		Sound::getInstance()->stop("bosstheme");
+		GameGlobal::curSong = GameGlobal::BossMusic;
+		Sound::getInstance()->stop("Jafar Tractor");
+		die->die->Reset();
+		SceneManager::GetInstance()->ReplaceScene(die);
+	}
 
 	mPlayer->Update(dt);
-	if (isEnd)
-	{
-		if (mPlayer->mCurrentState != PlayerState::Standing)
-		{
-			mPlayer->SetState(new PlayerStandingState(mPlayer->mPlayerData));
-			return;
-		}
-		else
-		return;
-	}
+
 
 	mUI->Update();
 
@@ -136,10 +154,18 @@ void BossScene::Update(float dt)
 
 
 	mBoss->Update();
+	for (int i = 0; i < mMap->listFlame.size(); i++)
+	{
+		mMap->listFlame.at(i)->Update();
+	}
 
 	AppleObjectHandle();
 
-	if (mBoss->HPCount == 3) isEnd = true;
+	if (mBoss->HPCount == 3)
+	{
+		Sound::getInstance()->stop("bosstheme");
+		SceneManager::GetInstance()->ReplaceScene(new LevelComScene(mPlayer,mUI));
+	}
 	
 }
 
@@ -150,6 +176,7 @@ void BossScene::Draw()
 	mMap->Draw(); //Ve Map
 	if (!isEnd)
 	{
+
 		mBoss->Draw(trans);
 	}
 	
@@ -164,7 +191,10 @@ void BossScene::Draw()
 	app2->Draw(D3DXVECTOR3(), RECT(), D3DXVECTOR2(), trans);
 	app3->Draw(D3DXVECTOR3(), RECT(), D3DXVECTOR2(), trans);
 	
-	
+	for (int i = 0; i < mMap->listFlame.size(); i++)
+	{
+		mMap->listFlame.at(i)->Draw(D3DXVECTOR3(), RECT(), D3DXVECTOR2(), trans);
+	}
 	
 
 	mUI->Draw();
@@ -264,8 +294,10 @@ void BossScene::checkCollision()
 			Damage->Reset();
 			Damage->SetPosition(mPlayer->listApple.at(i)->GetPosition());
 			mBoss->OnCollision(mPlayer->listApple.at(i), re, Entity::NotKnow);
-			/*if(mBoss->mCurrentState == BossState::StandHuman || mBoss->mCurrentState == BossState::Magnet)
-			mBoss->SetState(new BossStandHuman(mBoss->mData));*/
+			if((int) GetTickCount()%2==0)
+				Sound::getInstance()->play("Aaah", false, 1);
+			else
+				Sound::getInstance()->play("Oooh", false, 1);
 			mPlayer->listApple.at(i)->OnCollision(mBoss, re, Entity::NotKnow);
 		}
 	}
@@ -314,6 +346,7 @@ void BossScene::checkCollision()
 			{
 				if (listCollision.at(j)->Tag != Entity::Land) continue;
 				if(mBoss->listMeteor.at(i)->GetCurrentState()!=AppleState::Flying) continue;
+				Sound::getInstance()->play("Sword Spinning", false, 1);
 				mBoss->listMeteor.at(i)->OnCollision(listCollision.at(j), r, Entity::NotKnow);
 			}
 		}
@@ -330,15 +363,35 @@ void BossScene::checkCollision()
 			
 			if (mPlayer->mCurrentState == PlayerState::Standing)
 			{
+				
+				//Sound::getInstance()->play("Jafar Laugh", false, 1);
+				Sound::getInstance()->play("Fire From Coal", false, 1);
 				mPlayer->SetState(new PlayerFiredState(mPlayer->mPlayerData));
 			}
 			else
 			{
+				//Sound::getInstance()->play("Jafar Laugh", false, 1);
+				Sound::getInstance()->play("Aladdin Hurt", false, 1);
+				Sound::getInstance()->play("Fire From Coal", false, 1);
 				mPlayer->isAttacked = true;
 				mPlayer->HPCount--;
 			}
 			
 			mBoss->listMeteor.at(i)->OnCollision(mPlayer, r, Entity::NotKnow);
+		}
+	}
+
+	//Check Flame with Player
+	for (int i = 0; i < mMap->listFlame.size(); i++)
+	{
+		if (mPlayer->GetPosition().y > 240) continue;
+		Entity::CollisionReturn r = GameCollision::RecteAndRect(mMap->listFlame.at(i)->GetBound(),
+			mPlayer->GetBound());
+		if (r.IsCollided)
+		{
+			mMap->listFlame.at(i)->OnCollision(mPlayer, r, Entity::NotKnow);
+			if (mPlayer->getState() == PlayerState::Standing &&  mPlayer->GetCurrentAnimation()->GetCurrentFrame()>=2)
+				mPlayer->SetState(new PlayerFiredState(mPlayer->mPlayerData));
 		}
 	}
 #pragma region Check AppleObject with Player

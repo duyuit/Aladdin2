@@ -48,6 +48,8 @@ void GameMapBoss::LoadMap(char* filePath)
 			tag = Entity::box;
 		if (name == "land")
 			tag = Entity::Land;
+		if (name == "flame")
+			tag = Entity::flameobject;
 
 		for (size_t j = 0; j < objectGroup->GetNumObjects(); j++)
 		{
@@ -56,7 +58,7 @@ void GameMapBoss::LoadMap(char* filePath)
 			
 			Tmx::Object *object = objectGroup->GetObjects().at(j);
 			
-			if (name != "app1" && name != "app2" && name != "app3")
+			if (name != "app1" && name != "app2" && name != "app3" && name != "flame")
 			{
 				Entity *entity = new Entity();
 				entity->SetPosition(object->GetX() + object->GetWidth() / 2,
@@ -90,6 +92,13 @@ void GameMapBoss::LoadMap(char* filePath)
 				{
 					listPosApp3.push_back(D3DXVECTOR3(object->GetX() + object->GetWidth() / 2,
 						object->GetY() + object->GetHeight() / 2, 0));
+				}
+				if (name == "flame")
+				{
+					Flame* temp = new Flame();
+					temp->SetPos(object->GetX() + object->GetWidth() / 2,
+						object->GetY() + object->GetHeight() / 2);
+					listFlame.push_back(temp);
 				}
 		}
 	

@@ -1,5 +1,5 @@
 #include "DieScene.h"
-
+#include "ContinueScene.h"
 
 
 DieScene::DieScene(Scene* sc)
@@ -47,23 +47,47 @@ void DieScene::LoadContent()
 		rect.left = 888; rect.top = 2323; rect.right = rect.left + 66; rect.bottom = rect.top + 73; listRect.push_back(rect);
 		rect.left = 970; rect.top = 2325; rect.right = rect.left + 66; rect.bottom = rect.top + 73; listRect.push_back(rect);
 		rect.left = 1049; rect.top = 2325; rect.right = rect.left + 66; rect.bottom = rect.top + 73; listRect.push_back(rect);
-		die = new Animation("Resources/Aladdin.png", 27, listRect, (float)1 / 0.2, D3DXVECTOR2(0.5, 0.5), D3DCOLOR_XRGB(255, 0, 255));
+		die = new Animation("Resources/Aladdin.png", 27, listRect, (float)1 / 0.15, D3DXVECTOR2(0.5, 0.5), D3DCOLOR_XRGB(255, 0, 255));
 		die->SetPosition(GameGlobal::GetWidth() / 2, GameGlobal::GetHeight() / 2);
 		die->GetSprite()->SetScale(D3DXVECTOR2(1,1));
 		dieText = new Sprite("Resources/die.png", RECT{ 0,0,341,87 });
-		dieText->SetPosition(GameGlobal::GetWidth() / 2, GameGlobal::GetHeight() / 2+50);
+		dieText->SetPosition(GameGlobal::GetWidth() / 2, GameGlobal::GetHeight() / 2+80);
 		dieText->SetScale(D3DXVECTOR2(0.5, 0.5));
+		
+		vector<RECT> listSourceRect;
+		rect.left = 11; rect.top = 32; rect.right = rect.left + 68; rect.bottom = rect.top + 28; listSourceRect.push_back(rect);
+		rect.left = 86; rect.top = 25; rect.right = rect.left + 57; rect.bottom = rect.top + 35; listSourceRect.push_back(rect);
+		rect.left = 152; rect.top = 17; rect.right = rect.left + 57; rect.bottom = rect.top + 43; listSourceRect.push_back(rect);
+		rect.left = 218; rect.top = 7; rect.right = rect.left + 58; rect.bottom = rect.top + 53; listSourceRect.push_back(rect);
+		rect.left = 285; rect.top = 8; rect.right = rect.left + 51; rect.bottom = rect.top + 52; listSourceRect.push_back(rect);
+		rect.left = 350; rect.top = 13; rect.right = rect.left + 63; rect.bottom = rect.top + 47; listSourceRect.push_back(rect);
+		abu = new Animation("Resources/abu.png",6, listSourceRect, (float)1 / 0.2, D3DXVECTOR2(0.5, 0.5), D3DCOLOR_XRGB(255, 0, 255));
+		abu->SetPosition(GameGlobal::GetWidth()-80, GameGlobal::GetHeight() -80);
+		
 }
 int Count = 0;
 void DieScene::Update(float dt)
 {
+
+	abu->Update(1);
 	die->Update(1);
+
+	Sound::getInstance()->setVolume(100.0f, "chet");
+	
 	if (die->GetCurrentFrame() == 26)
+	{
+		if (GameGlobal::liveCount < 0)
+		{
+			SceneManager::GetInstance()->ReplaceScene(new ContinueScene(preScene));
+			return;
+		}
 		die->SetCurrentFrame(23);
+	}
 	Count++;
 }
 void DieScene::Draw()
 {
+	abu->Draw();
 	die->Draw();
 	if (Count >= 5)
 	{
@@ -74,8 +98,19 @@ void DieScene::Draw()
 
 void DieScene::OnKeyDown(int keyCode)
 {
-	if(keyCode==VK_SPACE)
-		SceneManager::GetInstance()->ReplaceScene(preScene);
+	if (keyCode == VK_SPACE)
+	{
+		if (GameGlobal::liveCount >= 0)
+		{
+			Sound::getInstance()->stop("chet");
+			if (GameGlobal::curSong==GameGlobal::Demo)
+				Sound::getInstance()->play("background_market", true, 0);
+			else 
+				if (GameGlobal::curSong == GameGlobal::BossMusic)
+				Sound::getInstance()->play("bosstheme", true, 0);
+			SceneManager::GetInstance()->ReplaceScene(preScene);
+		}
+	}
 
 
 

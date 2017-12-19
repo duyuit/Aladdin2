@@ -2,13 +2,14 @@
 #include "PlayerStandingState.h"
 #include "PlayerFallingState.h"
 #include "PlayerFighting.h"
+#include "PlayerStopState.h"
 #include "../../GameDefines/GameDefine.h"
 
 PlayerRunningState::PlayerRunningState(PlayerData *playerData)
 {
     this->mPlayerData = playerData;
-    
-    acceleratorX = 50.0f;
+
+    acceleratorX = 6.5f;
 
 	this->mPlayerData->player->allowMoveLeft = true;
 	this->mPlayerData->player->allowMoveRight = true;
@@ -21,13 +22,25 @@ PlayerRunningState::~PlayerRunningState()
 
 void PlayerRunningState::Update(float dt)
 {
-
+	if (this->mPlayerData->player->GetCurrentAnimation()->GetCurrentFrame() == 12)
+		this->mPlayerData->player->GetCurrentAnimation()->SetCurrentFrame(2);
 }
 
 void PlayerRunningState::HandleKeyboard(std::map<int, bool> keys)
 {
 	if (keys[VK_RIGHT])
 	{
+		if (mPlayerData->player->GetReverse())
+		{
+			if (this->mPlayerData->player->GetVx() == Define::PLAYER_MAX_RUNNING_SPEED || this->mPlayerData->player->GetVx() == -Define::PLAYER_MAX_RUNNING_SPEED)
+			{/*
+				this->mPlayerData->player->GetCurrentAnimation()->Reset();
+				this->mPlayerData->player->SetState(new PlayerStopState(this->mPlayerData));*/
+				this->mPlayerData->player->SetVx(0);
+				return;
+			}
+			
+		}	
 		if (mPlayerData->player->allowMoveRight)
 		{
 			mPlayerData->player->SetReverse(false);
@@ -46,6 +59,18 @@ void PlayerRunningState::HandleKeyboard(std::map<int, bool> keys)
 	}
 	else if (keys[VK_LEFT])
 	{
+		if (!mPlayerData->player->GetReverse())
+		{
+			if (this->mPlayerData->player->GetVx() == Define::PLAYER_MAX_RUNNING_SPEED || this->mPlayerData->player->GetVx() == -Define::PLAYER_MAX_RUNNING_SPEED)
+			{
+
+				/*this->mPlayerData->player->GetCurrentAnimation()->Reset();
+				this->mPlayerData->player->SetState(new PlayerStopState(this->mPlayerData));
+				return;*/
+			}
+			this->mPlayerData->player->SetVx(0);
+		}
+		
 		if (mPlayerData->player->allowMoveLeft)
 		{
 			mPlayerData->player->SetReverse(true);
@@ -64,7 +89,17 @@ void PlayerRunningState::HandleKeyboard(std::map<int, bool> keys)
 	}
 	else
 	{
-		this->mPlayerData->player->SetState(new PlayerStandingState(this->mPlayerData));
+		this->mPlayerData->player->GetCurrentAnimation()->Reset();
+		if (this->mPlayerData->player->GetVx() == Define::PLAYER_MAX_RUNNING_SPEED || this->mPlayerData->player->GetVx() == -Define::PLAYER_MAX_RUNNING_SPEED)
+		{
+	
+			this->mPlayerData->player->SetState(new PlayerStopState(this->mPlayerData));
+		}
+		else
+		{
+		
+			this->mPlayerData->player->SetState(new PlayerStandingState(this->mPlayerData));
+		}
 		return;
 	}
 	

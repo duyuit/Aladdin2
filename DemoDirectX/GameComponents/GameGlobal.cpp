@@ -5,8 +5,11 @@ HWND GameGlobal::mHwnd = NULL;
 LPD3DXSPRITE GameGlobal::mSpriteHandler = NULL;
 int GameGlobal::mWidth = 400; //900 test //400
 int GameGlobal::mHeight = 225; //600 test  //250
+int GameGlobal::liveCount = 0; 
 LPDIRECT3DDEVICE9 GameGlobal::mDevice = nullptr;
 bool GameGlobal::isGameRunning = true;
+GameGlobal::Song GameGlobal::curSong = GameGlobal::Menu;
+
 IDirect3DSurface9* GameGlobal::backSurface = nullptr;
 LPDIRECT3DTEXTURE9 GameGlobal::mAladdintexture = NULL;
 LPDIRECT3DTEXTURE9 GameGlobal::mEnemytexture = NULL;
@@ -20,15 +23,16 @@ LPDIRECT3DTEXTURE9 GameGlobal::mNumbertexture = NULL;
 LPDIRECT3DTEXTURE9 GameGlobal::mJafartexture = NULL;
 GameGlobal::GameGlobal()
 {
+	liveCount = 3;
 	if (mSpriteHandler)
 	{
 
-		LPDIRECT3DDEVICE9 device;
-		mSpriteHandler->GetDevice(&device);
+	
+		mSpriteHandler->GetDevice(&GameGlobal::mDevice);
 
 	
 		D3DXCreateTextureFromFileExA(
-			device,
+			mDevice,
 			"Resources/Aladdin.png",
 			1121,
 			2718,
@@ -43,9 +47,8 @@ GameGlobal::GameGlobal()
 			NULL,
 			&mAladdintexture);
 
-
 		D3DXCreateTextureFromFileExA(
-			device,
+			mDevice,
 			"Resources/guard.png",
 			498,
 			1053,
@@ -60,8 +63,9 @@ GameGlobal::GameGlobal()
 			NULL,
 			&mEnemytexture);
 
+		
 		D3DXCreateTextureFromFileExA(
-			device,
+			mDevice,
 			"Resources/67733.png",
 			4773,
 			1383,
@@ -76,8 +80,9 @@ GameGlobal::GameGlobal()
 			NULL,
 			&mMaptexture);
 
+		
 		D3DXCreateTextureFromFileExA(
-			device,
+			mDevice,
 			"Resources/flare.png",
 			658,
 			324,
@@ -92,9 +97,8 @@ GameGlobal::GameGlobal()
 			NULL,
 			&mFlaretexture);
 
-
 		D3DXCreateTextureFromFileExA(
-			device,
+			mDevice,
 			"Resources/civilian.png",
 			1065,
 			588,
@@ -111,7 +115,7 @@ GameGlobal::GameGlobal()
 
 
 		D3DXCreateTextureFromFileExA(
-			device,
+			mDevice,
 			"Resources/camel.png",
 			882,
 			99,
@@ -126,8 +130,9 @@ GameGlobal::GameGlobal()
 			NULL,
 			&mCameltexture);
 
+		
 		D3DXCreateTextureFromFileExA(
-			device,
+			mDevice,
 			"Resources/cay.png",
 			171,
 			36,
@@ -142,9 +147,9 @@ GameGlobal::GameGlobal()
 			NULL,
 			&mCayBungtexture);
 
-
+	
 		D3DXCreateTextureFromFileExA(
-			device,
+			mDevice,
 			"Resources/item.png",
 			664,
 			474,
@@ -160,9 +165,8 @@ GameGlobal::GameGlobal()
 			&mItemtexture);
 
 
-
 		D3DXCreateTextureFromFileExA(
-			device,
+			mDevice,
 			"Resources/number.png",
 			600,
 			515,
@@ -177,8 +181,9 @@ GameGlobal::GameGlobal()
 			NULL,
 			&mNumbertexture);
 
+	
 		D3DXCreateTextureFromFileExA(
-			device,
+			mDevice,
 			"Resources/jafar.png",
 			863,
 			348,
@@ -192,9 +197,6 @@ GameGlobal::GameGlobal()
 			NULL,
 			NULL,
 			&mJafartexture);
-
-	
-
 	}
 
 	Sound::getInstance()->loadSound("Resources/sound/Aladdin Hurt.wav", "Aladdin Hurt");
@@ -213,7 +215,14 @@ GameGlobal::GameGlobal()
 	Sound::getInstance()->loadSound("Resources/sound/Outta Apples.wav", "Outta Apples");
 	Sound::getInstance()->loadSound("Resources/sound/Sword Spinning.wav", "Sword Spinning"); 
 	Sound::getInstance()->loadSound("Resources/sound/Fire From Coal.wav", "Fire From Coal");
-	Sound::getInstance()->loadSound("Resources/sound/background_market.wav", "background_market");
+	Sound::getInstance()->loadSound("Resources/sound/man1.wav", "background_market");
+	Sound::getInstance()->loadSound("Resources/sound/chet.wav", "chet");
+	Sound::getInstance()->loadSound("Resources/sound/Jafar Laugh.wav", "Jafar Laugh");
+	Sound::getInstance()->loadSound("Resources/sound/Aaah.wav", "Aaah");
+	Sound::getInstance()->loadSound("Resources/sound/Oooh.wav", "Oooh");
+	Sound::getInstance()->loadSound("Resources/sound/Jafar Snake.wav", "Jafar Snake");
+	Sound::getInstance()->loadSound("Resources/sound/Jafar Tractor.wav", "Jafar Tractor");
+	Sound::getInstance()->loadSound("Resources/sound/bosstheme.wav", "bosstheme");
 }
 
 

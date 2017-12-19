@@ -8,6 +8,28 @@ vector<RECT> LoadRECT(PlayerState::StateName state)
 	RECT rect;
 	switch (state)
 	{
+	case PlayerState::JumpString:
+		rect.left = 10; rect.top = 1870; rect.right = rect.left + 34; rect.bottom = rect.top + 72; listSourceRect.push_back(rect);
+		rect.left = 65; rect.top = 1873; rect.right = rect.left + 24; rect.bottom = rect.top + 76; listSourceRect.push_back(rect);
+		rect.left = 100; rect.top = 1874; rect.right = rect.left + 36; rect.bottom = rect.top + 70; listSourceRect.push_back(rect);
+		rect.left = 144; rect.top = 1874; rect.right = rect.left + 48; rect.bottom = rect.top + 63; listSourceRect.push_back(rect);
+		rect.left = 204; rect.top = 1875; rect.right = rect.left + 59; rect.bottom = rect.top + 53; listSourceRect.push_back(rect);
+		rect.left = 281; rect.top = 1876; rect.right = rect.left + 59; rect.bottom = rect.top + 40; listSourceRect.push_back(rect);
+		rect.left = 354; rect.top = 1869; rect.right = rect.left + 52; rect.bottom = rect.top + 53; listSourceRect.push_back(rect);
+		rect.left = 422; rect.top = 1871; rect.right = rect.left + 47; rect.bottom = rect.top + 66; listSourceRect.push_back(rect);
+		rect.left = 482; rect.top = 1866; rect.right = rect.left + 45; rect.bottom = rect.top + 74; listSourceRect.push_back(rect);
+		break;
+	case PlayerState::Stop:
+		rect.left = 11; rect.top = 1293; rect.right = rect.left + 57; rect.bottom = rect.top + 56; listSourceRect.push_back(rect);
+		rect.left = 83; rect.top = 1294; rect.right = rect.left + 43; rect.bottom = rect.top + 55; listSourceRect.push_back(rect);
+		rect.left = 134; rect.top = 1284; rect.right = rect.left + 51; rect.bottom = rect.top + 65; listSourceRect.push_back(rect);
+		rect.left = 200; rect.top = 1283; rect.right = rect.left + 46; rect.bottom = rect.top + 64; listSourceRect.push_back(rect);
+		rect.left = 256; rect.top = 1285; rect.right = rect.left + 41; rect.bottom = rect.top + 63; listSourceRect.push_back(rect);
+		rect.left = 309; rect.top = 1306; rect.right = rect.left + 55; rect.bottom = rect.top + 45; listSourceRect.push_back(rect);
+		rect.left = 376; rect.top = 1308; rect.right = rect.left + 52; rect.bottom = rect.top + 43; listSourceRect.push_back(rect);
+		rect.left = 437; rect.top = 1300; rect.right = rect.left + 45; rect.bottom = rect.top + 51; listSourceRect.push_back(rect);
+		rect.left = 498; rect.top = 1294; rect.right = rect.left + 51; rect.bottom = rect.top + 51; listSourceRect.push_back(rect);
+		break;
 	case PlayerState::Falling:
 		rect.left = 333;
 		rect.top = 828;
@@ -84,13 +106,23 @@ vector<RECT> LoadRECT(PlayerState::StateName state)
 		rect.left = 47;  rect.top = 11;  rect.right = rect.left + 41;  rect.bottom = rect.top + 46;	listSourceRect.push_back(rect);
 		rect.left = 95;  rect.top = 6;  rect.right = rect.left + 40;  rect.bottom = rect.top + 51;	listSourceRect.push_back(rect);
 		rect.left = 143;  rect.top = 3;  rect.right = rect.left + 44;  rect.bottom = rect.top + 54;	listSourceRect.push_back(rect);
+		rect.left = 143;  rect.top = 3;  rect.right = rect.left + 44;  rect.bottom = rect.top + 54;	listSourceRect.push_back(rect);
+		rect.left = 143;  rect.top = 3;  rect.right = rect.left + 44;  rect.bottom = rect.top + 54;	listSourceRect.push_back(rect);
+		rect.left = 143;  rect.top = 3;  rect.right = rect.left + 44;  rect.bottom = rect.top + 54;	listSourceRect.push_back(rect);
+		rect.left = 143;  rect.top = 3;  rect.right = rect.left + 44;  rect.bottom = rect.top + 54;	listSourceRect.push_back(rect);
 		rect.left = 197;  rect.top = 6; rect.right = rect.left + 41;  rect.bottom = rect.top + 50;	listSourceRect.push_back(rect);
 		rect.left = 250;  rect.top = 5;  rect.right = rect.left + 42;  rect.bottom = rect.top + 50;	listSourceRect.push_back(rect);
+		rect.left = 303;  rect.top = 2;  rect.right = rect.left + 44;  rect.bottom = rect.top + 52;	listSourceRect.push_back(rect);
+		rect.left = 303;  rect.top = 2;  rect.right = rect.left + 44;  rect.bottom = rect.top + 52;	listSourceRect.push_back(rect);
+		rect.left = 303;  rect.top = 2;  rect.right = rect.left + 44;  rect.bottom = rect.top + 52;	listSourceRect.push_back(rect);
+		rect.left = 303;  rect.top = 2;  rect.right = rect.left + 44;  rect.bottom = rect.top + 52;	listSourceRect.push_back(rect);
+		rect.left = 303;  rect.top = 2;  rect.right = rect.left + 44;  rect.bottom = rect.top + 52;	listSourceRect.push_back(rect);
 		rect.left = 303;  rect.top = 2;  rect.right = rect.left + 44;  rect.bottom = rect.top + 52;	listSourceRect.push_back(rect);
 		rect.left = 6;  rect.top = 83; rect.right = rect.left + 40; rect.bottom = rect.top + 51;	listSourceRect.push_back(rect);
 		rect.left = 51; rect.top = 81; rect.right = rect.left + 61; rect.bottom = rect.top + 52;	listSourceRect.push_back(rect);
 		rect.left = 116; rect.top = 80; rect.right = rect.left + 62; rect.bottom = rect.top + 53;	listSourceRect.push_back(rect);
 		rect.left = 180; rect.top = 81; rect.right = rect.left + 41;  rect.bottom = rect.top + 52;	listSourceRect.push_back(rect);
+		
 		rect.left = 228; rect.top = 81; rect.right = rect.left + 39; rect.bottom = rect.top + 52;	listSourceRect.push_back(rect);
 		rect.left = 275; rect.top = 81; rect.right = rect.left + 36;  rect.bottom = rect.top + 52;	listSourceRect.push_back(rect);
 		rect.left = 319; rect.top = 81;  rect.right = rect.left + 40; rect.bottom = rect.top + 52;	listSourceRect.push_back(rect);
@@ -103,6 +135,33 @@ vector<RECT> LoadRECT(PlayerState::StateName state)
 		rect.left = 619;  rect.top = 80; rect.right = rect.left + 41; rect.bottom = rect.top + 53;	listSourceRect.push_back(rect);
 		rect.left = 668; rect.top = 80; rect.right = rect.left + 40; rect.bottom = rect.top + 53;	listSourceRect.push_back(rect);
 		rect.left = 715;  rect.top = 81; rect.right = rect.left + 39; rect.bottom = rect.top + 52;	listSourceRect.push_back(rect);
+
+		rect.left = 228; rect.top = 81; rect.right = rect.left + 39; rect.bottom = rect.top + 52;	listSourceRect.push_back(rect);
+		rect.left = 275; rect.top = 81; rect.right = rect.left + 36;  rect.bottom = rect.top + 52;	listSourceRect.push_back(rect);
+		rect.left = 319; rect.top = 81;  rect.right = rect.left + 40; rect.bottom = rect.top + 52;	listSourceRect.push_back(rect);
+		rect.left = 366; rect.top = 79; rect.right = rect.left + 41;  rect.bottom = rect.top + 54;	listSourceRect.push_back(rect);
+		rect.left = 417; rect.top = 61; rect.right = rect.left + 42; rect.bottom = rect.top + 72;	listSourceRect.push_back(rect);
+
+		rect.left = 465; rect.top = 57; rect.right = rect.left + 41;  rect.bottom = rect.top + 76;	listSourceRect.push_back(rect);
+		rect.left = 516;  rect.top = 63;  rect.right = rect.left + 41; rect.bottom = rect.top + 70;	listSourceRect.push_back(rect);
+		rect.left = 568;  rect.top = 72;  rect.right = rect.left + 41; rect.bottom = rect.top + 61;	listSourceRect.push_back(rect);
+		rect.left = 619;  rect.top = 80; rect.right = rect.left + 41; rect.bottom = rect.top + 53;	listSourceRect.push_back(rect);
+		rect.left = 668; rect.top = 80; rect.right = rect.left + 40; rect.bottom = rect.top + 53;	listSourceRect.push_back(rect);
+		rect.left = 715;  rect.top = 81; rect.right = rect.left + 39; rect.bottom = rect.top + 52;	listSourceRect.push_back(rect);
+
+		rect.left = 228; rect.top = 81; rect.right = rect.left + 39; rect.bottom = rect.top + 52;	listSourceRect.push_back(rect);
+		rect.left = 275; rect.top = 81; rect.right = rect.left + 36;  rect.bottom = rect.top + 52;	listSourceRect.push_back(rect);
+		rect.left = 319; rect.top = 81;  rect.right = rect.left + 40; rect.bottom = rect.top + 52;	listSourceRect.push_back(rect);
+		rect.left = 366; rect.top = 79; rect.right = rect.left + 41;  rect.bottom = rect.top + 54;	listSourceRect.push_back(rect);
+		rect.left = 417; rect.top = 61; rect.right = rect.left + 42; rect.bottom = rect.top + 72;	listSourceRect.push_back(rect);
+
+		rect.left = 465; rect.top = 57; rect.right = rect.left + 41;  rect.bottom = rect.top + 76;	listSourceRect.push_back(rect);
+		rect.left = 516;  rect.top = 63;  rect.right = rect.left + 41; rect.bottom = rect.top + 70;	listSourceRect.push_back(rect);
+		rect.left = 568;  rect.top = 72;  rect.right = rect.left + 41; rect.bottom = rect.top + 61;	listSourceRect.push_back(rect);
+		rect.left = 619;  rect.top = 80; rect.right = rect.left + 41; rect.bottom = rect.top + 53;	listSourceRect.push_back(rect);
+		rect.left = 668; rect.top = 80; rect.right = rect.left + 40; rect.bottom = rect.top + 53;	listSourceRect.push_back(rect);
+		rect.left = 715;  rect.top = 81; rect.right = rect.left + 39; rect.bottom = rect.top + 52;	listSourceRect.push_back(rect);
+		
 		rect.left = 3; rect.top = 165; rect.right = rect.left + 36; rect.bottom = rect.top + 52;	listSourceRect.push_back(rect);
 		rect.left = 46; rect.top = 165;  rect.right = rect.left + 40;  rect.bottom = rect.top + 52;	listSourceRect.push_back(rect);
 		rect.left = 91; rect.top = 163; rect.right = rect.left + 41;  rect.bottom = rect.top + 54;	listSourceRect.push_back(rect);
@@ -468,7 +527,7 @@ vector<RECT> LoadRECT(PlayerState::StateName state)
 int curApple = 0;
 Player::Player()
 {
-	mAnimationStanding = new Animation("Resources/Aladdin.png", 39, LoadRECT(PlayerState::Standing), (float)1 / 15,D3DXVECTOR2(0.5,1), D3DCOLOR_XRGB(255, 0, 255),Entity::Entity::EntityTypes::PlayerOne);
+	mAnimationStanding = new Animation("Resources/Aladdin.png", LoadRECT(PlayerState::Standing).size(), LoadRECT(PlayerState::Standing), (float)1 / 10,D3DXVECTOR2(0.5,1), D3DCOLOR_XRGB(255, 0, 255),Entity::Entity::EntityTypes::PlayerOne);
 	mAnimationJumping = new Animation("Resources/Aladdin.png", 6, LoadRECT(PlayerState::Jumping), (float)1 / 30, D3DXVECTOR2(0.5, 1), D3DCOLOR_XRGB(255, 0, 255), Entity::Entity::EntityTypes::PlayerOne);
 	mAnimationRunning = new Animation("Resources/Aladdin.png", 13, LoadRECT(PlayerState::Running), (float)1 / 20, D3DXVECTOR2(0.5, 1), D3DCOLOR_XRGB(255, 0, 255), Entity::EntityTypes::PlayerOne);
 	mAnimationThrowing = new Animation("Resources/Aladdin.png", 6, LoadRECT(PlayerState::Throwing), (float)1 / 25, D3DXVECTOR2(0.5, 1), D3DCOLOR_XRGB(255, 0, 255), Entity::EntityTypes::PlayerOne);
@@ -484,6 +543,8 @@ Player::Player()
 	mAnimationClimbHori= new Animation("Resources/Aladdin.png",11, LoadRECT(PlayerState::ClimbingHori), (float)1 /15, D3DXVECTOR2(0.5, 0), D3DCOLOR_XRGB(255, 0, 255), Entity::EntityTypes::PlayerOne);
 	mAnimationRevive= new Animation("Resources/Aladdin.png", 14, LoadRECT(PlayerState::Revive), (float)1 / 15, D3DXVECTOR2(0.5, 1), D3DCOLOR_XRGB(255, 0, 255), Entity::EntityTypes::PlayerOne);
 	mAnimationFalling= new Animation("Resources/Aladdin.png", 4, LoadRECT(PlayerState::Falling), (float)1 /2, D3DXVECTOR2(0.5, 1), D3DCOLOR_XRGB(255, 0, 255), Entity::EntityTypes::PlayerOne);
+	mAnimationStopping = new Animation("Resources/Aladdin.png", 9, LoadRECT(PlayerState::Stop), (float)1 / 45, D3DXVECTOR2(0.5, 1), D3DCOLOR_XRGB(255, 0, 255), Entity::EntityTypes::PlayerOne);
+	mAnimationJumpString = new Animation("Resources/Aladdin.png", 9, LoadRECT(PlayerState::JumpString), (float)1 / 20, D3DXVECTOR2(0.5, 1), D3DCOLOR_XRGB(255, 0, 255), Entity::EntityTypes::PlayerOne);
 	Tag = Entity::EntityTypes::PlayerOne;
 	this->mPlayerData = new PlayerData();
 	this->mPlayerData->player = this;
@@ -531,12 +592,11 @@ void Player::Update(float dt)
 			temp->SetPosition(D3DXVECTOR3(0, posY - 30, 0));
 		}
 	}
-	if (HPCount > 9) HPCount = 9;
-	if (HPCount == 0)
+	if (HPCount > 10) HPCount =10;
+	if (HPCount == 0 && mCurrentState!=PlayerState::Revive)
 	{
-		HPCount = 9;
+		HPCount = 10;
 		SetPosition(CheckPoint);
-		
 		SetState(new PLayerRevive(mPlayerData));
 	
 	}
@@ -702,6 +762,12 @@ void Player::changeAnimation(PlayerState::StateName state)
 {
 	switch (state)
 	{
+	case PlayerState::JumpString:
+		mCurrentAnimation = mAnimationJumpString;
+		break;
+	case PlayerState::Stop:
+		mCurrentAnimation = mAnimationStopping;
+		break;
 	case PlayerState::Revive:
 		mCurrentAnimation = mAnimationRevive;
 		break;
@@ -813,15 +879,21 @@ void Player::OnNoCollisionWithBottom()
 
 void Player::OnCollision(Entity *impactor, Entity::CollisionReturn data, Entity::SideCollisions side)
 {
-	
+
 	if ((impactor->Tag == Bowl || impactor->Tag == KnifeEnemy3) && this->getState() != PlayerState::Fired  && this->getState() != PlayerState::Climbing && this->getState() != PlayerState::ClimbingHori)
+	{
+	
 		this->SetState(new PlayerFiredState(this->mPlayerData));
+	}
 
 	if ((impactor->Tag == Bowl || impactor->Tag == KnifeEnemy3) && (this->getState() == PlayerState::Climbing || this->getState() == PlayerState::ClimbingHori))
 	{
-		isAttacked = true;
-		Sound::getInstance()->play("Aladdin Hurt", false, 1);
-		HPCount--;
+		
+		
+			isAttacked = true;
+			Sound::getInstance()->play("Aladdin Hurt", false, 1);
+			HPCount--;
+		
 	}
 
 	if ((int)GetPosition().x > 2229 && (int)GetPosition().x < 2278 && ((int)LastPosition.x < 2229 || (int)LastPosition.x > 2278) && GetPosition().y>400)

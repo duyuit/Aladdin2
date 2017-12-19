@@ -1,5 +1,5 @@
 #pragma once
-#include "../GameComponents/Sprite.h"
+//#include "../GameComponents/Sprite.h"
 #include "../MapReader/Tmx.h.in"
 #include "Camera.h"
 #include "GameGlobal.h"
@@ -7,6 +7,7 @@
 #include "QuadTree.h"
 #include <iostream>
 #include <sstream>
+#include "../GameObjects/MapObject/Flame.h"
 using namespace std;
 class GameMapBoss
 {
@@ -36,6 +37,7 @@ public:
 	vector<D3DXVECTOR3> listPosApp1;
 	vector<D3DXVECTOR3> listPosApp2;
 	vector<D3DXVECTOR3> listPosApp3;
+	vector<Flame*> listFlame;
 private:
 	void LoadMap(char* filePath);
 	QuadTree                        *mQuadTree;

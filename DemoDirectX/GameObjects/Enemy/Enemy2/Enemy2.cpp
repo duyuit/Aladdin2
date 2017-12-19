@@ -80,7 +80,11 @@ Enemy2::Enemy2( Player *player, vector<D3DXVECTOR2> list)
 
 Enemy2::~Enemy2()
 {
-
+	/*mAnimationRunning->~Animation();
+	mAnimationAttacked->~Animation();
+	mAnimationFighting->~Animation();
+	mAnimationDied->~Animation();*/
+	mSprite->~Sprite();
 }
 
 void Enemy2::Update()
@@ -221,7 +225,7 @@ void Enemy2::OnCollision(Entity *impactor, Entity::CollisionReturn data, Entity:
 		SetState(new Enemy2Attacked(this->mData));
 	}
 	if (mCurrentState == Enemy2State::Fighting && mCurrentAnimation->GetCurrentFrame() ==4    &&
-		mPlayer->mCurrentState == PlayerState::Standing)
+		mPlayer->mCurrentState == PlayerState::Standing )
 	{
 		mPlayer->SetState(new PlayerFiredState(mPlayer->mPlayerData));
 	}
@@ -284,4 +288,9 @@ void Enemy2::CheckAction()
 Animation* Enemy2::GetCurrentAnimation()
 {
 	return mCurrentAnimation;
+}
+void Enemy2::Reset()
+{
+	positionted.clear();
+	CurrentPosIndex = -1;
 }

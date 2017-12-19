@@ -61,5 +61,7 @@ AppleObject::AppleObject(Sprite *sprite)
 }
 void AppleObject::OnCollision(Entity *impactor, CollisionReturn data, SideCollisions side)
 {
+	
+	Sound::getInstance()->play("Apple Collect", false, 1);
 	SetPos(0, 0);
 }

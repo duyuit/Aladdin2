@@ -14,6 +14,8 @@
 #include "../GameComponents/Scene.h"
 #include "../GameObjects/Boss/Boss.h"
 #include "../GameComponents/UI.h"
+#include "DieScene.h"
+#include "LevelComScene.h"
 class BossScene : public Scene
 {
 public:
@@ -32,7 +34,7 @@ protected:
 	Animation *EatItem,*Damage;
 	GameMapBoss *mMap;
 	Camera *mCamera;
-
+	DieScene* die;
 	float mTimeCounter;
 	void CheckCameraAndWorldMap();
 

@@ -14,6 +14,7 @@ public:
 	void OnCollision(Entity *impactor, CollisionReturn data, SideCollisions side);
 	void SetPos(float x, float y);
 	bool Actived = false;
+	D3DXVECTOR2 startPos;
 protected:
 	virtual vector<RECT> LoadRect();
 	const char* filePath;

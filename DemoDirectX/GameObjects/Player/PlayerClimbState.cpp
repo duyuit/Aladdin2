@@ -2,6 +2,7 @@
 #include "Player.h"
 #include "PlayerJumpingState.h"
 #include "PlayerClimbState.h"
+#include "PlayerJumpString.h"
 #include "../../GameDefines/GameDefine.h"
 
 PlayerClimbState::PlayerClimbState(PlayerData *playerData)
@@ -77,7 +78,7 @@ void PlayerClimbState::HandleKeyboard(std::map<int, bool> keys)
 	if (keys[VK_SPACE] && !keys[VK_LEFT]&& !keys[VK_RIGHT])
 	{
 
-		this->mPlayerData->player->SetState(new PlayerJumpingState(this->mPlayerData));
+		this->mPlayerData->player->SetState(new PlayerJumpString(this->mPlayerData));
 	}
 
 	if (keys[VkKeyScanA('z')])

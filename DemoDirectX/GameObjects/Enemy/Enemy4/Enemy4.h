@@ -28,6 +28,7 @@ public:
 
 	vector<int> positionted;
 	int CurrentPosIndex = -1;
+	void Reset();
 };
 
 

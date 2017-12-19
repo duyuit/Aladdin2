@@ -110,7 +110,7 @@ void PlayerJumpingState::OnCollision(Entity *impactor, Entity::SideCollisions si
 		return;
 
 
-	switch (side)
+	/*switch (side)
 	{
 	case Entity::Left:
 	{
@@ -134,7 +134,10 @@ void PlayerJumpingState::OnCollision(Entity *impactor, Entity::SideCollisions si
 
 	case Entity::TopRight: case Entity::TopLeft: case Entity::Top:
 	{
+		this->mPlayerData->player->AddPosition(0, data.RegionCollision.bottom - data.RegionCollision.top);
+		this->mPlayerData->player->SetVy(0);
 		break;
+
 	}
 
 	case Entity::BottomRight: case Entity::BottomLeft: case Entity::Bottom:
@@ -145,5 +148,5 @@ void PlayerJumpingState::OnCollision(Entity *impactor, Entity::SideCollisions si
 
 	default:
 		break;
-	}
+	}*/
 }

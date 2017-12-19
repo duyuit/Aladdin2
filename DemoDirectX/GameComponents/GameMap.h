@@ -14,6 +14,7 @@
 //#include "../AppleObject.h"
 #include "../GameObjects/MapObject/DropBrick.h"
 #include "../GameObjects/MapObject/CayBung.h"
+#include "../GameObjects/MapObject/Flame.h"
 #include "../GameObjects/MapObject/CheckPointSite.h"
 using namespace std;
 class GameMap
@@ -56,9 +57,10 @@ public:
 	vector<DropBrick*> listDropBrick;
 	vector<CayBung*>	listCayBung;
 	vector<CheckPointSite*>	listCheckPointSite;
-
+	vector<Flame*> listFlame;
 	 D3DXVECTOR2 startStair1, endStair1;
 	 D3DXVECTOR2 startStair2, endStair2;
+	 void Reset();
 private:
     void LoadMap(char* filePath);
 	QuadTree                        *mQuadTree;

@@ -6,6 +6,7 @@ BossStandSnake::BossStandSnake(BossData *data)
 {
 	this->mData = data;
 	StartTime = GetTickCount();
+	Sound::getInstance()->stop("Jafar Tractor");
 }
 
 

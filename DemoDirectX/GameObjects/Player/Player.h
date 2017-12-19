@@ -17,6 +17,7 @@
 #include "PlayerBung.h"
 #include "PlayerClimHori.h"
 #include "PLayerRevive.h"
+#include "PlayerStopState.h"
 #include "../../GameComponents/GameMap.h"
 class Player : public Entity
 {
@@ -69,7 +70,7 @@ public:
 	Apple* a;
 	vector<Apple*> listApple;
 	int AppleCount = 10;
-	int HPCount = 9;
+	int HPCount =10;
 
 	bool allowJump, allowThrow, mCurrentReverse,isAttacked=false;
 	int Count_temp = 0;
@@ -104,7 +105,8 @@ protected:
 		*mAnimationJumpThrow,
 		*mAnimationSitThrow,
 		*mAnimationFired,
-		
+		*mAnimationStopping,
+		*mAnimationJumpString,
 		*mAnimationBung,
 		*mAnimationClimbHori,
 		*mAnimationRevive;

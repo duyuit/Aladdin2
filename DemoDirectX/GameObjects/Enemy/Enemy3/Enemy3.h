@@ -47,6 +47,8 @@ public:
 	Enemy3State::StateName mCurrentState;
 	Animation  *mCurrentAnimation;
 	Apple *mKnife;
+
+	void Reset();
 private:
 	vector<RECT> LoadRECT(Enemy3State::StateName state);
 

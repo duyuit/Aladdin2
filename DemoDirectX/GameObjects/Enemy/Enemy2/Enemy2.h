@@ -46,7 +46,7 @@ public:
 
 	Enemy2State::StateName mCurrentState;
 	Animation  *mCurrentAnimation;
-
+	void Reset();
 private:
 	vector<RECT> LoadRECT(Enemy2State::StateName state);
 

@@ -3,16 +3,11 @@
 DemoScene::DemoScene()
 {
     LoadContent();
-	mDieScene = new DieScene(this);
+
 }
 
 
-ManThrowBowl* Bowl1;
-ManThrowBowl* Bowl2;
-Enemy1* enemy1;
-Enemy2* enemy2;
-Enemy3* enemy3;
-Enemy4* enemy4;
+
 
 CayBung *cb;
 float CurTime = 0;
@@ -59,7 +54,7 @@ void DemoScene::LoadContent()
 	EatItem->SetPosition(0, 0);
 
 	mPlayer = new Player();
-	mPlayer->SetPosition(50, 50);
+	mPlayer->SetPosition(50, 200);
 
 
 	mPlayer->endStair1 = mMap->endStair1;
@@ -84,24 +79,38 @@ void DemoScene::LoadContent()
 	Sound::getInstance()->setVolume(100.0f, "background_market");
 	
 	Sound::getInstance()->play("background_market", true, 0);
-	
+	mDieScene = new DieScene(this);
 
 }
 
 void DemoScene::Update(float dt)
 {
-	
+	mPlayer->PlayerLiveCount = GameGlobal::liveCount;
+	if (GameGlobal::curSong == GameGlobal::Continuene) //Check de reset map
+	{
+		GameGlobal::curSong = GameGlobal::Demo;
+		enemy1->Reset();
+		enemy2->Reset();
+		enemy3->Reset();
+		enemy4->Reset();
+		mMap->Reset();
+		mPlayer->AppleCount = 10;
+		mPlayer->SetPosition(50, 200);
+		return;
+	}
 	checkCollision(); //Check va cham giua cac vat the
 	if (mPlayer->HPCount == 0)
 	{
+		Sound::getInstance()->play("chet",false,1);
+		Sound::getInstance()->stop("background_market");
 		CurTime = mUI->CurTime;
 		mDieScene->die->Reset();
+		GameGlobal::curSong = GameGlobal::Demo;
 		SceneManager::GetInstance()->ReplaceScene(mDieScene);
 		OnKeyUp(lastKey);
 	}
 	
-	if(mPlayer->GetPosition().x >= 4702 && mPlayer->GetPosition().y<=226)
-		SceneManager::GetInstance()->ReplaceScene(new BossScene(mPlayer,mUI));
+	
 	mPlayer->HandleKeyboard(keys); //Xu ly ban phim cho player
 	mPlayer->Update(dt); //Update player
 	
@@ -135,7 +144,10 @@ void DemoScene::Update(float dt)
 	{
 		mMap->listDropBrick.at(i)->Update();
 	}
-
+	for (int i = 0; i < mMap->listFlame.size(); i++)
+	{
+		mMap->listFlame.at(i)->Update();
+	}
 
 	enemy1->Update();
 	enemy2->Update();
@@ -148,6 +160,20 @@ void DemoScene::Update(float dt)
 	mUI->Update();
 
 
+	if (mPlayer->GetPosition().x >= 4702 && mPlayer->GetPosition().y <= 226)
+	{
+		/*enemy1->~Enemy1();
+		enemy2->~Enemy2();
+		enemy3->~Enemy3();
+		enemy4->~Enemy4();
+		*/
+		//mMap->~GameMap();
+		mPlayer->CheckPoint = D3DXVECTOR2(50, 300);
+		Sound::getInstance()->stop("background_market");
+		GameGlobal::curSong = GameGlobal::Demo;
+		SceneManager::GetInstance()->ReplaceScene(new LevelComScene(mPlayer,mUI));
+
+	}
 }
 
 void DemoScene::Draw()
@@ -182,6 +208,11 @@ void DemoScene::Draw()
 	{
 		mMap->listCheckPointSite.at(i)->Draw(D3DXVECTOR3(), RECT(), D3DXVECTOR2(1, 1), trans);
 	}
+	for (int i = 0; i < mMap->listFlame.size(); i++)
+	{
+		mMap->listFlame.at(i)->Draw(D3DXVECTOR3(), RECT(), D3DXVECTOR2(), trans);
+	}
+
 
 
 	enemy1->Draw(trans);
@@ -200,13 +231,13 @@ void DemoScene::OnKeyDown(int keyCode)
     keys[keyCode] = true;
 	if (keyCode != VK_NUMPAD5) lastKey = keyCode;
 
-	if (keyCode == VK_NUMPAD5)
+	/*if (keyCode == VK_NUMPAD5)
 	{
 		mPlayer->HPCount = 0;	
 		CurTime = mUI->CurTime;
-		SceneManager::GetInstance()->ReplaceScene(mDieScene);
+		SceneManager::GetInstance()->ReplaceScene(new ContinueScene(this));
 	
-	}
+	}*/
 
 
     mPlayer->OnKeyPressed(keyCode);
@@ -267,7 +298,18 @@ void DemoScene::checkCollision()
 	Entity::EntityTypes tag = Entity::None;
 
 	
+	//Check Flame with Player
+	for (int i = 0; i < mMap->listFlame.size(); i++)
+	{
 
+		Entity::CollisionReturn r = GameCollision::RecteAndRect(mMap->listFlame.at(i)->GetBound(),
+			mPlayer->GetBound());
+		if (r.IsCollided)
+		{
+			mMap->listFlame.at(i)->OnCollision(mPlayer, r, Entity::NotKnow);
+	
+		}
+	}
 
 #pragma region -Check Collision Enemy1-
 	//Check Enemy1 vs Player
@@ -364,7 +406,6 @@ void DemoScene::checkCollision()
 		if (re.IsCollided)
 		{
 			enemy3->mKnife->OnCollision(mPlayer, re, Entity::NotKnow);
-
 			mPlayer->OnCollision(enemy3->mKnife, re, Entity::NotKnow);
 		}
 
@@ -552,7 +593,7 @@ void DemoScene::checkCollision()
 			if (listCollision.at(i)->Tag == Entity::AppleObject)
 			{
 				mPlayer->AppleCount++;
-				Sound::getInstance()->play("Apple Collect", false, 1);
+			
 				EatItem->SetPosition(listCollision.at(i)->GetPosition());
 			}
 			else if(listCollision.at(i)->Tag == Entity::Heart)

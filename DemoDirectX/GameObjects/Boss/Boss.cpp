@@ -68,7 +68,7 @@ Boss::Boss(Player* player, D3DXVECTOR3 pos)
 {
 	SetPosition(pos);
 	mPlayer = player;
-	mPlayer->AppleCount = 50;
+	
 	mAnimationStandHuman = new Animation("Resources/jafar.png", 5, LoadRECT(BossState::StandHuman), (float)1 / 0.15, D3DXVECTOR2(0.5, 1), D3DCOLOR_XRGB(186, 254, 202),Entity::jafar);
 	mAnimationMagnet = new Animation("Resources/jafar.png", 8, LoadRECT(BossState::Magnet), (float)1 / 0.15, D3DXVECTOR2(0.5, 1), D3DCOLOR_XRGB(186, 254, 202), Entity::jafar);
 	mAnimationFightingSnake = new Animation("Resources/jafar.png", 11, LoadRECT(BossState::FightingSnake), (float)1 / 0.25, D3DXVECTOR2(0.5, 1), D3DCOLOR_XRGB(186, 254, 202), Entity::jafar);

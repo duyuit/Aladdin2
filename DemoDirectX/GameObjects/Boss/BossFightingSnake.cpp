@@ -20,6 +20,7 @@ void BossFightingSnake::Update()
 	if (mData->boss->GetCurrentAnimation()->GetCurrentFrame() ==5)
 	{
 		if (mData->boss->currentAmmo >= 3) mData->boss->currentAmmo = 0;
+		Sound::getInstance()->play("Jafar Snake", false, 1); 
 		mData->boss->listAmmo.at(mData->boss->currentAmmo)->isActive = true;
 		mData->boss->listAmmo.at(mData->boss->currentAmmo)->isLeftorRight = !mData->boss->Reverse;
 		

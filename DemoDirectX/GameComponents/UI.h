@@ -11,8 +11,9 @@ public:
 	void Draw();
 	int mHP, mAppleCount;
 	Player* mplayer;
+	Sprite* LiveCount;
 	Sprite* apple1,*apple2,*apple;
-	Sprite* GoldenLamp;
+	//Sprite* GoldenLamp;
 	Sprite* hpBar;
 
 	~UI();

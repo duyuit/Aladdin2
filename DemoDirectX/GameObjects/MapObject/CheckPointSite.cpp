@@ -74,7 +74,7 @@ void CheckPointSite::Update()
 		{
 			RECT rect = source.at(totalFrame - 1);
 			represent->SetSourceRect(rect);
-
+	
 			Actived = false;
 			return;
 		}

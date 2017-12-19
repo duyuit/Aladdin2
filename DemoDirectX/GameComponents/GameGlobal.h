@@ -6,6 +6,7 @@
 #include <Windows.h>
 #include "Scene.h"
 #include "Sound.h"
+
 class GameGlobal
 {
 public:
@@ -43,6 +44,12 @@ public:
 	static LPDIRECT3DTEXTURE9 mItemtexture;
 	static LPDIRECT3DTEXTURE9 mNumbertexture;
 	static LPDIRECT3DTEXTURE9 mJafartexture;
+	static int liveCount;
+	enum Song
+	{
+		Demo,Menu,Die,BossMusic,Continuene
+	};
+	static Song curSong;
 private:
     static HINSTANCE mHInstance; //hInstance của windows hiện tại
     static HWND mHwnd; // hwnd hiện tại

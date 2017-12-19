@@ -15,8 +15,9 @@ MenuScene::MenuScene()
 	knife->SetScale(D3DXVECTOR2(0.2, 0.2));
 
 	
-	Sound::getInstance()->loadSound("Resources/sound/background_menu.wav", "background_menu");
-	Sound::getInstance()->play("background_menu", false,1);
+	Sound::getInstance()->loadSound("Resources/sound/Menu.wav", "background_menu");
+	Sound::getInstance()->setVolume(100.0f, "background_menu");
+	Sound::getInstance()->play("background_menu", true,0);
 }
 void MenuScene::Update(float dt)
 {
@@ -43,6 +44,7 @@ void MenuScene::Draw()
 
 MenuScene::~MenuScene()
 {
+	
 }
 
 void MenuScene::OnKeyDown(int keyCode)
@@ -62,6 +64,9 @@ void MenuScene::OnKeyDown(int keyCode)
 	}
 	if (keyCode == VK_SPACE)
 	{
+		Sound::getInstance()->stop("background_menu");
+		knife->~Sprite();
+		screen->~Sprite();
 		SceneManager::GetInstance()->ReplaceScene(new DemoScene());
 	}
 	keys[keyCode] = true;

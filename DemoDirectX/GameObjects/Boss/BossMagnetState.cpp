@@ -13,6 +13,7 @@ BossMagnetState::BossMagnetState(BossData *data)
 {
 	this->mData = data;
 	StartTimeMagnet = GetTickCount();
+	Sound::getInstance()->play("Jafar Tractor", true, 0);
 }
 bool CheckLeftorRight;
 
@@ -41,6 +42,7 @@ void BossMagnetState::Update()
 			mData->boss->GetCurrentAnimation()->Reset();
 			if( mData->boss->mPlayer->mCurrentState != PlayerState::Fired )
 			mData->boss->mPlayer->SetState(new PlayerFiredState(mData->boss->mPlayer->mPlayerData));
+			Sound::getInstance()->play("Jafar Laugh", false, 1);
 			mData->boss->SetState(new BossStandHuman(mData));
 			return;
 		}
@@ -82,6 +84,7 @@ void BossMagnetState::Update()
 	
 	if (GetTickCount() - StartTimeMagnet >= 2000)
 	{
+		Sound::getInstance()->stop("Jafar Tractor");
 		mData->boss->GetCurrentAnimation()->Reset();
 		mData->boss->SetState(new BossStandHuman(mData));
 	}

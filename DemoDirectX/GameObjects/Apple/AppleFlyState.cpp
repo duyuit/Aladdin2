@@ -18,7 +18,7 @@ AppleFlyState::AppleFlyState(D3DXVECTOR3 pos,bool reverse, Entity::EntityTypes t
 	else if (type == Entity::Meteor)
 	{
 		acceX = 0.0f;
-		acceY = 0.1f;
+		acceY = 0.05f;
 	}
 	Reverse = reverse;
 }

@@ -249,6 +249,8 @@ Apple::Apple(EntityTypes type)
 
 Apple::~Apple()
 {
+	FlyingAnim->~Animation();
+	BreakingAnim->~Animation();
 }
 
  

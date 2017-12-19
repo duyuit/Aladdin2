@@ -59,17 +59,17 @@ Enemy3::Enemy3(Player *player, vector<D3DXVECTOR2> list)
 {
 	mPlayer = player;
 	mListPosition = list;
-	
+
 
 	mAnimationRunning = new Animation("Resources/guard.png", 8, LoadRECT(Enemy3State::Running), (float)1 / 1, D3DXVECTOR2(0.5, 1), D3DCOLOR_XRGB(120, 193, 152), Entity::Enemy);
-	mAnimationFighting = new Animation("Resources/guard.png",9, LoadRECT(Enemy3State::Fighting), (float)1 / 0.2, D3DXVECTOR2(0.5, 1), D3DCOLOR_XRGB(120, 193, 152), Entity::Enemy);
-	mAnimationAttacked = new Animation("Resources/guard.png",10, LoadRECT(Enemy3State::Attacked), (float)1 / 0.25, D3DXVECTOR2(0.5, 1), D3DCOLOR_XRGB(120, 193, 152), Entity::Enemy);
-	mAnimationDied = new Animation("Resources/flare.png", 5, LoadRECT(Enemy3State::Die), (float)1 / 0.5, D3DXVECTOR2(0.5, 1), D3DCOLOR_XRGB(186, 254, 202),Entity::flare);
+	mAnimationFighting = new Animation("Resources/guard.png", 9, LoadRECT(Enemy3State::Fighting), (float)1 / 0.2, D3DXVECTOR2(0.5, 1), D3DCOLOR_XRGB(120, 193, 152), Entity::Enemy);
+	mAnimationAttacked = new Animation("Resources/guard.png", 10, LoadRECT(Enemy3State::Attacked), (float)1 / 0.25, D3DXVECTOR2(0.5, 1), D3DCOLOR_XRGB(120, 193, 152), Entity::Enemy);
+	mAnimationDied = new Animation("Resources/flare.png", 5, LoadRECT(Enemy3State::Die), (float)1 / 0.5, D3DXVECTOR2(0.5, 1), D3DCOLOR_XRGB(186, 254, 202), Entity::flare);
 	mAnimationDied->SetScale(D3DXVECTOR2(1.5, 1.5));
 
 	RECT rect;
-	rect.left = 9; rect.top = 663; rect.right = rect.left + 43; rect.bottom = rect.top + 49; 
-	mSprite = new Sprite("Resources/guard.png", rect, 0, 0, D3DCOLOR_XRGB(120, 193, 152), D3DXVECTOR2(0.5, 1),GameGlobal::mEnemytexture);
+	rect.left = 9; rect.top = 663; rect.right = rect.left + 43; rect.bottom = rect.top + 49;
+	mSprite = new Sprite("Resources/guard.png", rect, 0, 0, D3DCOLOR_XRGB(120, 193, 152), D3DXVECTOR2(0.5, 1), GameGlobal::mEnemytexture);
 
 	mCurrentAnimation = nullptr;
 	mCurrentState = Enemy3State::None;
@@ -87,12 +87,17 @@ Enemy3::Enemy3(Player *player, vector<D3DXVECTOR2> list)
 
 Enemy3::~Enemy3()
 {
+	/*mAnimationRunning->~Animation();
+	mAnimationAttacked->~Animation();
+	mAnimationFighting->~Animation();
+	mAnimationDied->~Animation();*/
+	mSprite->~Sprite();
 
 }
 
 void Enemy3::Update()
 {
-	
+
 
 	CheckAction();
 
@@ -110,11 +115,11 @@ void Enemy3::Update()
 	{
 		if (CheckFire)
 		{
-			
+
 			SetState(new Enemy3Fighting(this->mData));
 			if (mKnife->GetCurrentState() == AppleState::NONE)
 			{
-				mKnife->SetPosition(GetPosition().x,GetPosition().y-50);
+				mKnife->SetPosition(GetPosition().x, GetPosition().y - 50);
 				mKnife->SetState(AppleState::Flying);
 			}
 		}
@@ -143,7 +148,7 @@ void Enemy3::Update()
 		}
 	}
 
-	
+
 
 	if (GetPosition().x < mPlayer->GetPosition().x)
 		Reverse = true;
@@ -174,8 +179,8 @@ void Enemy3::Draw(D3DXVECTOR2 transform)
 		mSprite->Draw();
 	}
 
-	
-	mKnife->Draw(D3DXVECTOR3(),RECT(),D3DXVECTOR2(1,1),transform);
+
+	mKnife->Draw(D3DXVECTOR3(), RECT(), D3DXVECTOR2(1, 1), transform);
 
 
 }
@@ -242,8 +247,9 @@ void Enemy3::changeAnimation(Enemy3State::StateName state)
 void Enemy3::OnCollision(Entity *impactor, Entity::CollisionReturn data, Entity::SideCollisions side)
 {
 
-	if (this->mPlayer->getState() == PlayerState::Fighting || (impactor->Tag == Entity::AppleThrow && impactor->GetPosition().x != 0))
+	if (this->mPlayer->getState() == PlayerState::Fighting || impactor->Tag == Entity::AppleThrow )
 	{
+		
 		SetState(new Enemy3Attacked(this->mData));
 	}
 	if (mCurrentState == Enemy3State::Fighting && mCurrentAnimation->GetCurrentFrame() == 4 && mPlayer->mCurrentState != PlayerState::Fired)
@@ -285,12 +291,12 @@ void Enemy3::CheckAction()
 		CheckFire = false;
 		return;
 	}
-	if (deltax <=200 && deltax >= 100)
+	if (deltax <= 200 && deltax >= 100)
 	{
 		CheckRunning = true;
 		CheckFire = false;
 	}
-	if (deltax <=150)
+	if (deltax <= 150)
 	{
 		CheckRunning = false;
 		CheckFire = true;
@@ -299,4 +305,9 @@ void Enemy3::CheckAction()
 Animation* Enemy3::GetCurrentAnimation()
 {
 	return mCurrentAnimation;
-} 
+}
+void Enemy3::Reset()
+{
+	positionted.clear();
+	CurrentPosIndex = -1;
+}

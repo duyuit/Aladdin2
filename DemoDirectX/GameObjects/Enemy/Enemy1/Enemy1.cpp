@@ -79,6 +79,12 @@ Enemy1::Enemy1( Player *player, vector<D3DXVECTOR2> list)
 Enemy1::~Enemy1()
 {
 
+	//mAnimationRunning->~Animation();
+	//mAnimationAttacked->~Animation();
+	//mAnimationFighting->~Animation();
+	//mAnimationDied->~Animation();
+	mSprite->~Sprite();
+	
 }
 
 void Enemy1::Update()
@@ -282,4 +288,9 @@ void Enemy1::CheckAction()
 Animation* Enemy1::GetCurrentAnimation()
 {
 	return mCurrentAnimation;
+}
+void Enemy1::Reset()
+{
+	positionted.clear();
+	CurrentPosIndex = -1;
 }

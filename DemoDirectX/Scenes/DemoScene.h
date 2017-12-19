@@ -24,6 +24,8 @@
 #include "../../GameComponents/UI.h"
 #include "BossScene.h"
 #include "../GameComponents/Sound.h"
+#include "LevelComScene.h"
+
 class DemoScene : public Scene
 {
 public:
@@ -39,13 +41,21 @@ public:
     void OnMouseDown(float x, float y);
 	DieScene *mDieScene;
 	int lastKey;
+	GameMap *mMap;
 
+	ManThrowBowl* Bowl1;
+	ManThrowBowl* Bowl2;
+	Enemy1* enemy1;
+	Enemy2* enemy2;
+	Enemy3* enemy3;
+	Enemy4* enemy4;
+	Player *mPlayer;
 protected:
 	UI* mUI;
 	Animation *EatItem;
-    GameMap *mMap;
+   
     Camera *mCamera;
-	Player *mPlayer;
+	
     float mTimeCounter;
 	void CheckCameraAndWorldMap();
 

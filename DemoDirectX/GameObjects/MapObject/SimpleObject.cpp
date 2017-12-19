@@ -13,8 +13,16 @@ void SimpleObject::Update()
 
 	if (Actived)
 	{
-		mCurrentAnimation->Update(60);
+
+		if (mCurrentAnimation->GetCurrentFrame() == mCurrentAnimation->GetTotalFrame() - 1)
+		{
+			mCurrentAnimation->Reset();
+			Actived = false;
+		}else
+			mCurrentAnimation->Update(60);
 	}
+	//else
+	//	mCurrentAnimation->Reset();
 	
 }
 void SimpleObject::Draw(D3DXVECTOR3 position, RECT sourceRect, D3DXVECTOR2 scale, D3DXVECTOR2 transform)
@@ -26,6 +34,7 @@ void SimpleObject::Draw(D3DXVECTOR3 position, RECT sourceRect, D3DXVECTOR2 scale
 	}
 	else
 	{
+		
 		if (represent != nullptr)
 			represent->Draw(GetPosition(), sourceRect, scale, transform);
 	}
@@ -33,6 +42,7 @@ void SimpleObject::Draw(D3DXVECTOR3 position, RECT sourceRect, D3DXVECTOR2 scale
 void SimpleObject::SetPos(float x, float y)
 {
 	SetPosition(x, y);
+	if(represent != nullptr)
 	represent->SetPosition(x, y);
 
 	if(mCurrentAnimation!=nullptr)

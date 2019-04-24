@@ -10,7 +10,7 @@
 #include "../GameComponents/GameMapBoss.h"
 #include "../GameComponents/Camera.h"
 #include "../GameObjects/Player/Player.h"
-#include "../../GameDefines/GameDefine.h"
+#include "../GameDefines/GameDefine.h"
 #include "../GameComponents/Scene.h"
 #include "../GameObjects/Boss/Boss.h"
 #include "../GameComponents/UI.h"
